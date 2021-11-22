@@ -40,3 +40,24 @@ kwb.pkgbuild::use_pkg(
   version = "0.0.0.9000",
   stage = "experimental"
 )
+
+usethis::use_vignette("documention")
+
+### R functions
+if(FALSE) {
+  ## add your dependencies (-> updates: DESCRIPTION)
+  pkg_dependencies <- c("dplyr")
+
+  sapply(pkg_dependencies, usethis::use_package)
+
+  desc::desc_add_remotes("kwb-r/kwb.utils",normalize = TRUE)
+
+  usethis::use_pipe()
+}
+
+kwb.pkgbuild::use_ghactions()
+
+# in case package dependencies need to be added
+pkg_dependencies <- c() # insert package names
+sapply(pkg_dependencies, usethis::use_package)
+
