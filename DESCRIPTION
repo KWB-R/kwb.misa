@@ -1,0 +1,17 @@
+Package: kwb.misa
+Title: Functions to be Used in Project MiSa
+Version: 0.0.0.9000
+Authors@R: c(
+    person("Malte", "Zamzow", , "malte.zamzow@kompetenz-wasser.de", role = c("aut", "cre")),
+    person("Kompetenzzentrum Wasser Berlin gGmbH (KWB)", role = "cph")
+  )
+Description: Assessment of oxygen course in rivers. Assessment is aimed at
+    reducing critical situations.
+License: MIT + file LICENSE
+URL: https://github.com/KWB-R/kwb.misa
+BugReports: https://github.com/KWB-R/kwb.misa/issues
+Encoding: UTF-8
+Roxygen: list(markdown = TRUE)
+RoxygenNote: 7.1.2
+Suggests: 
+    covr
