@@ -36,3 +36,28 @@ filter_data <- function(
   }
   dataFrame
 }
+
+#' Breaking down POSIX into months and year and filter by month
+#'
+#' Adds month and year column to data frame and filters by month. The addition
+#' of the year column is important for the following MiSa Assessment
+#'
+#' @param df data frame with a POSIX time column
+#' @param time_column Name or number of the time column
+#' @param months the number of the months that should be kept. The default is
+#' 5:9 which are the important months for oxygen deficits in Berlin caused by
+#' CSOs
+#'
+#' @return The filteterd input data frame with months and year column
+#'
+#' @export
+#'
+SummerMonths <- function(
+  df, # list with sites
+  time_column,
+  months = 5:9
+){
+    df$month <- as.numeric(strftime(x = df[[time_column]],format = "%m"))
+    df$year <- as.numeric(strftime(x = df[[time_column]],format = "%Y"))
+    df[df$month %in% months, ]
+}

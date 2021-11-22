@@ -7,24 +7,17 @@ tEnd <- paste0(year, "-12-31")
 sites <- ""
 
 if(!("data_comp" %in% ls())){
-  data_comp <- read_misa_files(input_path = input_path)
+  data_comp <- kwb.misa::read_misa_files(input_path = input_path)
 }
 
-data_comp_f <- filter_data(dataFrame = data_comp,
+data_comp_f <- kwb.misa::filter_data(dataFrame = data_comp,
                            tBeg = tBeg,
                            tEnd = tEnd,
                            sites = sites)
 
-dl <- split(x = data_comp_f, f = data_comp_f$site)
+dl <- kwb.misa::prepare_misa_data(df_MiSa = data_comp_f)
 
-df_pro <- continuousTimeIntervals(time_vector = dl[[1]]$posixDateTime,
-                        data_vector = dl[[1]]$oxygen)
 
-df_pro$site <- names(dl)[1]
-
-# 2. prepare Data ---------------------------------------------------------------
-time_resolution <- 15 # in minutes
-TimeInt_for_interpolation <- 1 # maximal time interval for data interpolation in hours
 
 # 3. get results ---------------------------------------------------------------
 thresholds <- c(0.5, 1, 1.5, 2, 5) # in mgg O2/L
