@@ -6,15 +6,19 @@
 #' @param df_MiSa Data frame loaded with one of the MiSa Load functions
 #' @param res Temporal resolution in minutes
 #' @param max_na_interpolation Maximal numbers of NA values in a row to be
-#' interpolated
+#' interpolated. The default is one hour without measurements. Number of NA
+#' depneds on the temporal resolution (60 / res)
 #'
 #' @return
-#' List with data frames per site, that is ready for MiSa Assessment
+#' List with data frames per site, that is ready for MiSa Assessmen. Additional
+#' information is printed about the number of interpolated NA values. If there
+#' are many NA values that are not interpolated it is probably due to the fact
+#' of no measurements during winter.
 #'
 #' @export
 #'
-prepare_misa_data <- function(
-  df_MiSa, res = 15, max_na_interpolation = 4
+misa_prepare_data <- function(
+  df_MiSa, res = 15, max_na_interpolation = 60/res
 ){
   dl <- split(x = data_comp_f, f = data_comp_f$site)
 
@@ -23,6 +27,8 @@ prepare_misa_data <- function(
     df_pro <- continuousTimeIntervals(
       time_vector = df$posixDateTime,
       data_vector = df$oxygen,
+      first_pointOfTime = min(df_MiSa$posixDateTime, na.rm = T),
+      last_pointOfTime = max(df_MiSa$posixDateTime, na.rm = T),
       res = res)
 
     interpolated_data <- interpolate_multipleNA(

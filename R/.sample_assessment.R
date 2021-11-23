@@ -1,22 +1,26 @@
 
-# 1. read Data -----------------------------------------------------------------
-input_path <- "inst/extdata/"
-year <- 2007
-tBeg <- paste0(year, "-01-01")
-tEnd <- paste0(year, "-12-31")
-sites <- ""
+# 1. Read Data
+data_comp <- kwb.misa::read_misa_files(
+  input_path = "inst/extdata/")
 
-if(!("data_comp" %in% ls())){
-  data_comp <- kwb.misa::read_misa_files(input_path = input_path)
-}
+# 2. Filter Data
+data_comp_f <- kwb.misa::misa_filter_data(
+  dataFrame = data_comp,
+  tBeg = "2007-01-01",
+  tEnd = "2008-12-31",
+  sites = "") # all sites are included
 
-data_comp_f <- kwb.misa::filter_data(dataFrame = data_comp,
-                           tBeg = tBeg,
-                           tEnd = tEnd,
-                           sites = sites)
+# 3. Manipulated Data
+dl <- kwb.misa::misa_prepare_data(
+  df_MiSa = data_comp_f,
+  res = 15, # temporal resolution in minutes
+  max_na_interpolation = 60/15) # 4 missing values a 26 mins  -> one hour max
 
-dl <- kwb.misa::prepare_misa_data(df_MiSa = data_comp_f)
-
+# 4. Assess Data
+do.call(rbind, lapply(X = dl, kwb.misa::yearly_deficiency_time))
+do.call(rbind, lapply(X = dl, kwb.misa::yearly_crit_Events))
+do.call(rbind, lapply(X = dl, kwb.misa::yearly_negative_deviation,
+                      oxygen_ref = dl[["MUE"]]$d))
 
 
 # 3. get results ---------------------------------------------------------------

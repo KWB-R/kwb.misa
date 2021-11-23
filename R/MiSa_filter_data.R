@@ -21,7 +21,7 @@
 #'
 #' @export
 #'
-filter_data <- function(
+misa_filter_data <- function(
   dataFrame,sites = "", tBeg = min(dataFrame$posixDateTime, na.rm = TRUE),
   tEnd = max(dataFrame$posixDateTime, na.rm = TRUE)
 ){
@@ -30,9 +30,17 @@ filter_data <- function(
   }
   if(tBeg != ""){
     dataFrame <- dataFrame[dataFrame$posixDateTime >= tBeg, ]
+    first_row <- data.frame(matrix(data = NA, nrow = 1, ncol = ncol(dataFrame),
+                                   dimnames = list(NULL, colnames(dataFrame))))
+    first_row$posixDateTime <- as.POSIXct(tBeg)
+    dataFrame <- rbind(first_row, dataFrame)
   }
   if(tEnd != ""){
     dataFrame <- dataFrame[dataFrame$posixDateTime <= tEnd, ]
+    last_row <- data.frame(matrix(data = NA, nrow = 1, ncol = ncol(dataFrame),
+                                   dimnames = list(NULL, colnames(dataFrame))))
+    last_row$posixDateTime <- as.POSIXct(tEnd)
+    dataFrame <- rbind(dataFrame, last_row)
   }
   dataFrame
 }
@@ -54,7 +62,7 @@ filter_data <- function(
 #'
 SummerMonths <- function(
   df, # list with sites
-  time_column,
+  time_column = "t",
   months = 5:9
 ){
     df$month <- as.numeric(strftime(x = df[[time_column]],format = "%m"))
