@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Function reference • kwb.misa</title>
+<title>Prepare MiSa Data for MiSa Assessment — misa_prepare_data • kwb.misa</title>
 
 
 <!-- jquery -->
@@ -39,7 +39,9 @@
 
 
 
-<meta property="og:title" content="Function reference" />
+<meta property="og:title" content="Prepare MiSa Data for MiSa Assessment — misa_prepare_data" />
+<meta property="og:description" content="Timestamps are adapted, oxygen data is interpolated, it is filtered for
+summmer months" />
 
 
 
@@ -58,7 +60,7 @@
   </head>
 
   <body data-spy="scroll" data-target="#toc">
-    <div class="container template-reference-index">
+    <div class="container template-reference-topic">
       <header>
       <div class="navbar navbar-default navbar-fixed-top" role="navigation">
   <div class="container">
@@ -120,150 +122,47 @@
       </header>
 
 <div class="row">
-  <div class="contents col-md-9">
+  <div class="col-md-9 contents">
     <div class="page-header">
-      <h1>Reference</h1>
+    <h1>Prepare MiSa Data for MiSa Assessment</h1>
+    <small class="dont-index">Source: <a href='https://github.com/KWB-R/kwb.misa/blob/master/R/MiSa_prepare_data.R'><code>R/MiSa_prepare_data.R</code></a></small>
+    <div class="hidden name"><code>misa_prepare_data.Rd</code></div>
     </div>
 
-    <table class="ref-index">
+    <div class="ref-description">
+    <p>Timestamps are adapted, oxygen data is interpolated, it is filtered for
+summmer months</p>
+    </div>
 
-    <colgroup>
-      
-      <col class="alias" />
-      <col class="title" />
-    </colgroup>
+    <pre class="usage"><span class='fu'>misa_prepare_data</span><span class='op'>(</span><span class='va'>df_MiSa</span>, res <span class='op'>=</span> <span class='fl'>15</span>, max_na_interpolation <span class='op'>=</span> <span class='fl'>60</span><span class='op'>/</span><span class='va'>res</span><span class='op'>)</span></pre>
 
-    <tbody>
-      <tr>
-        <th colspan="2">
-          <h2 id="section-all-functions" class="hasAnchor"><a href="#section-all-functions" class="anchor"></a>All functions</h2>
-          <p class="section-desc"></p>
-        </th>
-      </tr>
-      
-      
-    </tbody><tbody>
-      
-      
-      <tr>
-        
-        <td>
-          <p><code><a href="SummerMonths.html">SummerMonths()</a></code> </p>
-        </td>
-        <td><p>Breaking down POSIX into months and year and filter by month</p></td>
-      </tr><tr>
-        
-        <td>
-          <p><code><a href="adjust_time.html">adjust_time()</a></code> </p>
-        </td>
-        <td><p>Equal time intervals</p></td>
-      </tr><tr>
-        
-        <td>
-          <p><code><a href="aggregate_measurements.html">aggregate_measurements()</a></code> </p>
-        </td>
-        <td><p>Average data per predefined timesteps</p></td>
-      </tr><tr>
-        
-        <td>
-          <p><code><a href="continuousTimeIntervals.html">continuousTimeIntervals()</a></code> </p>
-        </td>
-        <td><p>Force data into predefined time intervals</p></td>
-      </tr><tr>
-        
-        <td>
-          <p><code><a href="count_def_events.html">count_def_events()</a></code> </p>
-        </td>
-        <td><p>Count Events of deficits</p></td>
-      </tr><tr>
-        
-        <td>
-          <p><code><a href="count_def_hours.html">count_def_hours()</a></code> </p>
-        </td>
-        <td><p>Count hours of deficits</p></td>
-      </tr><tr>
-        
-        <td>
-          <p><code><a href="finding_o2Column.html">finding_o2Column()</a></code> </p>
-        </td>
-        <td><p>finding_o2Column</p></td>
-      </tr><tr>
-        
-        <td>
-          <p><code><a href="finding_timestampColumns.html">finding_timestampColumns()</a></code> </p>
-        </td>
-        <td><p>finding_timestampColumns</p></td>
-      </tr><tr>
-        
-        <td>
-          <p><code><a href="interpolate_multipleNA.html">interpolate_multipleNA()</a></code> </p>
-        </td>
-        <td><p>Linear interpolation for one or more missing values</p></td>
-      </tr><tr>
-        
-        <td>
-          <p><code><a href="misa_filter_data.html">misa_filter_data()</a></code> </p>
-        </td>
-        <td><p>Filter MiSa Dataframe</p></td>
-      </tr><tr>
-        
-        <td>
-          <p><code><a href="misa_prepare_data.html">misa_prepare_data()</a></code> </p>
-        </td>
-        <td><p>Prepare MiSa Data for MiSa Assessment</p></td>
-      </tr><tr>
-        
-        <td>
-          <p><code><a href="negative_deviation.html">negative_deviation()</a></code> </p>
-        </td>
-        <td><p>Relative Negative Deviation from a reference</p></td>
-      </tr><tr>
-        
-        <td>
-          <p><code><a href="read_misa_files.html">read_misa_files()</a></code> </p>
-        </td>
-        <td><p>Read MiSa Files</p></td>
-      </tr><tr>
-        
-        <td>
-          <p><code><a href="read_misa_multipleSites.html">read_misa_multipleSites()</a></code> </p>
-        </td>
-        <td><p>read_misa_multipleSites</p></td>
-      </tr><tr>
-        
-        <td>
-          <p><code><a href="read_misa_oneSite.html">read_misa_oneSite()</a></code> </p>
-        </td>
-        <td><p>read_misa_oneSite</p></td>
-      </tr><tr>
-        
-        <td>
-          <p><code><a href="same_inarow.html">same_inarow()</a></code> </p>
-        </td>
-        <td><p>Repeating values in a row within a Vector</p></td>
-      </tr><tr>
-        
-        <td>
-          <p><code><a href="yearly_crit_Events.html">yearly_crit_Events()</a></code> </p>
-        </td>
-        <td><p>MiSa Assessment: Yearly Numbers of deficits</p></td>
-      </tr><tr>
-        
-        <td>
-          <p><code><a href="yearly_deficiency_time.html">yearly_deficiency_time()</a></code> </p>
-        </td>
-        <td><p>MiSa Assessment: Yearly hours of deficits</p></td>
-      </tr><tr>
-        
-        <td>
-          <p><code><a href="yearly_negative_deviation.html">yearly_negative_deviation()</a></code> </p>
-        </td>
-        <td><p>Negative deviation from a reference site</p></td>
-      </tr>
-    </tbody>
+    <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
+    <table class="ref-arguments">
+    <colgroup><col class="name" /><col class="desc" /></colgroup>
+    <tr>
+      <th>df_MiSa</th>
+      <td><p>Data frame loaded with one of the MiSa Load functions</p></td>
+    </tr>
+    <tr>
+      <th>res</th>
+      <td><p>Temporal resolution in minutes</p></td>
+    </tr>
+    <tr>
+      <th>max_na_interpolation</th>
+      <td><p>Maximal numbers of NA values in a row to be
+interpolated. The default is one hour without measurements. Number of NA
+depneds on the temporal resolution (60 / res)</p></td>
+    </tr>
     </table>
-  </div>
 
+    <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
+
+    <p>List with data frames per site, that is ready for MiSa Assessmen. Additional
+information is printed about the number of interpolated NA values. If there
+are many NA values that are not interpolated it is probably due to the fact
+of no measurements during winter.</p>
+
+  </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">
       <h2 data-toc-skip>Contents</h2>
