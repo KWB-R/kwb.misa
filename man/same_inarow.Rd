@@ -9,7 +9,7 @@ same_inarow(v, NA_treatment = "NA")
 \arguments{
 \item{v}{A character, factor or numeric vector}
 
-\item{NA_treatmen}{How to treat NA values within the vector. Defaul is NA,
+\item{NA_treatment}{How to treat NA values within the vector. Defaul is NA,
 It can also be "0" (FALSE) or "1" (TRUE)}
 }
 \value{
