@@ -4,7 +4,7 @@
 #' Filters the loaded data frame by sites and time
 #'
 #' @param dataFrame Data frame loaded by a MiSa function (see details)
-#' @param site Names of considered sites, written in the site columne of a MiSa
+#' @param sites Names of considered sites, written in the site column of a MiSa
 #' Dataframe
 #' @param tBeg POSIX-Value with a start time of the observeration interval
 #' @param tEnd POSIX-Value with an end time of the observeration interval
@@ -22,11 +22,11 @@
 #' @export
 #'
 misa_filter_data <- function(
-  dataFrame,sites = "", tBeg = min(dataFrame$posixDateTime, na.rm = TRUE),
+  dataFrame, sites = "", tBeg = min(dataFrame$posixDateTime, na.rm = TRUE),
   tEnd = max(dataFrame$posixDateTime, na.rm = TRUE)
 ){
   if(!("" %in% sites)){
-    dataFrame <- dataFrame[dataFrame$site %in% site, ]
+    dataFrame <- dataFrame[dataFrame$site %in% sites, ]
   }
   if(tBeg != ""){
     dataFrame <- dataFrame[dataFrame$posixDateTime >= tBeg, ]

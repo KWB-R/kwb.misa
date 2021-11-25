@@ -14,12 +14,12 @@ misa_filter_data(
 \arguments{
 \item{dataFrame}{Data frame loaded by a MiSa function (see details)}
 
+\item{sites}{Names of considered sites, written in the site column of a MiSa
+Dataframe}
+
 \item{tBeg}{POSIX-Value with a start time of the observeration interval}
 
 \item{tEnd}{POSIX-Value with an end time of the observeration interval}
-
-\item{site}{Names of considered sites, written in the site columne of a MiSa
-Dataframe}
 }
 \value{
 A filtered data frame with the same columns as the input data frame
