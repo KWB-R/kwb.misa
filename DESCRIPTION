@@ -16,8 +16,9 @@ RoxygenNote: 7.1.2
 Suggests: 
     covr,
     knitr,
-    rmarkdown
+    rmarkdown,
+    testthat (>= 3.0.0)
 Depends: 
     R (>= 3.5.0)
 VignetteBuilder: knitr
-Imports:
+Config/testthat/edition: 3
