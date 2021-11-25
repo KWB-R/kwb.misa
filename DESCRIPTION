@@ -20,6 +20,4 @@ Suggests:
 Depends: 
     R (>= 3.5.0)
 VignetteBuilder: knitr
-Imports: 
-    magrittr,
-    dplyr
+Imports:
