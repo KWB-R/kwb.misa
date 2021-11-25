@@ -86,7 +86,7 @@ read_misa_files <- function(input_path){
 read_misa_oneSite <- function(
   path, file, siteID
 ){
-  data <- read.table(
+  data <- utils::read.table(
     paste0(path, file),
     header = TRUE, sep = ";", dec = ".", stringsAsFactors = FALSE)
   print(paste0(siteID, " - data loaded"))
@@ -138,7 +138,7 @@ read_misa_oneSite <- function(
 read_misa_multipleSites <- function(
   path, file
 ){
-  data <- read.table(
+  data <- utils::read.table(
     paste0(path, file),
     header = TRUE, sep = ";", dec = ".", stringsAsFactors = FALSE)
   print(paste0(file, " - data loaded"))
