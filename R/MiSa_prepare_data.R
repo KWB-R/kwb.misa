@@ -20,7 +20,7 @@
 misa_prepare_data <- function(
   df_MiSa, res = 15, max_na_interpolation = 60/res
 ){
-  dl <- split(x = data_comp_f, f = data_comp_f$site)
+  dl <- split(x = df_MiSa, f = df_MiSa$site)
 
   dl <- lapply(dl, function(df){
     site <- df$site[1]

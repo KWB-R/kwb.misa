@@ -18,8 +18,6 @@
 #' @param return_event_positions Instead the number of events, the events
 #' starting and endpositions are returned, correspoding to the data vector
 #'
-#' @details
-#'
 #' @return Either a number of events or a data frame with event start and end
 #' position
 #'

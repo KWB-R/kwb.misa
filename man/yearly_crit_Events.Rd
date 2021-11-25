@@ -20,10 +20,19 @@ yearly_crit_Events(
 
 \item{res}{Temporal resolution of oxygen data in minutes}
 
+\item{seperating_hours}{TODO: describe (also: should be "separating_hours"
+with "a", not "e")}
+
+\item{deficiency_hours}{TODO: describe}
+
 \item{thresholds}{Oxygen threshold values used for the assessment in mg/L}
 
 \item{max_missing}{The maximal allowed percent of missing oxygen data. If NA
 Values exceed this number, hours below thresholds are set to NA}
+
+\item{use_recovery_value}{TODO: describe}
+
+\item{recovery_value}{TODO: describe}
 }
 \value{
 Data frane with rows per year and columns per threshold as well es

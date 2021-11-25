@@ -4,7 +4,7 @@
 #' start and end position of those values
 #'
 #' @param v A character, factor or numeric vector
-#' @param NA_treatmen How to treat NA values within the vector. Defaul is NA,
+#' @param NA_treatment How to treat NA values within the vector. Defaul is NA,
 #' It can also be "0" (FALSE) or "1" (TRUE)
 #'
 #' @return

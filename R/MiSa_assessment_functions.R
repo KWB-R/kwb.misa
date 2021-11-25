@@ -50,9 +50,14 @@ yearly_deficiency_time <- function(
 #'
 #' @param dataFrame MiSa Dataframe: with columne "d": oxygen data, "year": year
 #' @param res Temporal resolution of oxygen data in minutes
+#' @param seperating_hours TODO: describe (also: should be "separating_hours"
+#'   with "a", not "e")
+#' @param deficiency_hours TODO: describe
 #' @param thresholds Oxygen threshold values used for the assessment in mg/L
 #' @param max_missing The maximal allowed percent of missing oxygen data. If NA
-#' Values exceed this number, hours below thresholds are set to NA
+#'   Values exceed this number, hours below thresholds are set to NA
+#' @param use_recovery_value TODO: describe
+#' @param recovery_value TODO: describe
 #'
 #' @return Data frane with rows per year and columns per threshold as well es
 #' for missing data

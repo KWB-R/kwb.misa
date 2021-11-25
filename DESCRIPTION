@@ -17,6 +17,8 @@ Suggests:
     covr,
     knitr,
     rmarkdown
+Depends: 
+    R (>= 3.5.0)
 VignetteBuilder: knitr
 Imports: 
     magrittr,
