@@ -44,9 +44,6 @@ a predifined threshold value. Events are separated by a specified
 number of data points above that threshod value. Furthermore, the exceedance
 of a value can also seperation critirion.
 }
-\details{
-
-}
 \examples{
 data_vector <- sin(x = seq(0,50,0.5)) * 1:101/20
 
