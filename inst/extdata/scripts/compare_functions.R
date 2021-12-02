@@ -6,4 +6,5 @@ kwb.base::demoGroupByInterval(
 
 install.packages("xts")
 
-# vergleichen der same_inarow und hsEventsOnChange
+# Vergleichen der same_inarow und kwb.utils::findChanges()
+# See new implementation of same_inarow()...
