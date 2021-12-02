@@ -26,4 +26,13 @@ test_that("same_inarow() works", {
 
   expect_identical(f(v1), expected1)
   expect_identical(f(v2), expected2)
+
+  expect_warning(f(c(TRUE), "different results!"))
+  #kwb.misa:::same_inarow_v1(TRUE)
+  #   Value repeats starts_at ends_at
+  # 1     1       1         1       1
+  #kwb.misa:::same_inarow_v2(TRUE)
+  #   Value repeats starts_at ends_at
+  # 1  TRUE       1         1       1
+
 })
