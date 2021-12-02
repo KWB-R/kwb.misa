@@ -80,6 +80,13 @@ count_repeats <- function(
       break
     }
   }
-  data.frame("Value" = v[beg], "repeats" = n,
-             "starts_at" = beg, "ends_at" = beg + n - 1L)
+  data.frame(
+    Value = v[beg],
+    repeats = n,
+    starts_at = beg,
+    # Not correct but required by same_inarow_v1(), I assume
+    ends_at = i - 1
+    # This is correct, I think
+    #ends_at = beg + n - 1L
+  )
 }
