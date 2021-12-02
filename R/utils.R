@@ -27,7 +27,9 @@ same_inarow <- function(
   cat("Runtime same_inarow_v2:\n")
   print(t2)
 
-  stopifnot(identical(result_1, result_2))
+  if (! identical(result_1, result_2)) {
+    warning("same_inarow_v1() and same_inarow_v2() return different results!")
+  }
 
   result_1
 }
