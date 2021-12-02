@@ -12,5 +12,5 @@ test_that("count_repeats() works", {
 
   check(count(v, 1), 1, 1, 1, 1)
   check(count(v, 2), 2, 2, 2, 3)
-  #check(count(v, 4), 3, 3, 4, 6) # This test fails but should not!
+  check(count(v, 4), 3, 3, 4, 6) # This test is now working!
 })

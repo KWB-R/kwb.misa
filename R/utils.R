@@ -49,5 +49,5 @@ count_repeats <- function(
     }
   }
   data.frame("Value" = v[beg], "repeats" = n,
-             "starts_at" = beg, "ends_at" = i - 1)
+             "starts_at" = beg, "ends_at" = beg + n - 1L)
 }
