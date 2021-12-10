@@ -19,7 +19,7 @@ same_inarow <- function(
   NA_treatment = "NA"
 ){
   t1 <- system.time(result_1 <- same_inarow_v1(v, NA_treatment))
-  t2 <- system.time(result_2 <- same_inarow_v2(v, NA_treatment))
+  t2 <- system.time(result_2 <- same_inarow_v2(v))
 
   cat("Runtime same_inarow_v1:\n")
   print(t1)
@@ -31,7 +31,7 @@ same_inarow <- function(
     warning("same_inarow_v1() and same_inarow_v2() return different results!")
   }
 
-  result_1
+  result_2
 }
 
 same_inarow_v1 <- function(v, NA_treatment = "NA"){
@@ -53,17 +53,17 @@ same_inarow_v1 <- function(v, NA_treatment = "NA"){
 }
 
 #' @importFrom kwb.utils findChanges
-same_inarow_v2 <- function(v, NA_treatment = "NA"){
+same_inarow_v2 <- function(v){
 
-  v[is.na(v)] <- NA_treatment
+  stopifnot(!anyNA(v))
 
-  result <- kwb.utils::findChanges(as.character(v))
+  result <- kwb.utils::findChanges(v)
 
   data.frame(
     Value = result$value,
-    repeats = result$ends_at - result$starts_at + 1,
-    starts_at = as.numeric(result$starts_at),
-    ends_at = as.numeric(result$ends_at)
+    repeats = result$ends_at - result$starts_at + 1L,
+    starts_at = result$starts_at,
+    ends_at = result$ends_at
   )
 }
 
