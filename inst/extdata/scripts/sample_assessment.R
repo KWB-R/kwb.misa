@@ -1,3 +1,7 @@
+path <- "C:/Users/mzamzo/Documents/misa/phase_3/gewassersimulationen/"
+df_in <- read.csv(file = paste0(path, "MiSa3_Auswertetool.csv"),
+                  sep = ";", dec = ",")
+
 
 # 1. Read Data
 data_comp <- kwb.misa::read_misa_files(
