@@ -17,8 +17,7 @@ interpolate_multipleNA <- function(
   max_na
 ){
   # find NA data
-  nas <- same_inarow(v = is.na(data_vector),
-                     NA_treatment = "NA")
+  nas <- same_inarow(v = is.na(data_vector))
 
   nas <- nas[nas$Value, ]
 

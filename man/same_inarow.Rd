@@ -4,13 +4,10 @@
 \alias{same_inarow}
 \title{Repeating values in a row within a Vector}
 \usage{
-same_inarow(v, NA_treatment = "NA")
+same_inarow(v)
 }
 \arguments{
 \item{v}{A character, factor or numeric vector}
-
-\item{NA_treatment}{How to treat NA values within the vector. Defaul is NA,
-It can also be "0" (FALSE) or "1" (TRUE)}
 }
 \value{
 A data frame with four columns: Value (-> listed value of the input vector),
