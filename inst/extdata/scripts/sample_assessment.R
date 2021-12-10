@@ -1,6 +1,7 @@
-path <- "C:/Users/mzamzo/Documents/misa/phase_3/gewassersimulationen/"
-df_in <- read.csv(file = paste0(path, "MiSa3_Auswertetool.csv"),
-                  sep = ";", dec = ",")
+
+# for debugging (load everything from package into environment)
+# kwb.utils::assignPackageObjects("kwb.misa")
+
 
 
 # 1. Read Data
