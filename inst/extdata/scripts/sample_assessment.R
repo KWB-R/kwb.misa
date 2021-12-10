@@ -1,3 +1,6 @@
+# for debugging (load everything from package into environment)
+# kwb.utils::assignPackageObjects("kwb.misa")
+
 
 # 1. Read Data
 data_comp <- kwb.misa::read_misa_files(
