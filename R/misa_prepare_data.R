@@ -29,11 +29,14 @@ misa_prepare_data <- function(
       data_vector = df$oxygen,
       first_pointOfTime = min(df_MiSa$posixDateTime, na.rm = T),
       last_pointOfTime = max(df_MiSa$posixDateTime, na.rm = T),
-      res = res)
+      res = res
+    )
 
     interpolated_data <- interpolate_multipleNA(
       data_vector = df_pro$d,
-      max_na = max_na_interpolation)
+      max_na = max_na_interpolation
+    )
+
     df_pro$d <- interpolated_data[[1]]
 
     df_pro$site <- site
