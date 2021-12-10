@@ -20,7 +20,7 @@ interpolate_multipleNA <- function(
   nas <- same_inarow(v = is.na(data_vector),
                      NA_treatment = "NA")
 
-  nas <- nas[nas$Value == 1, ]
+  nas <- nas[nas$Value, ]
 
   # if the first or last is NA, interpolation is not possible
   rfi <- nas[nas$repeats <= max_na &

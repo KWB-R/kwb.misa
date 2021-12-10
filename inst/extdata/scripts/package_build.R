@@ -50,7 +50,7 @@ if(FALSE) {
 
   sapply(pkg_dependencies, usethis::use_package)
 
-  desc::desc_add_remotes("kwb-r/kwb.utils",normalize = TRUE)
+  desc::desc_add_remotes("KWB-R/kwb.utils@dev", normalize = TRUE)
 
   usethis::use_pipe()
 }
