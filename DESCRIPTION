@@ -1,6 +1,6 @@
 Package: kwb.misa
 Title: Functions to be Used in Project MiSa
-Version: 0.1.0
+Version: 0.1.0.9000
 Authors@R: 
     c(person(given = "Malte",
              family = "Zamzow",
