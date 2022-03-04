@@ -29,10 +29,12 @@ read_misa_files <- function(input_path){
   # load all files with one site (continous quality parameter measurements) ----
   # look for all files stored in "files_per_site" folder and convert to list
   # containing one data frame per file
-  files1 <- dir(path = paste0(input_path, "files_per_site/"),
-                pattern = "\\.csv$")
+  files_per_site_path <- file.path(input_path, "files_per_site")
 
-  if(length(files1) > 0){
+  files1 <- dir(files_per_site_path, pattern = "\\.csv$")
+
+  siteData <- if(length(files1)){
+
     # Site Ids are sought from file name, all symbols before first "_"
     siteIDs <- sapply(files1, function(x){
       strsplit(x = x, split = "_")[[1]][1]
@@ -40,33 +42,32 @@ read_misa_files <- function(input_path){
 
     # combination of name of files and site-ID
     fileData <- data.frame(
-      "fileDir" = paste0(input_path,"files_per_site/"),
-      "fileName" = files1,
-      "siteIDs" = siteIDs)
+      fileDir = files_per_site_path,
+      fileName = files1,
+      siteIDs = siteIDs)
 
-    siteData <- apply(fileData,1, function(rawdata){
+    do.call(rbind, apply(fileData, 1, function(rawdata){
       read_misa_oneSite(
         path = rawdata[[1]], file = rawdata[[2]], siteID = rawdata[[3]])
-    })
-    siteData <- do.call(rbind, siteData)
-  } else {
-    siteData <- NULL
-  }
+    }))
+
+  } # else NULL implicitly
 
   # load all files with more than one site (model results) ---------------------
-  files2 <- dir(path = paste0(input_path, "sites_per_file/"),
-                pattern = "\\.csv$")
-  if(length(files2) > 0){
-    fileData <- lapply(X = files2, read_misa_multipleSites,
-                       path = paste0(input_path, "sites_per_file/"))
-    fileData <- do.call(rbind, fileData)
-  } else {
-    fileData <- NULL
-  }
-  # combine all loaded data in one data frame
-  data <- rbind(siteData, fileData)
-  rownames(data) <- NULL
-  data
+  sites_per_file_path <- file.path(input_path, "sites_per_file")
+
+  files2 <- dir(sites_per_file_path, pattern = "\\.csv$")
+
+  fileData <- if(length(files2)){
+
+    do.call(rbind, lapply(
+      files2, read_misa_multipleSites, path = sites_per_file_path
+    ))
+
+  } # else NULL implicitly
+
+  # combine all loaded data in one data frame, resetting the row names
+  kwb.utils::resetRowNames(rbind(siteData, fileData))
 }
 
 #' read_misa_oneSite
@@ -83,43 +84,39 @@ read_misa_files <- function(input_path){
 #'
 #' @export
 #'
-read_misa_oneSite <- function(
-  path, file, siteID
-){
-  data <- utils::read.table(
-    paste0(path, file),
-    header = TRUE, sep = ";", dec = ".", stringsAsFactors = FALSE)
+read_misa_oneSite <- function(path, file, siteID){
+
+  data <- read_csv(file.path(path, file))
+
   print(paste0(siteID, " - data loaded"))
 
   dateCol <- finding_timestampColumns(dataFrame = data)
   o2col <- finding_o2Column(dataFrame = data)
-  if(length(o2col) == 0){
+
+  if(length(o2col) == 0L){
     stop("No oxygen column found - please rename the column to one of:",
          "'O2', 'o2', 'Oxygen', 'oxygen', 'ox', 'Ox', 'Sauerstoff', 'sauerstoff'")
   }
-  if(length(dateCol) == 0){
+
+  if(length(dateCol) == 0L){
     stop("no date column found")
-  } else if(length(dateCol) > 1){
-    stop("More than 1 date column found")
-  } else {
-    # data$posixDateTime <- as.POSIXct(x = data[,dateCol],
-    #                                  tryFormats = c("%Y-%m-%d %H:%M:%S",
-    #                                                 "%d.%m.Y% %H:%M:%S",
-    #                                                 "%Y/%m/%d %H:%M:%S",
-    #                                                 "%Y-%m-%d %H:%M",
-    #                                                 "%Y/%m/%d %H:%M"))
-    data <- data.frame(
-      "posixDateTime" = as.POSIXct(x = data[,dateCol],
-                                   tryFormats = c("%Y-%m-%d %H:%M:%S",
-                                                  "%d.%m.Y% %H:%M:%S",
-                                                  "%Y/%m/%d %H:%M:%S",
-                                                  "%Y-%m-%d %H:%M",
-                                                  "%Y/%m/%d %H:%M")),
-      "oxygen" = data[,o2col],
-      "site" = siteID,
-      stringsAsFactors = F)
   }
-  data
+
+  if(length(dateCol) > 1L){
+    stop("More than 1 date column found")
+  }
+
+  # data$posixDateTime <- as.POSIXct(x = data[,dateCol],
+  #                                  tryFormats = c("%Y-%m-%d %H:%M:%S",
+  #                                                 "%d.%m.Y% %H:%M:%S",
+  #                                                 "%Y/%m/%d %H:%M:%S",
+  #                                                 "%Y-%m-%d %H:%M",
+  #                                                 "%Y/%m/%d %H:%M"))
+  data.frame(
+    posixDateTime = to_posix(data[[dateCol]]),
+    oxygen = data[[o2col]],
+    site = siteID,
+    stringsAsFactors = FALSE)
 }
 
 #' read_misa_multipleSites
@@ -135,39 +132,54 @@ read_misa_oneSite <- function(
 #'
 #' @export
 #'
-read_misa_multipleSites <- function(
-  path, file
-){
-  data <- utils::read.table(
-    paste0(path, file),
-    header = TRUE, sep = ";", dec = ".", stringsAsFactors = FALSE)
-  print(paste0(file, " - data loaded"))
+read_misa_multipleSites <- function(path, file){
+
+  data <- read_csv(file.path(path, file))
 
   dateCol <- finding_timestampColumns(dataFrame = data)
   siteIDs <- colnames(data)[-dateCol]
-  if(length(dateCol) == 0){
+
+  if(length(dateCol) == 0L){
     stop("no date column found")
-  } else if(length(dateCol) > 1){
-    stop("More than 1 date column found")
-  } else {
-    data$posixDateTime <- as.POSIXct(x = data[,dateCol],
-                                     tryFormats = c("%Y-%m-%d %H:%M:%S",
-                                                    "%d.%m.Y% %H:%M:%S",
-                                                    "%Y/%m/%d %H:%M:%S",
-                                                    "%Y-%m-%d %H:%M",
-                                                    "%Y/%m/%d %H:%M"))
-
-    data <- lapply(siteIDs, function(x){
-      data.frame("posixDateTime" = data[,"posixDateTime",],
-                 "oxygen" = data[,x],
-                 "site" = x, stringsAsFactors = F)
-    })
-
-    data <- data.frame(do.call(rbind, data))
-    print(paste0(file, " - POSIXDateTime column created"))
   }
 
-  data
+  if(length(dateCol) > 1L){
+    stop("More than 1 date column found")
+  }
+
+  data$posixDateTime <- to_posix(data[[dateCol]])
+
+  data <- lapply(siteIDs, function(x){
+    data.frame(
+      posixDateTime = data[,"posixDateTime",],
+      oxygen = data[,x],
+      site = x, stringsAsFactors = FALSE)
+  })
+
+  print(paste0(file, " - POSIXDateTime column created"))
+
+  data.frame(do.call(rbind, data))
+}
+
+# Read csv file with default settings
+read_csv <- function(file){
+
+  kwb.utils::catAndRun(paste("Loading data from", file), {
+    utils::read.table(
+      file, header = TRUE, sep = ";", dec = ".", stringsAsFactors = FALSE
+    )
+  })
+}
+
+# Convert text time stamps to POSIXct, assuming different possible formats
+to_posix <- function(x){
+  as.POSIXct(x, tryFormats = c(
+    "%Y-%m-%d %H:%M:%S",
+    "%d.%m.Y% %H:%M:%S",
+    "%Y/%m/%d %H:%M:%S",
+    "%Y-%m-%d %H:%M",
+    "%Y/%m/%d %H:%M"
+  ))
 }
 
 #' finding_timestampColumns
