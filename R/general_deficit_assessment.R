@@ -72,7 +72,7 @@ count_def_events <- function(
   following <- sapply(1:(starting_data_points - 1), function(i){
     (data_vector[possible_starts + i] < threshold)
   })
-  if(length(unlist(following)) > 0){
+  if(sum(unlist(following)) > 0){
     events <- possible_starts[apply(following, MARGIN = 1, all)]
   } else {
     events <- NULL
