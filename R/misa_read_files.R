@@ -10,18 +10,19 @@
 #' All csv files from both folders will be loaded. They must contain a timestamp
 #' column and an oxygen column. The timestamp column is identified
 #' automatically, by looking for a column where the entries contain ":" and one
-#' of the date separating symbols ".", "/" or "-".. The oxygen column is
-#' found by its colname. It should conatin "O2", "o2", "Oxygen", "oxygen", "ox",
-#' "Ox", "Sauerstoff" or "sauerstoff".
+#' of the date separating symbols ".", "/" or "-"..
 #'
 #' For "file_per_site" files: all letters in the filename before the first "_" are
-#' used for the sitename.
+#' used for the sitename.The oxygen column is found by its colname.
+#' It should conatin "O2", "o2", "Oxygen", "oxygen", "ox", "Ox", "Sauerstoff"
+#' or "sauerstoff".
+#'
 #' For "sites_per_file" files: all column names will be used for site names.
 #' Thus, all columns except the timestamp must be oxygan concentrations at
 #' different sites
 #'
 #' @return
-#' A Data frame with 3 columen: Timestamp, Oxygen data and Site name
+#' A Data frame with 3 columns: Timestamp, Oxygen data and Site name
 #'
 #' @export
 #'
@@ -80,7 +81,7 @@ read_misa_files <- function(input_path){
 #' @param siteID a character vector specifying the site name
 #'
 #' @return
-#' A Data frame with 3 columen: Timestamp, Oxygen data and Site name
+#' A Data frame with 3 columns: Timestamp, Oxygen data and Site name
 #'
 #' @export
 #'
@@ -106,12 +107,6 @@ read_misa_oneSite <- function(path, file, siteID){
     stop("More than 1 date column found")
   }
 
-  # data$posixDateTime <- as.POSIXct(x = data[,dateCol],
-  #                                  tryFormats = c("%Y-%m-%d %H:%M:%S",
-  #                                                 "%d.%m.Y% %H:%M:%S",
-  #                                                 "%Y/%m/%d %H:%M:%S",
-  #                                                 "%Y-%m-%d %H:%M",
-  #                                                 "%Y/%m/%d %H:%M"))
   data.frame(
     posixDateTime = to_posix(data[[dateCol]]),
     oxygen = data[[o2col]],
@@ -128,7 +123,7 @@ read_misa_oneSite <- function(path, file, siteID){
 #' @param file Filename (including ".csv" Ending)
 #'
 #' @return
-#' A Data frame with 3 columen: Timestamp, Oxygen data and Site name
+#' A Data frame with 3 columns: Timestamp, Oxygen data and Site name
 #'
 #' @export
 #'
@@ -147,7 +142,7 @@ read_misa_multipleSites <- function(path, file){
     stop("More than 1 date column found")
   }
 
-  data$posixDateTime <- to_posix(data[[dateCol]])
+  data$posixDateTime <- to_posix(x = data[[dateCol]])
 
   data <- lapply(siteIDs, function(x){
     data.frame(
@@ -175,9 +170,10 @@ read_csv <- function(file){
 to_posix <- function(x){
   as.POSIXct(x, tryFormats = c(
     "%Y-%m-%d %H:%M:%S",
-    "%d.%m.Y% %H:%M:%S",
+    "%d.%m.%Y %H:%M:%S",
     "%Y/%m/%d %H:%M:%S",
     "%Y-%m-%d %H:%M",
+    "%d.%m.%Y %H:%M",
     "%Y/%m/%d %H:%M"
   ))
 }
