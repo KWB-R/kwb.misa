@@ -28,14 +28,14 @@ misa_filter_data <- function(
   if(!("" %in% sites)){
     dataFrame <- dataFrame[dataFrame$site %in% sites, ]
   }
-  if(tBeg != ""){
+  if(!is.null(tBeg)){
     dataFrame <- dataFrame[dataFrame$posixDateTime >= tBeg, ]
     first_row <- data.frame(matrix(data = NA, nrow = 1, ncol = ncol(dataFrame),
                                    dimnames = list(NULL, colnames(dataFrame))))
     first_row$posixDateTime <- as.POSIXct(tBeg)
     dataFrame <- rbind(first_row, dataFrame)
   }
-  if(tEnd != ""){
+  if(!is.null(tEnd)){
     dataFrame <- dataFrame[dataFrame$posixDateTime <= tEnd, ]
     last_row <- data.frame(matrix(data = NA, nrow = 1, ncol = ncol(dataFrame),
                                    dimnames = list(NULL, colnames(dataFrame))))
