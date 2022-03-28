@@ -14,7 +14,7 @@ read_misa_oneSite(path, file, siteID)
 \item{siteID}{a character vector specifying the site name}
 }
 \value{
-A Data frame with 3 columen: Timestamp, Oxygen data and Site name
+A Data frame with 3 columns: Timestamp, Oxygen data and Site name
 }
 \description{
 This function reads csv tables with one timestamp column and one

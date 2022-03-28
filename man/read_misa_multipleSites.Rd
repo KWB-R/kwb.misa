@@ -12,7 +12,7 @@ read_misa_multipleSites(path, file)
 \item{file}{Filename (including ".csv" Ending)}
 }
 \value{
-A Data frame with 3 columen: Timestamp, Oxygen data and Site name
+A Data frame with 3 columns: Timestamp, Oxygen data and Site name
 }
 \description{
 This function reads csv tables with one timestamp column and several
