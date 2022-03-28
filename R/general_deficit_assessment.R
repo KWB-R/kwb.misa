@@ -72,11 +72,13 @@ count_def_events <- function(
   following <- sapply(1:(starting_data_points - 1), function(i){
     (data_vector[possible_starts + i] < threshold)
   })
-  if(sum(unlist(following)) > 0){
-    events <- possible_starts[apply(following, MARGIN = 1, all)]
-  } else {
-    events <- NULL
+
+  events <- if(length(unlist(following))){
+    if(sum(unlist(following), na.rm = T)){
+      possible_starts[apply(following, MARGIN = 1, all)]
+    }
   }
+
 
   if(length(events) > 0){
     # criteria 2: events within a defined seperation step are aggregated as one
