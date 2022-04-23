@@ -1,4 +1,4 @@
-x;y;distance_to_neighbour;km;id_qsim;comment
+x;y;distance_to_neighbour;km;qsim_id;comment
 13.4390846;52.4906314;0;0;NSK_S201.Nsk_0;Ob Abzweig LWK
 13.4394402;52.489675;0.109160305;0.1;;
 13.4394541;52.4896358;0.00446428;0.1;;
