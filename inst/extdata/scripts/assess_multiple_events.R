@@ -45,7 +45,7 @@ dl_misa <- lapply(data_comp_per_event, function(df_event){
                           oxygen_ref = dl[["SOW_S106.SOW_21.2"]]$d, max_missing = 100)))
 })
 
-# 5. Add site infor to the misa assessment (based on row name)
+# 5. Add site info to the misa assessment (based on row name)
 dl_misa <- lapply(dl_misa, add_site_info)
 
 # 6. Plot data
