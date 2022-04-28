@@ -69,7 +69,7 @@ time column and several oxygen columns (one per site)</p>
     <div id="ref-usage">
     <div class="sourceCode"><pre class="sourceCode r"><code><span class="fu">QSIM_prepare_for_tool</span><span class="op">(</span>
   <span class="va">qsim_output_path</span>,
-  <span class="va">input_fileName</span>,
+  <span class="va">qsim_fileName</span>,
   <span class="va">misa_tool_input_path</span>,
   <span class="va">output_fileName</span>,
   return_table <span class="op">=</span> <span class="cn">FALSE</span>
@@ -80,7 +80,7 @@ time column and several oxygen columns (one per site)</p>
     <h2>Arguments</h2>
     <dl><dt>qsim_output_path</dt>
 <dd><p>path where the output file from Gsim is stored</p></dd>
-<dt>input_fileName</dt>
+<dt>qsim_fileName</dt>
 <dd><p>Filename of the Qsim output file (inclusive .csv)</p></dd>
 <dt>misa_tool_input_path</dt>
 <dd><p>input Folder for Misa Tool (see details)</p></dd>
@@ -96,11 +96,10 @@ several oxygen columns in mg/L</p>
     </div>
     <div id="details">
     <h2>Details</h2>
-    <p>The Misa Tool input folder as definied in misa_tool_input_path must contain
-the two folder "files_per_site" and "site_per_file". The output Table will be
-stored in the latter.
-Saves table as CSV File ";"-seperated.
-return_table = TRUE</p>
+    <p>The Misa Tool input folder as defined in parameter 'misa_tool_input_path' must
+contain the two folder "files_per_site" and "site_per_file". The output
+table will be stored in the latter.
+Saves table as CSV File ";"-separated if parameter return_table is set to TRUE</p>
     </div>
 
   </div>
