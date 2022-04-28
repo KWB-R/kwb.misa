@@ -33,9 +33,8 @@ to unique sitenames and spreads the Qsim output table into a table with one
 time column and several oxygen columns (one per site)
 }
 \details{
-The Misa Tool input folder as definied in \link{misa_tool_input_path} must contain
-the two folder "files_per_site" and "site_per_file". The output Table will be
-stored in the latter.
-Saves table as CSV File ";"-seperated.
-\link{return_table = TRUE}
+The Misa Tool input folder as defined in parameter 'misa_tool_input_path' must
+contain the two folder "files_per_site" and "site_per_file". The output
+table will be stored in the latter.
+Saves table as CSV File ";"-separated if parameter return_table is set to TRUE
 }
