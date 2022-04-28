@@ -25,7 +25,8 @@ VignetteBuilder:
 Imports:
     kwb.utils (>= 0.11.0),
     magrittr,
-    rlang
+    rlang,
+    tidyr
 Remotes: 
     kwb-r/kwb.utils
 Config/testthat/edition: 3
