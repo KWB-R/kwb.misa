@@ -5,6 +5,8 @@
 #'
 #' @param data_vector Numeric vector of measurements (including NA values)
 #' @param max_na the maximal number of NA values in a row to be interpolated
+#' @param diff_x (optional) Numeric vector with x value difference correspoding
+#' to the data_vector. Only needed if the difference is not constant.
 #'
 #' @return
 #' A list containing the data vector with interpolated NA value as well as an
@@ -14,7 +16,8 @@
 #'
 interpolate_multipleNA <- function(
   data_vector,
-  max_na
+  max_na,
+  diff_x = NULL
 ){
   # find NA data
   nas <- same_inarow(v = is.na(data_vector))
@@ -28,12 +31,22 @@ interpolate_multipleNA <- function(
 
   if(nrow(rfi) > 0){
     for(i in 1:nrow(rfi)){
-      before <- data_vector[(rfi$starts_at[i] - 1)]
-      after <- data_vector[(rfi$ends_at[i] + 1)]
+      beg_i <- rfi$starts_at[i] - 1
+      end_i <- rfi$ends_at[i] + 1
+      before <- data_vector[beg_i]
+      after <- data_vector[end_i]
 
-      # interpolated values
-      new_values <- seq(before, after, length.out = rfi$repeats[i] + 2)
+      new_values <-  if(is.null(diff_x)){
+        # interpolated values
+        seq(before, aftder, length.out = rfi$repeats[i] + 2)
+
+      } else {
+        x <- cumsum(diff_x[beg_i:end_i])
+        new_values <- (x - min(x)) / diff(range(x)) * (before - after) + after
+      }
+
       new_values <- new_values[-c(1, length(new_values))]
+
 
       # Replace NAs
       data_vector[rfi$starts_at[i]:rfi$ends_at[i]] <- new_values
