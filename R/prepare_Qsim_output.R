@@ -11,20 +11,19 @@
 #' @param return_table if TRUE, the saved table is returned
 #'
 #' @details
-#' The Misa Tool input folder as definied in [misa_tool_input_path] must contain
-#' the two folder "files_per_site" and "site_per_file". The output Table will be
-#' stored in the latter.
-#' Saves table as CSV File ";"-seperated.
-#' [return_table = TRUE]
+#' The Misa Tool input folder as defined in parameter 'misa_tool_input_path' must
+#' contain the two folder "files_per_site" and "site_per_file". The output
+#' table will be stored in the latter.
+#' Saves table as CSV File ";"-separated if parameter return_table is set to TRUE
 #'
 #' @return
 #' The saved table contains a timestamp column in Central European Time and
 #' several oxygen columns in mg/L
 #'
 #' @export
-#' @importfrom utils read.table write.table
-#' @importfrom tidyr spread
-#'
+#' @importFrom utils read.table write.table
+#' @importFrom tidyr spread
+#' @importFrom rlang .data
 QSIM_prepare_for_tool <-function(
   qsim_output_path,
   qsim_fileName,
@@ -45,12 +44,15 @@ QSIM_prepare_for_tool <-function(
     df_out <- df_out[-del,]
   }
 
-  df_out <- df_out %>% tidyr::spread(site, VO2)
+  df_out <- df_out %>% tidyr::spread(.data$site, .data$VO2)
   df_out$Datum <- as.POSIXct(df_out$Datum, format = "%d.%m.%Y %H:%M")
   df_out <- df_out[order(df_out$Datum),]
 
-  write.table(x = df_out,  file = file.path(misa_tool_input_path,
-                                            "sites_per_file",
-                                            output_fileName),
-              sep = ";", dec = ".", row.names = F)
+  utils::write.table(x = df_out,
+                     file = file.path(misa_tool_input_path,
+                                      "sites_per_file",
+                                      output_fileName),
+                     sep = ";",
+                     dec = ".",
+                     row.names = F)
 }
