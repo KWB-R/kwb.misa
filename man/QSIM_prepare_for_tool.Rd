@@ -6,7 +6,7 @@
 \usage{
 QSIM_prepare_for_tool(
   qsim_output_path,
-  input_fileName,
+  qsim_fileName,
   misa_tool_input_path,
   output_fileName,
   return_table = FALSE
@@ -15,7 +15,7 @@ QSIM_prepare_for_tool(
 \arguments{
 \item{qsim_output_path}{path where the output file from Gsim is stored}
 
-\item{input_fileName}{Filename of the Qsim output file (inclusive .csv)}
+\item{qsim_fileName}{Filename of the Qsim output file (inclusive .csv)}
 
 \item{misa_tool_input_path}{input Folder for Misa Tool (see details)}
 

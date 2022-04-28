@@ -23,6 +23,7 @@ Suggests:
 VignetteBuilder: 
     knitr
 Imports:
+    magrittr,
     kwb.utils (>= 0.9.0.9000)
 Remotes: 
     KWB-R/kwb.utils@dev

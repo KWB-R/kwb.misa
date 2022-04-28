@@ -22,8 +22,8 @@
 #' several oxygen columns in mg/L
 #'
 #' @export
-#' @importfrom utils read.table write.table
-#' @importfrom tidyr spread
+#' @importFrom  utils read.table write.table
+#' @importFrom  tidyr spread
 #'
 QSIM_prepare_for_tool <-function(
   qsim_output_path,
