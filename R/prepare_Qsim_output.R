@@ -5,7 +5,7 @@
 #' time column and several oxygen columns (one per site)
 #'
 #' @param qsim_output_path path where the output file from Gsim is stored
-#' @param input_fileName Filename of the Qsim output file (inclusive .csv)
+#' @param qsim_fileName Filename of the Qsim output file (inclusive .csv)
 #' @param misa_tool_input_path input Folder for Misa Tool (see details)
 #' @param output_fileName Filename of the created table (inclusive .csv)
 #' @param return_table if TRUE, the saved table is returned
@@ -27,13 +27,13 @@
 #'
 QSIM_prepare_for_tool <-function(
   qsim_output_path,
-  input_fileName,
+  qsim_fileName,
   misa_tool_input_path,
   output_fileName,
   return_table = FALSE
 ){
 
-  df_in <- read.table(file = file.path(qsim_output_path, input_fileName),
+  df_in <- read.table(file = file.path(qsim_output_path, qsim_fileName),
                       header = T, sep = ";", dec = ",")
 
   df_in$site <- paste(df_in[[1]], df_in[[2]], df_in[[3]], sep = "_")
