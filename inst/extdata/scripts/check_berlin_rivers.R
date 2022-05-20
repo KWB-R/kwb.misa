@@ -18,13 +18,13 @@ load_berlin_rivers <- function(){
 }
 
 rivers <- load_berlin_rivers()
-r1 <- rivers$Landwehrkanal
-r2 <- rivers$Neukoellner_Schiffahrtskanal
+r1 <- rivers$Havel
+r2 <- rivers$Spree
 
 confluence_x <- which(r1$x %in% r2$x)
 confluence_y <- which(r1$y %in% r2$y)
 if(identical(confluence_x, confluence_y)){
-  rivers$Berlin_Spandauer_Schifffahrtskanal[confluence_x,]
+  rivers$Havel[confluence_x,]
 }
 
 
@@ -41,7 +41,7 @@ if(identical(confluence_x, confluence_y)){
 dev.new()
 
 # single rivers
-df_plot <- rivers$Landwehrkanal
+df_plot <- rivers$Havel
 xlim <- range(df_plot$x)
 ylim <- range(df_plot$y)
 
