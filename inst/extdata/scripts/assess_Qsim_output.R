@@ -1,3 +1,25 @@
+# Prepare Qsim -----------------------------------------------------------------
+files <- dir(path = paste0(
+  "Y:/AUFTRAEGE/_Auftraege_laufend/MISA3/Data-Work packages/",
+  "AP1_Vorbereitung-Strategiebewertung/Misa_auswertung/qsim_output"))
+files <- grep(pattern = ".csv$", files, value = T)
+
+for(file in files){
+  print(paste(file, "in progress"))
+  kwb.misa::QSIM_prepare_for_tool(
+    qsim_output_path = paste0(
+      "Y:/AUFTRAEGE/_Auftraege_laufend/MISA3/Data-Work packages/",
+      "AP1_Vorbereitung-Strategiebewertung/Misa_auswertung/qsim_output"),
+    qsim_fileName = file,
+    misa_tool_input_path = paste0(
+      "Y:/AUFTRAEGE/_Auftraege_laufend/MISA3/Data-Work packages/",
+      "AP1_Vorbereitung-Strategiebewertung/Misa_auswertung/input"),
+    output_fileName = paste0("misa_", file))
+  print("done")
+}
+
+
+# List of Events ---------------------------------------------------------------
 # the input folder including the document "Ereignisreihe"
 path <- paste0(
   "Y:/AUFTRAEGE/_Auftraege_laufend/MISA3/Data-Work packages/",
@@ -11,6 +33,8 @@ e_data$tEnd <- as.POSIXct(e_data$tEnd, format = "%d.%m.%Y %H:%M") + 5 * 24 * 60 
 es <- lapply(1:nrow(e_data), function(i){
   c("tBeg" = e_data$tBeg[i], "tEnd" = e_data$tEnd[i])
 })
+# ------------------------------------------------------------------------------
+
 
 # 1. Read Oxygen Data
 data_comp <- kwb.misa::read_misa_files(
@@ -42,11 +66,44 @@ dl_misa <- lapply(data_comp_per_event, function(df_event){
                                     max_missing = 100, thresholds = c(0.5, 1, 1.5, 2, 3))),
     "events" = do.call(rbind, lapply(X = dl, kwb.misa::yearly_crit_Events, max_missing = 100)),
     "neg_dev" = do.call(rbind, lapply(X = dl, kwb.misa::yearly_negative_deviation,
-                          oxygen_ref = dl[["SOW_S106.SOW_21.2"]]$d, max_missing = 100)))
+                                      oxygen_ref = dl[["SOW_S106.SOW_21.2"]]$d, max_missing = 100)))
 })
 
-# 5. Add site info to the misa assessment (based on row name)
+# 5. Add site info to the misa assessment (based on row names)
 dl_misa <- lapply(dl_misa, add_site_info)
+
+# 6. Aggregate events
+df_aggr <- data.frame(
+  "hours" = sapply(paste0("below_", c(0.5, 1, 1.5, 2, 3)), function(x){
+    rowSums(data.frame(sapply(X = 1:length(dl_misa), function(i){
+      v <- dl_misa[[i]]$hours[[x]]
+      if(is.null(v)){
+        NA
+      } else {v}
+    })), na.rm = T)
+  }),
+  "events" = rowSums(data.frame(sapply(X = 1:length(dl_misa), function(i){
+    v <- dl_misa[[i]]$events$below_1.5
+    if(is.null(v)){
+      NA
+    } else {v}
+  })), na.rm = T),
+  "neg_dev" = rowMeans(data.frame(sapply(X = 1:length(dl_misa), function(i){
+    v <- dl_misa[[i]]$neg_dev$neg_deviation_relative
+    if(is.null(v)){
+      NA
+    } else {v}
+  })), na.rm = T)
+)
+
+df_aggr$qsim_site <- rownames(dl_misa[[1]]$hours)
+
+
+
+rm(list = setdiff(x = ls(), list("df_aggr", "dl_misa")))
+
+
+
 
 # 6. Plot data
 load(file = "inst/extdata/colors/misaColor.RData")
@@ -66,6 +123,10 @@ add_site_info <- function(misa_assessment){
     }
   })
 }
+
+
+
+
 
 plot_defTime <- function(df, river, good_water_treshold = FALSE,
                          plot_x = TRUE){
@@ -213,8 +274,6 @@ for(event in names(dl_misa)){
   }
 
 }
-
-
 
 df <- dl_misa$E13$hours
 plot_thresholds <- c(5)

@@ -62,10 +62,10 @@ ylim <- range(unlist(sapply(rivers, function(x){x$y})))
 dev.new()
 plot(x = 0, y = 0, xlim = xlim, ylim = ylim, type = "n")
 
-plot(x = 0, y = 0, xlim =  c(13.28, 13.32), ylim = c(52.5, 52.55), type = "n")
+plot(x = 0, y = 0, xlim =  c(13.31, 13.32), ylim = c(52.51, 52.53), type = "n")
 for(i in 1:8){
   lines(x = rivers[[i]]$x, y = rivers[[i]]$y)
   text(x = rivers[[i]]$x, y = rivers[[i]]$y, labels = rivers[[i]]$comment, cex = 0.6)
-  #text(x = rivers[[i]]$x, y = rivers[[i]]$y, labels = rivers[[i]]$qsim_id, cex = 0.6)
+  text(x = rivers[[i]]$x, y = rivers[[i]]$y, labels = rivers[[i]]$qsim_id, cex = 0.6)
 
 }
