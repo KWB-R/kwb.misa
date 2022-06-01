@@ -1,20 +1,23 @@
 # Prepare Qsim -----------------------------------------------------------------
+path = paste0(
+  "Y:/AUFTRAEGE/_Auftraege_laufend/MISA3/Data-Work packages/",
+  "AP1_Vorbereitung-Strategiebewertung/Misa_auswertung/qsim_output/vor_sanierung")
 files <- dir(path = paste0(
   "Y:/AUFTRAEGE/_Auftraege_laufend/MISA3/Data-Work packages/",
-  "AP1_Vorbereitung-Strategiebewertung/Misa_auswertung/qsim_output"))
-files <- grep(pattern = ".csv$", files, value = T)
+  "AP1_Vorbereitung-Strategiebewertung/Misa_auswertung/qsim_output/vor_sanierung"))
+files <- grep(pattern = "^2", files, value = T)
+scenario <- rev(strsplit(x = path, split = "/")[[1]])[1]
+
 
 for(file in files){
   print(paste(file, "in progress"))
   kwb.misa::QSIM_prepare_for_tool(
-    qsim_output_path = paste0(
-      "Y:/AUFTRAEGE/_Auftraege_laufend/MISA3/Data-Work packages/",
-      "AP1_Vorbereitung-Strategiebewertung/Misa_auswertung/qsim_output"),
+    qsim_output_path = path,
     qsim_fileName = file,
     misa_tool_input_path = paste0(
       "Y:/AUFTRAEGE/_Auftraege_laufend/MISA3/Data-Work packages/",
-      "AP1_Vorbereitung-Strategiebewertung/Misa_auswertung/input"),
-    output_fileName = paste0("misa_", file))
+      "AP1_Vorbereitung-Strategiebewertung/Misa_auswertung/input/"),
+    output_fileName = paste0("misa_", scenario, "_", file))
   print("done")
 }
 
@@ -96,7 +99,7 @@ df_aggr <- data.frame(
   })), na.rm = T)
 )
 
-df_aggr$qsim_site <- rownames(dl_misa[[1]]$hours)
+df_aggr$qsim_site <- rownames(dl_misa[[2]]$hours)
 
 
 
