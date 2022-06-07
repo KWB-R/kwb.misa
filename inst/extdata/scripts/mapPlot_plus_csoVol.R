@@ -147,7 +147,7 @@ if(FALSE){
 prepare_riverPlot <- function(river_table, qsim_misa_table, varName, sixBreaks){
   river_table$value <- NA
 
-  for(i in 1:nrow(qsim_misa_table)){
+  for(i in seq_len(nrow(qsim_misa_table))){
     found <- c(which(qsim_misa_table$qsim_site == river_table$qsim_id[i]),
                which(rownames(qsim_misa_table) == river_table$qsim_id[i]))
     if(length(found) > 0L){
@@ -173,10 +173,10 @@ prepare_riverPlot <- function(river_table, qsim_misa_table, varName, sixBreaks){
 
 plot_river_col <- function(
   prepared_rivers, sixBreaks, dataType = "time", LegendTitle, LegendLocation){
-  for(j in 1:length(prepared_rivers)){
+  for(j in seq_along(prepared_rivers)){
     lines(x = prepared_rivers[[j]]$x, y = prepared_rivers[[j]]$y,
           col = "steelblue")
-    for(i in 1:(nrow(prepared_rivers[[j]]) - 1)){
+    for(i in seq_len(nrow(prepared_rivers[[j]]) - 1)){
       lines(x = prepared_rivers[[j]]$x[i:(i+1)],
             y = prepared_rivers[[j]]$y[i:(i+1)],
             col = prepared_rivers[[j]]$color[i+1],
@@ -204,7 +204,7 @@ plot_river_col <- function(
     hor <- FALSE
   }
 
-  legend(x = lx, y = ly, legend = l_content, col = MisaColor[1:ll], lwd = 6,
+  legend(x = lx, y = ly, legend = l_content, col = MisaColor[seq_len(ll)], lwd = 6,
          bg= "white", bty = "n", title = LegendTitle,
          xpd = T, xjust = xadj, yjust = 0, horiz = hor)
 }
@@ -236,7 +236,7 @@ add_catchments <- function(ezg){
 
   }
   colCircle <- rep(paste0("gray",c(60,70,80,90)), 10)
-  for(i in 1:length(ezg)){
+  for(i in seq_along(ezg)){
     col <- colCircle[i]
     polygon(x = ezg[[i]][,1], y = ezg[[i]][,2], col = col)
     text(x = ezg_namePositions[[i]]$x, y = ezg_namePositions[[i]]$y,
