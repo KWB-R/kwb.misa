@@ -102,12 +102,10 @@ aggregate_measurements <- function(
 #'
 #' @export
 #'
-adjust_time <- function(
-  time_vector,
-  time_interval # in seconds
-){
-  as.POSIXct(round(as.numeric(time_vector) /
-                     time_interval,
-                   digits = 0) *
-               time_interval, origin = "1970-01-01")
+adjust_time <- function(time_vector, time_interval)
+{
+  as.POSIXct(
+    round(as.numeric(time_vector) / time_interval) * time_interval,
+    origin = "1970-01-01"
+  )
 }
