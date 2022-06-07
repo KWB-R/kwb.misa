@@ -65,7 +65,7 @@ number of NA's are interpolated</p>
     </div>
 
     <div id="ref-usage">
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="fu">interpolate_multipleNA</span><span class="op">(</span><span class="va">data_vector</span>, <span class="va">max_na</span><span class="op">)</span></code></pre></div>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="fu">interpolate_multipleNA</span><span class="op">(</span><span class="va">data_vector</span>, <span class="va">max_na</span>, diff_x <span class="op">=</span> <span class="cn">NULL</span><span class="op">)</span></code></pre></div>
     </div>
 
     <div id="arguments">
@@ -74,6 +74,9 @@ number of NA's are interpolated</p>
 <dd><p>Numeric vector of measurements (including NA values)</p></dd>
 <dt>max_na</dt>
 <dd><p>the maximal number of NA values in a row to be interpolated</p></dd>
+<dt>diff_x</dt>
+<dd><p>(optional) Numeric vector with x value difference correspoding
+to the data_vector. Only needed if the difference is not constant.</p></dd>
 </dl></div>
     <div id="value">
     <h2>Value</h2>
