@@ -26,22 +26,22 @@ continuousTimeIntervals <- function(
   time_vector,
   data_vector,
   res = 15,
-  first_pointOfTime = min(time_vector, na.rm = T),
-  last_pointOfTime = max(time_vector, na.rm = T)
+  first_pointOfTime = min(time_vector, na.rm = TRUE),
+  last_pointOfTime = max(time_vector, na.rm = TRUE)
 ){
-  # new timestamps
-  conti_timestamp <- seq(from = first_pointOfTime,
-                         to = last_pointOfTime,
-                         by = 60 * res)
+  new_timestamps <- seq(from = first_pointOfTime,
+                        to = last_pointOfTime,
+                        by = 60 * res)
 
   df_out <- aggregate_measurements(time_vector = time_vector,
-                         data_vector = data_vector,
-                         time_interval = 60 * res)
+                                   data_vector = data_vector,
+                                   time_interval = 60 * res)
 
-  # merging by the complete conti_timestamp vector (missing values --> NA)
-  merge(x = data.frame("t" = conti_timestamp),
-                  y = df_out, by = "t", all.x = TRUE)
-
+  # merging by the complete new_timestamps vector (missing values --> NA)
+  merge(x = data.frame("t" = new_timestamps),
+        y = df_out,
+        by = "t",
+        all.x = TRUE)
 }
 
 #' Average data per predefined timesteps
