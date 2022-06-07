@@ -4,12 +4,15 @@
 \alias{interpolate_multipleNA}
 \title{Linear interpolation for one or more missing values}
 \usage{
-interpolate_multipleNA(data_vector, max_na)
+interpolate_multipleNA(data_vector, max_na, diff_x = NULL)
 }
 \arguments{
 \item{data_vector}{Numeric vector of measurements (including NA values)}
 
 \item{max_na}{the maximal number of NA values in a row to be interpolated}
+
+\item{diff_x}{(optional) Numeric vector with x value difference correspoding
+to the data_vector. Only needed if the difference is not constant.}
 }
 \value{
 A list containing the data vector with interpolated NA value as well as an

@@ -38,7 +38,7 @@ interpolate_multipleNA <- function(
 
       new_values <-  if(is.null(diff_x)){
         # interpolated values
-        seq(before, aftder, length.out = rfi$repeats[i] + 2)
+        seq(before, after, length.out = rfi$repeats[i] + 2)
 
       } else {
         x <- cumsum(diff_x[beg_i:end_i])

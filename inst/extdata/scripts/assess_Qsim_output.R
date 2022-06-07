@@ -76,22 +76,23 @@ dl_misa <- lapply(data_comp_per_event, function(df_event){
 dl_misa <- lapply(dl_misa, add_site_info)
 
 # 6. Aggregate events
+indices <- seq_along(dl_misa)
 df_aggr <- data.frame(
   "hours" = sapply(paste0("below_", c(0.5, 1, 1.5, 2, 3)), function(x){
-    rowSums(data.frame(sapply(X = 1:length(dl_misa), function(i){
+    rowSums(data.frame(sapply(X = indices, function(i){
       v <- dl_misa[[i]]$hours[[x]]
       if(is.null(v)){
         NA
       } else {v}
     })), na.rm = T)
   }),
-  "events" = rowSums(data.frame(sapply(X = 1:length(dl_misa), function(i){
+  "events" = rowSums(data.frame(sapply(X = indices, function(i){
     v <- dl_misa[[i]]$events$below_1.5
     if(is.null(v)){
       NA
     } else {v}
   })), na.rm = T),
-  "neg_dev" = rowMeans(data.frame(sapply(X = 1:length(dl_misa), function(i){
+  "neg_dev" = rowMeans(data.frame(sapply(X = indices, function(i){
     v <- dl_misa[[i]]$neg_dev$neg_deviation_relative
     if(is.null(v)){
       NA
