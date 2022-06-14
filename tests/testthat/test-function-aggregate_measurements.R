@@ -10,11 +10,13 @@ test_that("aggregate_measurements() works", {
   expect_error(f2())
 
   # Function to generate data as required on the fly
-  to_data <- function(...) {
-    data <- read.table(sep = ",", header = FALSE, text = c(...))
-    data[[1L]] <- as.POSIXct(data[[1L]])
-    stats::setNames(data, c("t", "d"))
-  }
+  to_data <- function(...) read.table(
+    sep = ",",
+    header = FALSE,
+    text = c(...),
+    col.names = c("t", "d"),
+    colClasses = c("POSIXct", "double")
+  )
 
   # Input data 1: only "non-rounded" timestamps
   data1 <- to_data(
