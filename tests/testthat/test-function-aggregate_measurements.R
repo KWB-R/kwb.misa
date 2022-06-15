@@ -92,10 +92,10 @@ test_that("aggregate_measurements() works", {
   expect_equal(f2(data1$t, data1$d, 120), expected1_120)
 
   # checking data2, 120s
-  #check(f1(data2$t, data2$d, 120), expected2_120) # fails!
-  check(f2(data2$t, data2$d, 120), expected2_120)
+  #expect_equal(f1(data2$t, data2$d, 120), expected2_120) # fails!
+  expect_equal(f2(data2$t, data2$d, 120), expected2_120)
 
   # checking data3, 120s
-  #check(f1(data3$t, data3$d, 120), expected3_120) # fails!
-  check(f2(data3$t, data3$d, 120), expected3_120)
+  #expect_equal(f1(data3$t, data3$d, 120), expected3_120) # fails!
+  expect_equal(f2(data3$t, data3$d, 120), expected3_120)
 })
