@@ -8,8 +8,8 @@ continuousTimeIntervals(
   time_vector,
   data_vector,
   res = 15,
-  first_pointOfTime = min(time_vector, na.rm = T),
-  last_pointOfTime = max(time_vector, na.rm = T)
+  first_pointOfTime = min(time_vector, na.rm = TRUE),
+  last_pointOfTime = max(time_vector, na.rm = TRUE)
 )
 }
 \arguments{
