@@ -27,7 +27,8 @@ Imports:
     kwb.utils (>= 0.11.0),
     magrittr,
     rlang,
-    tidyr
+    tidyr,
+    readxl
 Remotes: 
     kwb-r/kwb.base,
     kwb-r/kwb.utils

@@ -2,8 +2,8 @@
 % Please edit documentation in R/misa_plot_functions.R
 \name{load_berlin_rivers}
 \alias{load_berlin_rivers}
-\title{Reads package Data containing river courses of Berlin and assessed sites
-by the Qsim model}
+\title{Reads package Data containing river courses of Berlin and river sites
+simulated by the Qsim model}
 \usage{
 load_berlin_rivers()
 }
@@ -14,8 +14,8 @@ km, 4) River km, 5) Corresponding Qsim output sitename, 6) Comment that can
 be used for plots
 }
 \description{
-Reads package Data containing river courses of Berlin and assessed sites
-by the Qsim model
+Reads package Data containing river courses of Berlin and river sites
+simulated by the Qsim model
 }
 \details{
 Geo-Data come from
