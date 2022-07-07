@@ -26,7 +26,8 @@ Imports:
     kwb.utils (>= 0.11.0),
     magrittr,
     rlang,
-    tidyr
+    tidyr,
+    readxl
 Remotes: 
     kwb-r/kwb.utils
 Config/testthat/edition: 3
