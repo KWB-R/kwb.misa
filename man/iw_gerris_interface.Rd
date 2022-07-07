@@ -8,7 +8,7 @@ iw_gerris_interface(
   interface_input_folder,
   interface_output_folder,
   simulation_name,
-  stop_after = "",
+  return_after = "",
   return_output_table = FALSE,
   infoworks_time_format = "\%d/\%m/\%Y \%H:\%M:\%S",
   gerris_time_format = "\%d.\%m.\%Y \%H:\%M",
@@ -27,7 +27,7 @@ located}
 \item{simulation_name}{Either the whole name of the simulation or a unique
 part regarding all simulations in the defined folder}
 
-\item{stop_after}{if a number is given, the function returns the data after
+\item{return_after}{if a number is given, the function returns the data after
 thata data processing step. For more information see details}
 
 \item{return_output_table}{If TRUE the output table is returned, otherwise it
