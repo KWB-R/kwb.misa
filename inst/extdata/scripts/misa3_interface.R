@@ -32,31 +32,20 @@ for(i in seq_along(simulations)){
   print(simulation_name)
   trocken <- simulations[i]
 
-  {
-    # Anlegen der .log-Datei
-    # con <- file(paste0(interface_output_folder,simulation_name , ".log"))
-    # sink(con, append = TRUE)
-    # sink(con, append = TRUE, type="message")
-
-    result <- iw_gerris_interface(
-      interface_input_folder = interface_input_folder,
-      interface_output_folder = interface_output_folder,
-      simulation_name = simulation_name,
-      stop_after = "", # hier kann eine Zahl eingegeben werden, an der die Datenumformung stopt (siehe Dokumentation)
-      return_output_table = TRUE, # Bei FALSE wird nur gespeichert
-      infoworks_time_format = "%d/%m/%Y %H:%M:%S",
-      gerris_time_format = "%d.%m.%Y %H:%M",
-      timestep_out = 15, # in Minuten
-      flow_only = flow_only,
-      skip_hours = trocken * 24, # depending on inforworks pre calculations
-      flow_threshold = 0.003) # in m?/s
-
-    # Schliessen der .log-Datei
-    # sink()
-    # sink(type = "message")
-  }
+  result <- iw_gerris_interface(
+    interface_input_folder = interface_input_folder,
+    interface_output_folder = interface_output_folder,
+    simulation_name = simulation_name,
+    return_after = 16, # hier kann eine Zahl eingegeben werden, an der die Datenumformung stopt (siehe Dokumentation)
+    return_output_table = TRUE, # Bei FALSE wird nur gespeichert
+    infoworks_time_format = "%d/%m/%Y %H:%M:%S",
+    gerris_time_format = "%d.%m.%Y %H:%M",
+    timestep_out = 15, # in Minuten
+    flow_only = flow_only,
+    skip_hours = trocken * 24, # depending on inforworks pre calculations
+    flow_threshold = 0.003 # in m3/s
+  )
 }
-
 
 # Checken, warum einige Werte zu hoch sind
 result <- iw_gerris_interface(
