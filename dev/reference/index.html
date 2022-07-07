@@ -69,6 +69,16 @@
         </td>
         <td><p>Breaking down POSIX into months and year and filter by month</p></td>
       </tr><tr><td>
+          <p><code><a href="adapt_timestep.html">adapt_timestep()</a></code> </p>
+        </td>
+        <td><p></p><ol><li><p>Change of Timesteps</p></li>
+</ol></td>
+      </tr><tr><td>
+          <p><code><a href="add_constant_values.html">add_constant_values()</a></code> </p>
+        </td>
+        <td><p></p><ol><li><p>Add constant values</p></li>
+</ol></td>
+      </tr><tr><td>
           <p><code><a href="adjust_time.html">adjust_time()</a></code> </p>
         </td>
         <td><p>Equal time intervals</p></td>
@@ -77,9 +87,44 @@
         </td>
         <td><p>Average data per predefined timesteps</p></td>
       </tr><tr><td>
+          <p><code><a href="averaging_values.html">averaging_values()</a></code> </p>
+        </td>
+        <td><p>3a. Integrated function in Change of Timesteps</p></td>
+      </tr><tr><td>
+          <p><code><a href="build_gerris_table.html">build_gerris_table()</a></code> </p>
+        </td>
+        <td><p></p><ol><li><p>Reshaping to Gerris format</p></li>
+</ol></td>
+      </tr><tr><td>
+          <p><code><a href="change_time_format.html">change_time_format()</a></code> </p>
+        </td>
+        <td><p></p><ol><li><p>Change time to gerris format</p></li>
+</ol></td>
+      </tr><tr><td>
+          <p><code><a href="check_high_concentration.html">check_high_concentration()</a></code> </p>
+        </td>
+        <td><p>Detailed look on concentration over the Gerris limit
+special functions for more information about concentrations above gerris
+concentration limit --&gt; see concentrations and the according flow
+iw_gerris_interace needs to be stopped at "5" to obtain the results table</p></td>
+      </tr><tr><td>
+          <p><code><a href="check_parameter_range.html">check_parameter_range()</a></code> </p>
+        </td>
+        <td><p></p><ol><li><p>Checking if the concentration lies within the gerris range</p></li>
+</ol></td>
+      </tr><tr><td>
+          <p><code><a href="closest_available_outlet.html">closest_available_outlet()</a></code> </p>
+        </td>
+        <td><p>4a. Find closest outlet to the missing one</p></td>
+      </tr><tr><td>
           <p><code><a href="continuousTimeIntervals.html">continuousTimeIntervals()</a></code> </p>
         </td>
         <td><p>Force data into predefined time intervals</p></td>
+      </tr><tr><td>
+          <p><code><a href="correct_flow.html">correct_flow()</a></code> </p>
+        </td>
+        <td><p></p><ol><li><p>Flow correction</p></li>
+</ol></td>
       </tr><tr><td>
           <p><code><a href="count_def_events.html">count_def_events()</a></code> </p>
         </td>
@@ -89,6 +134,16 @@
         </td>
         <td><p>Count hours of deficits</p></td>
       </tr><tr><td>
+          <p><code><a href="data_per_outlet.html">data_per_outlet()</a></code> </p>
+        </td>
+        <td><p></p><ol><li><p>Reshaping from parameter-tables to outlet-tables</p></li>
+</ol></td>
+      </tr><tr><td>
+          <p><code><a href="find_positions.html">find_positions()</a></code> </p>
+        </td>
+        <td><p></p><ol><li><p>small function to help creating a column with gerris outlet ID</p></li>
+</ol></td>
+      </tr><tr><td>
           <p><code><a href="finding_o2Column.html">finding_o2Column()</a></code> </p>
         </td>
         <td><p>finding_o2Column</p></td>
@@ -97,14 +152,46 @@
         </td>
         <td><p>finding_timestampColumns</p></td>
       </tr><tr><td>
+          <p><code><a href="get_concentrations.html">get_concentrations()</a></code> </p>
+        </td>
+        <td><p></p><ol><li><p>calculating concentration from mass flows</p></li>
+</ol></td>
+      </tr><tr><td>
+          <p><code><a href="get_cso_stats.html">get_cso_stats()</a></code> </p>
+        </td>
+        <td><p>Function to get statatistic per outlet</p></td>
+      </tr><tr><td>
+          <p><code><a href="ids_from_colnames.html">ids_from_colnames()</a></code> </p>
+        </td>
+        <td><p>ID from column name</p></td>
+      </tr><tr><td>
+          <p><code><a href="integrate_missing_outlets.html">integrate_missing_outlets()</a></code> </p>
+        </td>
+        <td><p></p><ol><li><p>Merge outlets that are not defined in Gerris with those that are</p></li>
+</ol></td>
+      </tr><tr><td>
           <p><code><a href="interpolate_multipleNA.html">interpolate_multipleNA()</a></code> </p>
         </td>
         <td><p>Linear interpolation for one or more missing values</p></td>
+      </tr><tr><td>
+          <p><code><a href="iw_gerris_interface.html">iw_gerris_interface()</a></code> </p>
+        </td>
+        <td><p>Convert data from infoworks output to gerris input format</p></td>
+      </tr><tr><td>
+          <p><code><a href="kn_correction.html">kn_correction()</a></code> </p>
+        </td>
+        <td><p></p><ol><li><p>correction of Kjeldahl Nitrogen</p></li>
+</ol></td>
       </tr><tr><td>
           <p><code><a href="load_berlin_rivers.html">load_berlin_rivers()</a></code> </p>
         </td>
         <td><p>Reads package Data containing river courses of Berlin and assessed sites
 by the Qsim model</p></td>
+      </tr><tr><td>
+          <p><code><a href="load_infoworks_output.html">load_infoworks_output()</a></code> </p>
+        </td>
+        <td><p></p><ol><li><p>loading infoworks Output</p></li>
+</ol></td>
       </tr><tr><td>
           <p><code><a href="misa_filter_data.html">misa_filter_data()</a></code> </p>
         </td>
@@ -118,6 +205,14 @@ by the Qsim model</p></td>
         </td>
         <td><p>Relative Negative Deviation from a reference</p></td>
       </tr><tr><td>
+          <p><code><a href="outletIDs.html">outletIDs()</a></code> </p>
+        </td>
+        <td><p>Loads the package outlet ID table</p></td>
+      </tr><tr><td>
+          <p><code><a href="paraIDs.html">paraIDs()</a></code> </p>
+        </td>
+        <td><p>Loads the parameter ID table</p></td>
+      </tr><tr><td>
           <p><code><a href="read_misa_files.html">read_misa_files()</a></code> </p>
         </td>
         <td><p>Read MiSa Files</p></td>
@@ -130,9 +225,23 @@ by the Qsim model</p></td>
         </td>
         <td><p>read_misa_oneSite</p></td>
       </tr><tr><td>
+          <p><code><a href="rename_IDs.html">rename_IDs()</a></code> </p>
+        </td>
+        <td><p></p><ol><li><p>Renaming parameter IDs</p></li>
+</ol></td>
+      </tr><tr><td>
           <p><code><a href="same_inarow.html">same_inarow()</a></code> </p>
         </td>
         <td><p>Repeating values in a row within a Vector</p></td>
+      </tr><tr><td>
+          <p><code><a href="save_cso_stats.html">save_cso_stats()</a></code> </p>
+        </td>
+        <td><p>16b. Save interface output (stats)</p></td>
+      </tr><tr><td>
+          <p><code><a href="save_gerris_input.html">save_gerris_input()</a></code> </p>
+        </td>
+        <td><p></p><ol><li><p>Save interface output</p></li>
+</ol></td>
       </tr><tr><td>
           <p><code><a href="yearly_crit_Events.html">yearly_crit_Events()</a></code> </p>
         </td>
@@ -158,7 +267,7 @@ by the Qsim model</p></td>
 </div>
 
 <div class="pkgdown">
-  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.3.</p>
+  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.5.</p>
 </div>
 
       </footer></div>

@@ -69,82 +69,97 @@ of a value can also seperation critirion.</p>
     </div>
 
     <div id="ref-usage">
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="fu">count_def_events</span><span class="op">(</span>
-  <span class="va">data_vector</span>,
-  <span class="va">starting_data_points</span>,
-  <span class="va">threshold</span>,
-  <span class="va">separating_data_points</span>,
-  use_recovery_value <span class="op">=</span> <span class="cn">FALSE</span>,
-  recovery_value <span class="op">=</span> <span class="cn">NULL</span>,
-  return_event_positions <span class="op">=</span> <span class="cn">FALSE</span>
-<span class="op">)</span></code></pre></div>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">count_def_events</span><span class="op">(</span></span>
+<span>  <span class="va">data_vector</span>,</span>
+<span>  <span class="va">starting_data_points</span>,</span>
+<span>  <span class="va">threshold</span>,</span>
+<span>  <span class="va">separating_data_points</span>,</span>
+<span>  use_recovery_value <span class="op">=</span> <span class="cn">FALSE</span>,</span>
+<span>  recovery_value <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  return_event_positions <span class="op">=</span> <span class="cn">FALSE</span></span>
+<span><span class="op">)</span></span></code></pre></div>
     </div>
 
     <div id="arguments">
     <h2>Arguments</h2>
     <dl><dt>data_vector</dt>
 <dd><p>Numeric vector (with data in the same unit as the tjreshold)</p></dd>
+
+
 <dt>starting_data_points</dt>
 <dd><p>Minimal number of data points to define the
 beginning of an deficiency event</p></dd>
+
+
 <dt>threshold</dt>
 <dd><p>Numeric in the same unit as the data vector</p></dd>
+
+
 <dt>separating_data_points</dt>
 <dd><p>Minimal number of data points to seperate two
 events</p></dd>
+
+
 <dt>use_recovery_value</dt>
 <dd><p>If TRUE a recovery, two events are only separated
 if a revocvery value is exceeded between two deficits</p></dd>
+
+
 <dt>recovery_value</dt>
 <dd><p>Numeric in the same unit as the data vector. Only used
 if use_recovery_value = TRUE.</p></dd>
+
+
 <dt>return_event_positions</dt>
 <dd><p>Instead the number of events, the events
 starting and endpositions are returned, correspoding to the data vector</p></dd>
+
 </dl></div>
     <div id="value">
     <h2>Value</h2>
-    <p>Either a number of events or a data frame with event start and end
+    
+
+<p>Either a number of events or a data frame with event start and end
 position</p>
     </div>
 
     <div id="ref-examples">
     <h2>Examples</h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span class="va">data_vector</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/Trig.html" class="external-link">sin</a></span><span class="op">(</span>x <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/seq.html" class="external-link">seq</a></span><span class="op">(</span><span class="fl">0</span>,<span class="fl">50</span>,<span class="fl">0.5</span><span class="op">)</span><span class="op">)</span> <span class="op">*</span> <span class="fl">1</span><span class="op">:</span><span class="fl">101</span><span class="op">/</span><span class="fl">20</span></span>
-<span class="r-in"></span>
-<span class="r-in"><span class="va">a</span> <span class="op">&lt;-</span> <span class="fu">count_def_events</span><span class="op">(</span></span>
-<span class="r-in">data_vector <span class="op">=</span> <span class="va">data_vector</span>,</span>
-<span class="r-in">starting_data_points <span class="op">=</span> <span class="fl">2</span>,</span>
-<span class="r-in">threshold <span class="op">=</span> <span class="fl">0</span>,</span>
-<span class="r-in">separating_data_points <span class="op">=</span> <span class="fl">4</span>,</span>
-<span class="r-in">use_recovery_value <span class="op">=</span> <span class="cn">FALSE</span>,</span>
-<span class="r-in">recovery_value <span class="op">=</span> <span class="fl">7</span>,</span>
-<span class="r-in">return_event_positions <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span>
-<span class="r-in"></span>
-<span class="r-in"><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">data_vector</span>, pch <span class="op">=</span> <span class="fl">20</span>, type <span class="op">=</span> <span class="st">"b"</span><span class="op">)</span></span>
-<span class="r-in"><span class="fu"><a href="https://rdrr.io/r/graphics/rect.html" class="external-link">rect</a></span><span class="op">(</span>xleft <span class="op">=</span> <span class="va">a</span><span class="op">$</span><span class="va">tBeg</span>, xright <span class="op">=</span> <span class="va">a</span><span class="op">$</span><span class="va">tEnd</span>, ybottom <span class="op">=</span> <span class="op">-</span><span class="fl">10</span>, ytop <span class="op">=</span> <span class="fl">10</span>,</span>
-<span class="r-in"> col <span class="op">=</span> <span class="st">"red"</span>, density <span class="op">=</span> <span class="fl">4</span><span class="op">)</span></span>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="va">data_vector</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/Trig.html" class="external-link">sin</a></span><span class="op">(</span>x <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/seq.html" class="external-link">seq</a></span><span class="op">(</span><span class="fl">0</span>,<span class="fl">50</span>,<span class="fl">0.5</span><span class="op">)</span><span class="op">)</span> <span class="op">*</span> <span class="fl">1</span><span class="op">:</span><span class="fl">101</span><span class="op">/</span><span class="fl">20</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="va">a</span> <span class="op">&lt;-</span> <span class="fu">count_def_events</span><span class="op">(</span></span></span>
+<span class="r-in"><span>data_vector <span class="op">=</span> <span class="va">data_vector</span>,</span></span>
+<span class="r-in"><span>starting_data_points <span class="op">=</span> <span class="fl">2</span>,</span></span>
+<span class="r-in"><span>threshold <span class="op">=</span> <span class="fl">0</span>,</span></span>
+<span class="r-in"><span>separating_data_points <span class="op">=</span> <span class="fl">4</span>,</span></span>
+<span class="r-in"><span>use_recovery_value <span class="op">=</span> <span class="cn">FALSE</span>,</span></span>
+<span class="r-in"><span>recovery_value <span class="op">=</span> <span class="fl">7</span>,</span></span>
+<span class="r-in"><span>return_event_positions <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">data_vector</span>, pch <span class="op">=</span> <span class="fl">20</span>, type <span class="op">=</span> <span class="st">"b"</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/graphics/rect.html" class="external-link">rect</a></span><span class="op">(</span>xleft <span class="op">=</span> <span class="va">a</span><span class="op">$</span><span class="va">tBeg</span>, xright <span class="op">=</span> <span class="va">a</span><span class="op">$</span><span class="va">tEnd</span>, ybottom <span class="op">=</span> <span class="op">-</span><span class="fl">10</span>, ytop <span class="op">=</span> <span class="fl">10</span>,</span></span>
+<span class="r-in"><span> col <span class="op">=</span> <span class="st">"red"</span>, density <span class="op">=</span> <span class="fl">4</span><span class="op">)</span></span></span>
 <span class="r-plt img"><img src="count_def_events-1.png" alt="" width="700" height="433"></span>
-<span class="r-in"></span>
-<span class="r-in"><span class="va">recovery_value</span> <span class="op">&lt;-</span> <span class="fl">3</span></span>
-<span class="r-in"><span class="va">a</span> <span class="op">&lt;-</span> <span class="fu">count_def_events</span><span class="op">(</span></span>
-<span class="r-in">data_vector <span class="op">=</span> <span class="va">data_vector</span>,</span>
-<span class="r-in">starting_data_points <span class="op">=</span> <span class="fl">2</span>,</span>
-<span class="r-in">threshold <span class="op">=</span> <span class="fl">0</span>,</span>
-<span class="r-in">separating_data_points <span class="op">=</span> <span class="fl">4</span>,</span>
-<span class="r-in">use_recovery_value <span class="op">=</span> <span class="cn">TRUE</span>,</span>
-<span class="r-in">recovery_value <span class="op">=</span> <span class="va">recovery_value</span>,</span>
-<span class="r-in">return_event_positions <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span>
-<span class="r-in"></span>
-<span class="r-in"><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">data_vector</span>, pch <span class="op">=</span> <span class="fl">20</span>, type <span class="op">=</span> <span class="st">"b"</span><span class="op">)</span></span>
-<span class="r-in"><span class="fu"><a href="https://rdrr.io/r/graphics/rect.html" class="external-link">rect</a></span><span class="op">(</span>xleft <span class="op">=</span> <span class="va">a</span><span class="op">$</span><span class="va">tBeg</span><span class="op">[</span><span class="va">a</span><span class="op">$</span><span class="va">start</span><span class="op">]</span>,</span>
-<span class="r-in"> xright <span class="op">=</span> <span class="va">a</span><span class="op">$</span><span class="va">tEnd</span><span class="op">[</span><span class="va">a</span><span class="op">$</span><span class="va">end</span><span class="op">]</span>,</span>
-<span class="r-in"> ybottom <span class="op">=</span> <span class="op">-</span><span class="fl">10</span>, ytop <span class="op">=</span> <span class="fl">10</span>,</span>
-<span class="r-in"> col <span class="op">=</span> <span class="st">"red"</span>, density <span class="op">=</span> <span class="fl">4</span><span class="op">)</span></span>
-<span class="r-in"> <span class="fu"><a href="https://rdrr.io/r/graphics/abline.html" class="external-link">abline</a></span><span class="op">(</span>h <span class="op">=</span> <span class="va">recovery_value</span>, col <span class="op">=</span> <span class="st">"blue"</span><span class="op">)</span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="va">recovery_value</span> <span class="op">&lt;-</span> <span class="fl">3</span></span></span>
+<span class="r-in"><span><span class="va">a</span> <span class="op">&lt;-</span> <span class="fu">count_def_events</span><span class="op">(</span></span></span>
+<span class="r-in"><span>data_vector <span class="op">=</span> <span class="va">data_vector</span>,</span></span>
+<span class="r-in"><span>starting_data_points <span class="op">=</span> <span class="fl">2</span>,</span></span>
+<span class="r-in"><span>threshold <span class="op">=</span> <span class="fl">0</span>,</span></span>
+<span class="r-in"><span>separating_data_points <span class="op">=</span> <span class="fl">4</span>,</span></span>
+<span class="r-in"><span>use_recovery_value <span class="op">=</span> <span class="cn">TRUE</span>,</span></span>
+<span class="r-in"><span>recovery_value <span class="op">=</span> <span class="va">recovery_value</span>,</span></span>
+<span class="r-in"><span>return_event_positions <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">data_vector</span>, pch <span class="op">=</span> <span class="fl">20</span>, type <span class="op">=</span> <span class="st">"b"</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/graphics/rect.html" class="external-link">rect</a></span><span class="op">(</span>xleft <span class="op">=</span> <span class="va">a</span><span class="op">$</span><span class="va">tBeg</span><span class="op">[</span><span class="va">a</span><span class="op">$</span><span class="va">start</span><span class="op">]</span>,</span></span>
+<span class="r-in"><span> xright <span class="op">=</span> <span class="va">a</span><span class="op">$</span><span class="va">tEnd</span><span class="op">[</span><span class="va">a</span><span class="op">$</span><span class="va">end</span><span class="op">]</span>,</span></span>
+<span class="r-in"><span> ybottom <span class="op">=</span> <span class="op">-</span><span class="fl">10</span>, ytop <span class="op">=</span> <span class="fl">10</span>,</span></span>
+<span class="r-in"><span> col <span class="op">=</span> <span class="st">"red"</span>, density <span class="op">=</span> <span class="fl">4</span><span class="op">)</span></span></span>
+<span class="r-in"><span> <span class="fu"><a href="https://rdrr.io/r/graphics/abline.html" class="external-link">abline</a></span><span class="op">(</span>h <span class="op">=</span> <span class="va">recovery_value</span>, col <span class="op">=</span> <span class="st">"blue"</span><span class="op">)</span></span></span>
 <span class="r-plt img"><img src="count_def_events-2.png" alt="" width="700" height="433"></span>
-<span class="r-in"></span>
-<span class="r-in"></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span></span></span>
 </code></pre></div>
     </div>
   </div>
@@ -159,7 +174,7 @@ position</p>
 </div>
 
 <div class="pkgdown">
-  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.3.</p>
+  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.5.</p>
 </div>
 
       </footer></div>

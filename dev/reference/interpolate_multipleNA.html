@@ -65,22 +65,29 @@ number of NA's are interpolated</p>
     </div>
 
     <div id="ref-usage">
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="fu">interpolate_multipleNA</span><span class="op">(</span><span class="va">data_vector</span>, <span class="va">max_na</span>, diff_x <span class="op">=</span> <span class="cn">NULL</span><span class="op">)</span></code></pre></div>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">interpolate_multipleNA</span><span class="op">(</span><span class="va">data_vector</span>, <span class="va">max_na</span>, diff_x <span class="op">=</span> <span class="cn">NULL</span><span class="op">)</span></span></code></pre></div>
     </div>
 
     <div id="arguments">
     <h2>Arguments</h2>
     <dl><dt>data_vector</dt>
 <dd><p>Numeric vector of measurements (including NA values)</p></dd>
+
+
 <dt>max_na</dt>
 <dd><p>the maximal number of NA values in a row to be interpolated</p></dd>
+
+
 <dt>diff_x</dt>
 <dd><p>(optional) Numeric vector with x value difference correspoding
 to the data_vector. Only needed if the difference is not constant.</p></dd>
+
 </dl></div>
     <div id="value">
     <h2>Value</h2>
-    <p>A list containing the data vector with interpolated NA value as well as an
+    
+
+<p>A list containing the data vector with interpolated NA value as well as an
 information about the amount of NA's interpolated</p>
     </div>
 
@@ -96,7 +103,7 @@ information about the amount of NA's interpolated</p>
 </div>
 
 <div class="pkgdown">
-  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.3.</p>
+  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.5.</p>
 </div>
 
       </footer></div>

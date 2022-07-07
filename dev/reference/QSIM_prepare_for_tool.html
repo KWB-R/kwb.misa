@@ -67,31 +67,42 @@ time column and several oxygen columns (one per site)</p>
     </div>
 
     <div id="ref-usage">
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="fu">QSIM_prepare_for_tool</span><span class="op">(</span>
-  <span class="va">qsim_output_path</span>,
-  <span class="va">qsim_fileName</span>,
-  <span class="va">misa_tool_input_path</span>,
-  <span class="va">output_fileName</span>,
-  return_table <span class="op">=</span> <span class="cn">FALSE</span>
-<span class="op">)</span></code></pre></div>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">QSIM_prepare_for_tool</span><span class="op">(</span></span>
+<span>  <span class="va">qsim_output_path</span>,</span>
+<span>  <span class="va">qsim_fileName</span>,</span>
+<span>  <span class="va">misa_tool_input_path</span>,</span>
+<span>  <span class="va">output_fileName</span>,</span>
+<span>  return_table <span class="op">=</span> <span class="cn">FALSE</span></span>
+<span><span class="op">)</span></span></code></pre></div>
     </div>
 
     <div id="arguments">
     <h2>Arguments</h2>
     <dl><dt>qsim_output_path</dt>
 <dd><p>path where the output file from Gsim is stored</p></dd>
+
+
 <dt>qsim_fileName</dt>
 <dd><p>Filename of the Qsim output file (inclusive .csv)</p></dd>
+
+
 <dt>misa_tool_input_path</dt>
 <dd><p>input Folder for Misa Tool (see details)</p></dd>
+
+
 <dt>output_fileName</dt>
 <dd><p>Filename of the created table (inclusive .csv)</p></dd>
+
+
 <dt>return_table</dt>
 <dd><p>if TRUE, the saved table is returned</p></dd>
+
 </dl></div>
     <div id="value">
     <h2>Value</h2>
-    <p>The saved table contains a timestamp column in Central European Time and
+    
+
+<p>The saved table contains a timestamp column in Central European Time and
 several oxygen columns in mg/L</p>
     </div>
     <div id="details">
@@ -114,7 +125,7 @@ Saves table as CSV File ";"-separated if parameter return_table is set to TRUE</
 </div>
 
 <div class="pkgdown">
-  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.3.</p>
+  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.5.</p>
 </div>
 
       </footer></div>

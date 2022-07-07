@@ -65,23 +65,30 @@ summmer months</p>
     </div>
 
     <div id="ref-usage">
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="fu">misa_prepare_data</span><span class="op">(</span><span class="va">df_MiSa</span>, res <span class="op">=</span> <span class="fl">15</span>, max_na_interpolation <span class="op">=</span> <span class="fl">60</span><span class="op">/</span><span class="va">res</span><span class="op">)</span></code></pre></div>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">misa_prepare_data</span><span class="op">(</span><span class="va">df_MiSa</span>, res <span class="op">=</span> <span class="fl">15</span>, max_na_interpolation <span class="op">=</span> <span class="fl">60</span><span class="op">/</span><span class="va">res</span><span class="op">)</span></span></code></pre></div>
     </div>
 
     <div id="arguments">
     <h2>Arguments</h2>
     <dl><dt>df_MiSa</dt>
 <dd><p>Data frame loaded with one of the MiSa Load functions</p></dd>
+
+
 <dt>res</dt>
 <dd><p>Temporal resolution in minutes</p></dd>
+
+
 <dt>max_na_interpolation</dt>
 <dd><p>Maximal numbers of NA values in a row to be
 interpolated. The default is one hour without measurements. Number of NA
 depneds on the temporal resolution (60 / res)</p></dd>
+
 </dl></div>
     <div id="value">
     <h2>Value</h2>
-    <p>List with data frames per site, that is ready for MiSa Assessmen. Additional
+    
+
+<p>List with data frames per site, that is ready for MiSa Assessmen. Additional
 information is printed about the number of interpolated NA values. If there
 are many NA values that are not interpolated it is probably due to the fact
 of no measurements during winter.</p>
@@ -99,7 +106,7 @@ of no measurements during winter.</p>
 </div>
 
 <div class="pkgdown">
-  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.3.</p>
+  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.5.</p>
 </div>
 
       </footer></div>

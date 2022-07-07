@@ -28,13 +28,40 @@
     <loc>/reference/SummerMonths.html</loc>
   </url>
   <url>
+    <loc>/reference/adapt_timestep.html</loc>
+  </url>
+  <url>
+    <loc>/reference/add_constant_values.html</loc>
+  </url>
+  <url>
     <loc>/reference/adjust_time.html</loc>
   </url>
   <url>
     <loc>/reference/aggregate_measurements.html</loc>
   </url>
   <url>
+    <loc>/reference/averaging_values.html</loc>
+  </url>
+  <url>
+    <loc>/reference/build_gerris_table.html</loc>
+  </url>
+  <url>
+    <loc>/reference/change_time_format.html</loc>
+  </url>
+  <url>
+    <loc>/reference/check_high_concentration.html</loc>
+  </url>
+  <url>
+    <loc>/reference/check_parameter_range.html</loc>
+  </url>
+  <url>
+    <loc>/reference/closest_available_outlet.html</loc>
+  </url>
+  <url>
     <loc>/reference/continuousTimeIntervals.html</loc>
+  </url>
+  <url>
+    <loc>/reference/correct_flow.html</loc>
   </url>
   <url>
     <loc>/reference/count_def_events.html</loc>
@@ -43,19 +70,46 @@
     <loc>/reference/count_def_hours.html</loc>
   </url>
   <url>
+    <loc>/reference/data_per_outlet.html</loc>
+  </url>
+  <url>
+    <loc>/reference/find_positions.html</loc>
+  </url>
+  <url>
     <loc>/reference/finding_o2Column.html</loc>
   </url>
   <url>
     <loc>/reference/finding_timestampColumns.html</loc>
   </url>
   <url>
+    <loc>/reference/get_concentrations.html</loc>
+  </url>
+  <url>
+    <loc>/reference/get_cso_stats.html</loc>
+  </url>
+  <url>
+    <loc>/reference/ids_from_colnames.html</loc>
+  </url>
+  <url>
     <loc>/reference/index.html</loc>
+  </url>
+  <url>
+    <loc>/reference/integrate_missing_outlets.html</loc>
   </url>
   <url>
     <loc>/reference/interpolate_multipleNA.html</loc>
   </url>
   <url>
+    <loc>/reference/iw_gerris_interface.html</loc>
+  </url>
+  <url>
+    <loc>/reference/kn_correction.html</loc>
+  </url>
+  <url>
     <loc>/reference/load_berlin_rivers.html</loc>
+  </url>
+  <url>
+    <loc>/reference/load_infoworks_output.html</loc>
   </url>
   <url>
     <loc>/reference/misa_filter_data.html</loc>
@@ -65,6 +119,12 @@
   </url>
   <url>
     <loc>/reference/negative_deviation.html</loc>
+  </url>
+  <url>
+    <loc>/reference/outletIDs.html</loc>
+  </url>
+  <url>
+    <loc>/reference/paraIDs.html</loc>
   </url>
   <url>
     <loc>/reference/pipe.html</loc>
@@ -79,7 +139,16 @@
     <loc>/reference/read_misa_oneSite.html</loc>
   </url>
   <url>
+    <loc>/reference/rename_IDs.html</loc>
+  </url>
+  <url>
     <loc>/reference/same_inarow.html</loc>
+  </url>
+  <url>
+    <loc>/reference/save_cso_stats.html</loc>
+  </url>
+  <url>
+    <loc>/reference/save_gerris_input.html</loc>
   </url>
   <url>
     <loc>/reference/yearly_crit_Events.html</loc>

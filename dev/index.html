@@ -87,19 +87,19 @@
 </h2>
 <p>For details on how to install KWB-R packages checkout our <a href="https://kwb-r.github.io/kwb.pkgbuild/articles/install.html" class="external-link">installation tutorial</a>.</p>
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="co">### Optionally: specify GitHub Personal Access Token (GITHUB_PAT)</span>
-<span class="co">### See here why this might be important for you:</span>
-<span class="co">### https://kwb-r.github.io/kwb.pkgbuild/articles/install.html#set-your-github_pat</span>
-
-<span class="co"># Sys.setenv(GITHUB_PAT = "mysecret_access_token")</span>
-
-<span class="co"># Install package "remotes" from CRAN</span>
-<span class="kw">if</span> <span class="op">(</span><span class="op">!</span> <span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">require</a></span><span class="op">(</span><span class="st"><a href="https://remotes.r-lib.org" class="external-link">"remotes"</a></span><span class="op">)</span><span class="op">)</span> <span class="op">{</span>
-  <span class="fu"><a href="https://rdrr.io/r/utils/install.packages.html" class="external-link">install.packages</a></span><span class="op">(</span><span class="st">"remotes"</span>, repos <span class="op">=</span> <span class="st">"https://cloud.r-project.org"</span><span class="op">)</span>
-<span class="op">}</span>
-
-<span class="co"># Install KWB package 'kwb.misa' from GitHub</span>
-<span class="fu">remotes</span><span class="fu">::</span><span class="fu"><a href="https://remotes.r-lib.org/reference/install_github.html" class="external-link">install_github</a></span><span class="op">(</span><span class="st">"KWB-R/kwb.misa"</span><span class="op">)</span></code></pre></div>
+<code class="sourceCode R"><span><span class="co">### Optionally: specify GitHub Personal Access Token (GITHUB_PAT)</span></span>
+<span><span class="co">### See here why this might be important for you:</span></span>
+<span><span class="co">### https://kwb-r.github.io/kwb.pkgbuild/articles/install.html#set-your-github_pat</span></span>
+<span></span>
+<span><span class="co"># Sys.setenv(GITHUB_PAT = "mysecret_access_token")</span></span>
+<span></span>
+<span><span class="co"># Install package "remotes" from CRAN</span></span>
+<span><span class="kw">if</span> <span class="op">(</span><span class="op">!</span> <span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">require</a></span><span class="op">(</span><span class="st"><a href="https://remotes.r-lib.org" class="external-link">"remotes"</a></span><span class="op">)</span><span class="op">)</span> <span class="op">{</span></span>
+<span>  <span class="fu"><a href="https://rdrr.io/r/utils/install.packages.html" class="external-link">install.packages</a></span><span class="op">(</span><span class="st">"remotes"</span>, repos <span class="op">=</span> <span class="st">"https://cloud.r-project.org"</span><span class="op">)</span></span>
+<span><span class="op">}</span></span>
+<span></span>
+<span><span class="co"># Install KWB package 'kwb.misa' from GitHub</span></span>
+<span><span class="fu">remotes</span><span class="fu">::</span><span class="fu"><a href="https://remotes.r-lib.org/reference/install_github.html" class="external-link">install_github</a></span><span class="op">(</span><span class="st">"KWB-R/kwb.misa"</span><span class="op">)</span></span></code></pre></div>
 </div>
 
   </div>
@@ -160,7 +160,7 @@
 
 <div class="pkgdown">
   <p></p>
-<p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.3.</p>
+<p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.5.</p>
 </div>
 
       </footer>

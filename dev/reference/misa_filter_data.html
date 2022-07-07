@@ -63,29 +63,38 @@
     </div>
 
     <div id="ref-usage">
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="fu">misa_filter_data</span><span class="op">(</span>
-  <span class="va">dataFrame</span>,
-  sites <span class="op">=</span> <span class="st">""</span>,
-  tBeg <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/Extremes.html" class="external-link">min</a></span><span class="op">(</span><span class="va">dataFrame</span><span class="op">$</span><span class="va">posixDateTime</span>, na.rm <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span>,
-  tEnd <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/Extremes.html" class="external-link">max</a></span><span class="op">(</span><span class="va">dataFrame</span><span class="op">$</span><span class="va">posixDateTime</span>, na.rm <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span>
-<span class="op">)</span></code></pre></div>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">misa_filter_data</span><span class="op">(</span></span>
+<span>  <span class="va">dataFrame</span>,</span>
+<span>  sites <span class="op">=</span> <span class="st">""</span>,</span>
+<span>  tBeg <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/Extremes.html" class="external-link">min</a></span><span class="op">(</span><span class="va">dataFrame</span><span class="op">$</span><span class="va">posixDateTime</span>, na.rm <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span>,</span>
+<span>  tEnd <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/Extremes.html" class="external-link">max</a></span><span class="op">(</span><span class="va">dataFrame</span><span class="op">$</span><span class="va">posixDateTime</span>, na.rm <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span>
+<span><span class="op">)</span></span></code></pre></div>
     </div>
 
     <div id="arguments">
     <h2>Arguments</h2>
     <dl><dt>dataFrame</dt>
 <dd><p>Data frame loaded by a MiSa function (see details)</p></dd>
+
+
 <dt>sites</dt>
 <dd><p>Names of considered sites, written in the site column of a MiSa
 Dataframe</p></dd>
+
+
 <dt>tBeg</dt>
 <dd><p>POSIX-Value with a start time of the observeration interval</p></dd>
+
+
 <dt>tEnd</dt>
 <dd><p>POSIX-Value with an end time of the observeration interval</p></dd>
+
 </dl></div>
     <div id="value">
     <h2>Value</h2>
-    <p>A filtered data frame with the same columns as the input data frame</p>
+    
+
+<p>A filtered data frame with the same columns as the input data frame</p>
     </div>
     <div id="details">
     <h2>Details</h2>
@@ -108,7 +117,7 @@ functions: <code><a href="read_misa_oneSite.html">read_misa_oneSite()</a></code>
 </div>
 
 <div class="pkgdown">
-  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.3.</p>
+  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.5.</p>
 </div>
 
       </footer></div>
