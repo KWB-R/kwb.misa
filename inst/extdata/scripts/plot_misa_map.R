@@ -73,7 +73,7 @@ plotDimensions <- function(xlim, ylim, width = 10){
 }
 
 plot_catchments <- function(catchmentList, col = "gray90"){
-  for(i in 1:length(catchmentList)){
+  for(i in seq_along(catchmentList)){
     polygon(x = catchmentList[[i]][,1],
             y = catchmentList[[i]][,2], col = col)
     text(x = mean(catchmentList[[i]][,1]),
@@ -85,7 +85,7 @@ plot_catchments <- function(catchmentList, col = "gray90"){
 prepare_riverPlot <- function(river_table, qsim_misa_table, varName, sixBreaks){
   river_table$value <- NA
 
-  for(i in 1:nrow(qsim_misa_table)){
+  for(i in seq_len(nrow(qsim_misa_table))){
     found <- c(which(qsim_misa_table$qsim_site == river_table$qsim_id[i]),
                which(rownames(qsim_misa_table) == river_table$qsim_id[i]))
     if(length(found) > 0L){
@@ -111,9 +111,9 @@ prepare_riverPlot <- function(river_table, qsim_misa_table, varName, sixBreaks){
 
 plot_river_col <- function(
   prepared_rivers, sixBreaks, dataType = "time", LegendTitle){
-  for(j in 1:length(prepared_rivers)){
+  for(j in seq_along(prepared_rivers)){
     lines(x = prepared_rivers[[j]]$x, y = prepared_rivers[[j]]$y)
-    for(i in 1:(nrow(prepared_rivers[[j]]) - 1)){
+    for(i in seq_len(nrow(prepared_rivers[[j]]) - 1)){
       lines(x = prepared_rivers[[j]]$x[i:(i+1)],
             y = prepared_rivers[[j]]$y[i:(i+1)],
             col = prepared_rivers[[j]]$color[i+1],
@@ -121,20 +121,21 @@ plot_river_col <- function(
     }
   }
   ll <- length(sixBreaks)
+  indices <- seq_len(ll)
 
   if(dataType == "time"){
     legend("bottomleft",
            legend = c(
              paste0("< ", sixBreaks[2]),
              paste0("> ", sixBreaks[2:(ll-1)])),
-           col = MisaColor[1:ll], lwd = 6,
+           col = MisaColor[indices], lwd = 6,
            title = LegendTitle, cex = 0.8, bg = "white")
   } else {
     legend("bottomleft",
            legend = c(
              paste0("<= ", sixBreaks[2:(ll-1)]),
              paste0(">", sixBreaks[(ll-1)])),
-           col = MisaColor[1:ll], lwd = 6,
+           col = MisaColor[indices], lwd = 6,
            title = LegendTitle, cex = 0.8, bg = "white")
   }
 }
