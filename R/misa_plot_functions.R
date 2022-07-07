@@ -1,5 +1,5 @@
-#' Reads package Data containing river courses of Berlin and assessed sites
-#' by the Qsim model
+#' Reads package Data containing river courses of Berlin and river sites
+#' simulated by the Qsim model
 #'
 #' @details
 #' Geo-Data come from
@@ -25,7 +25,6 @@
 #'
 #' @export
 #'
-
 load_berlin_rivers <- function(){
   river_files <- dir(file.path(system.file(package = "kwb.misa"),
                                "extdata/berlin_rivers"), full.names = T)
@@ -34,8 +33,6 @@ load_berlin_rivers <- function(){
                                "extdata/berlin_rivers"), full.names = F)
   river_names <- substr( x =  river_names,
                          start = 7, stop = nchar(river_names) - 4)
-
-
 
   rivers <- lapply(river_files, function(file){
     river <- read.table(file = file, header = T, sep = ";", dec = ".")

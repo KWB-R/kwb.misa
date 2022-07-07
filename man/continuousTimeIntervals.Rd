@@ -15,12 +15,13 @@ continuousTimeIntervals(
 \arguments{
 \item{time_vector}{A POSIXct vector}
 
-\item{data_vector}{A numeric vector, with data corresponding to the time_vector}
+\item{data_vector}{A numeric vector, with data corresponding to the
+time_vector}
 
 \item{res}{Temporal resolution in minutes}
 
-\item{first_pointOfTime}{Starting point (POSIXct) of the newly defined time series.
-By default the minimum of the time_vector}
+\item{first_pointOfTime}{Starting point (POSIXct) of the newly defined time
+series. By default the minimum of the time_vector}
 
 \item{last_pointOfTime}{End point (POSIXct) of the newly defined time series.
 By default the maximum of the time_vector}

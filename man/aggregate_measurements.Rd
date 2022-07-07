@@ -9,7 +9,8 @@ aggregate_measurements(time_vector, data_vector, time_interval = 60 * 15)
 \arguments{
 \item{time_vector}{A POSIXct vector}
 
-\item{data_vector}{A numeric vector, with data corresponding to the time_vector}
+\item{data_vector}{A numeric vector, with data corresponding to the
+time_vector}
 
 \item{time_interval}{Temporal resolution in seconds}
 }
