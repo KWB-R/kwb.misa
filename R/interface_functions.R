@@ -98,11 +98,12 @@ load_infoworks_output <- function(
 
   # load infoworks output data
   iw_out <- list()
+  missing_for_any <- c()
   for(output_para in output_paras){
 
     this_file <- grep(pattern = output_para, x = output_files, value = T)
     if(length(this_file) == 0){
-      warning("no data-file for parameter: ", output_para)
+      cat("- Warning: No data-file for parameter:", output_para, "\n")
 
     } else {
       iw_out[[output_para]] <-
@@ -116,21 +117,23 @@ load_infoworks_output <- function(
       keep_those <- which(ids %in% outlet_conversion$upstream_link_id)
       iw_out[[output_para]] <- iw_out[[output_para]][c(1,2,keep_those)]
 
-      if(length(missing_outlets) > 0L){
-        warning(
-          "the following links are listed in the conversion table but not found
-          in Infowokrs output for parameter ", output_para, ": ",
-          missing_outlets,
-          ". Outlets have been integrated with 0 flow for Gerris ",
-          "readability purposes.")
-
-        for(i in seq_along(missing_outlets)){
-          iw_out[[output_para]][paste0("X", missing_outlets[i])] <- 0
-        }
+      for(i in seq_along(missing_outlets)){
+        iw_out[[output_para]][paste0("X", missing_outlets[i])] <- 0
       }
+
+      missing_for_any <- c(missing_for_any, missing_outlets)
       message(output_para, " loaded")
     }
   }
+
+  if(length(missing_for_any) > 0L){
+  cat("- Warning: the following links are listed in the conversion table\n",
+      "  but not found in the input data of at least one parameter:\n",
+      "  ", unique(missing_for_any), "\n",
+      "  Outlets have been integrated with 0 flow for Gerris ",
+      "readability purposes.\n", sep = "")
+  }
+
   iw_out
 }
 
@@ -256,19 +259,20 @@ integrate_missing_outlets <- function(
       df[,real_names == x["to"]] <- rowSums(df[,real_names %in% x])
       df[-which(real_names == x["from"])]
     })
-    message(x["from"], " (",
-            outlet_conversion$surface_water[
-              outlet_conversion$upstream_link_id == x["from"]],
-            " at km ",
-            outlet_conversion$water_body_km[
-              outlet_conversion$upstream_link_id == x["from"]],
-            ") is now part of ", x["to"], " (",
-            outlet_conversion$surface_water[
-              outlet_conversion$upstream_link_id == x["to"]],
-            " at km ",
-            outlet_conversion$water_body_km[
-              outlet_conversion$upstream_link_id == x["to"]],
-            ")")
+    cat(x["from"], " (",
+        outlet_conversion$surface_water[
+          outlet_conversion$upstream_link_id == x["from"]],
+        " at km ",
+        outlet_conversion$water_body_km[
+          outlet_conversion$upstream_link_id == x["from"]],
+        ") is now part of ",
+        x["to"], " (",
+        outlet_conversion$surface_water[
+          outlet_conversion$upstream_link_id == x["to"]],
+        " at km ",
+        outlet_conversion$water_body_km[
+          outlet_conversion$upstream_link_id == x["to"]],
+        ")\n", sep = "")
   }
   data_input
 }
@@ -481,7 +485,7 @@ find_positions <- function(v_original, v_new){
 #' @param data_input Input
 #'
 #' @importFrom tidyr gather
-#' @importFrim rlang
+#'
 build_gerris_table <- function(
     data_input
 ){
@@ -600,3 +604,25 @@ get_cso_stats <- function(
   cbind(df_out[outlet_conversion[gerris_outs, "gerris_id"], ],
         outlet_conversion[gerris_outs, ])
 }
+
+#' Text written before data process step
+#'
+#' @param x Character describing the process step
+#'
+preText <- function(x){
+  text(x = 0, y = 9.5, labels = paste0(x, " ..."), pos = 4)
+}
+
+#' Text written and status bar drawn after data process step
+#'
+#' @param x Character describing the process step
+#' @param step Number of process step
+#'
+postText <- function(x, step){
+  rect(xleft = 0, xright = 16, ybottom = 9, ytop = 10,
+       col = "white", border = NA)
+  rect(xleft = step - 1, xright = step, ybottom = 4.5, ytop = 5.5,
+       col = "steelblue")
+  text(x = step - 1, y = 5.7, labels = paste0(step,". ", x), srt = 45, pos = 4)
+}
+

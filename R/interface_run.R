@@ -5,7 +5,7 @@
 #' @param interface_output_folder Folder where the gerris input files are saved
 #' @param simulation_name Either the whole name of the simulation or a unique
 #' part regarding all simulations in the defined folder
-#' @param stop_after if a number is given, the function returns the data after
+#' @param return_after if a number is given, the function returns the data after
 #' thata data processing step. For more information see details
 #' @param return_output_table If TRUE the output table is returned, otherwise it
 #' is only saved in the speficied table
@@ -57,7 +57,7 @@
 #' @import graphics
 iw_gerris_interface <- function(
     interface_input_folder, interface_output_folder,simulation_name,
-    stop_after = "", return_output_table = FALSE,
+    return_after = "", return_output_table = FALSE,
     infoworks_time_format = "%d/%m/%Y %H:%M:%S",
     gerris_time_format = "%d.%m.%Y %H:%M",
     timestep_out = 15, # minutes
@@ -65,27 +65,34 @@ iw_gerris_interface <- function(
     flow_threshold = 0.003,
     flow_only = FALSE
 ){
-
   parameter_conversion <- paraIDs()
   outlet_conversion <- outletIDs()
-
   flowID_infoworks <- parameter_conversion$id_infoworks[
     parameter_conversion$parameter == "Durchfluss"]
 
   time_suffix <- format(Sys.time(), "_%Y%m%d_%H-%M")
-  message("Transformation of the Infoworks Output: ", simulation_name)
-  message(skip_hours / 24, " days skipped in the Beginning")
-  message("1. data loaded from: ", interface_input_folder, " -- ", Sys.time())
 
-  par(mar = c(0,0,0,0), cex = 0.8)
-  plot(x = 0, y = 0, type = "n", axes = F, xlab = "", ylab = "",
-       xlim = c(0,19), ylim = c(4,10))
-  rect(xleft = 0, xright = 16, ybottom = 4.5, ytop = 5.5,
-       col = "white", lty = "dashed")
+  con <- file(file.path(
+    interface_output_folder,
+    paste0(simulation_name , time_suffix,".log")))
+  sink(con, append = TRUE)
+
+  cat("Transformation of the Infoworks Output: ", simulation_name, "\n",
+      "days skipped in the Beginning: ", skip_hours / 24, "\n",
+      "1. data loaded from: ", interface_input_folder, " --- ",
+      as.character(Sys.time()), "\n", sep = "")
+
+  {
+    # dev.new(noRStudioGD = TRUE, width = 7, height = 5)
+    par(mar = c(0,0,0,0), cex = 0.8)
+    plot(x = 0, y = 0, type = "n", axes = F, xlab = "", ylab = "",
+         xlim = c(0,19), ylim = c(4,10))
+    rect(xleft = 0, xright = 16, ybottom = 4.5, ytop = 5.5,
+         col = "white", lty = "dashed")
+  }
 
   # 1. load data
-  text(x = 0, y = 9.5, labels = "loading data ...", pos = 4)
-
+  preText("loading data")
   iw_out <- load_infoworks_output(
     iw_output_folder = interface_input_folder,
     simulation_name = simulation_name,
@@ -93,204 +100,119 @@ iw_gerris_interface <- function(
     parameter_conversion = parameter_conversion,
     outlet_conversion = outlet_conversion
   )
-
-  rect(xleft = 0, xright = 16, ybottom = 9, ytop = 10,
-       col = "white", border = NA)
-  rect(xleft = 0, xright = 1, ybottom = 4.5, ytop = 5.5,
-       col = "steelblue")
-  text(x = 0, y = 5.7, labels = "1. data loaded", srt = 45, pos = 4)
-
-  if(stop_after == 1){
-    return(iw_out)
-  }
+  postText("data loaded", 1)
+  if(isTRUE(all.equal(return_after, 1))){ return(iw_out) }
 
   # 2. set flow to 0 below threshold value
-  text(x = 0, y = 9.5,
-       labels = "setting flow to 0 below threshold value ...", pos = 4)
-
-  iw_out[[flowID_infoworks]] <-
-    correct_flow(input_data = iw_out[[flowID_infoworks]],
-                 flow_threshold = flow_threshold)
-  message("2. flow rates below ", flow_threshold, " m3/s set to 0. -- ",
-          Sys.time())
-
-  rect(xleft = 0, xright = 16, ybottom = 9, ytop = 10,
-       col = "white", border = NA)
-  rect(xleft = 1, xright = 2, ybottom = 4.5, ytop = 5.5,
-       col = "steelblue")
-  text(x = 1, y = 5.7, labels = "2. flow corrected", srt = 45, pos = 4)
-  if(stop_after == 2){
-    return(iw_out)
-  }
+  preText("setting flow to 0 below threshold value")
+  iw_out[[flowID_infoworks]] <-correct_flow(
+    input_data = iw_out[[flowID_infoworks]],
+    flow_threshold = flow_threshold
+  )
+  cat("2. flow rates below ", flow_threshold, " m3/s set to 0.\n")
+  postText("flow corrected", 2)
+  if(isTRUE(all.equal(return_after, 2))){ return(iw_out) }
 
   # 3. change timesteps
-  text(x = 0, y = 9.5, labels = "changing timesteps ...", pos = 4)
-  iw_out <- lapply(iw_out, adapt_timestep,
-                   time_format = infoworks_time_format,
-                   time_column = 1,
-                   skip_hours = skip_hours,
-                   timestep_out = timestep_out)
-  message("3. timesteps adapted to ", timestep_out, " minutes. -- ", Sys.time())
+  preText("changing timesteps")
+  iw_out <- lapply(
+    iw_out, adapt_timestep,
+    time_format = infoworks_time_format,
+    time_column = 1,
+    skip_hours = skip_hours,
+    timestep_out = timestep_out
+  )
+  cat("3. timesteps adapted to", timestep_out, "minutes.\n")
+  postText("timesteps changed", 3)
+  if(isTRUE(all.equal(return_after, 3))){ return(iw_out) }
 
-  rect(xleft = 0, xright = 16, ybottom = 9, ytop = 10,
-       col = "white", border = NA)
-  rect(xleft = 2, xright = 3, ybottom = 4.5, ytop = 5.5,
-       col = "steelblue")
-  text(x = 2, y = 5.7, labels = "3. timesteps changed", srt = 45, pos = 4)
-  if(stop_after == 3){
-    return(iw_out)
-  }
   # 4. outlets that do not have an ID in Gerris are integrated into the closest
   # available outlet in the model
-  text(x = 0, y = 9.5, labels = "integrating outlets ...", pos = 4)
+  preText("integrating outlets")
   iw_out <- integrate_missing_outlets(
     data_input = iw_out,
     outlet_conversion = outlet_conversion
   )
+  postText("not defined outlets integrated", 4)
+  if(isTRUE(all.equal(return_after, 4))){ return(iw_out) }
 
-  rect(xleft = 0, xright = 16, ybottom = 9, ytop = 10,
-       col = "white", border = NA)
-  rect(xleft = 3, xright = 4, ybottom = 4.5, ytop = 5.5,
-       col = "steelblue")
-  text(x = 3, y = 5.7, labels = "4. not defined outlets integrated",
-       srt = 45, pos = 4)
-  if(stop_after == 4){
-    return(iw_out)
-  }
   # 5. calculating concentration by parameters mass flow and water flow
-  text(x = 0, y = 9.5, labels = "calculating concentrations ...", pos = 4)
-  iw_out <- get_concentrations(input_data = iw_out,
-                               flowID_infoworks = flowID_infoworks)
-  message("5. calculated concentration [mg/L] from mass flow [kg/s] and water",
-          " flow [m?/s] --- ")
-
-  rect(xleft = 0, xright = 16, ybottom = 9, ytop = 10,
-       col = "white", border = NA)
-  rect(xleft = 4, xright = 5, ybottom = 4.5, ytop = 5.5,
-       col = "steelblue")
-  text(x = 4, y = 5.7, labels = "5. concentration calculated",
-       srt = 45, pos = 4)
-  if(stop_after == 5){
-    return(iw_out)
-  }
+  preText("calculating concentrations")
+  iw_out <- get_concentrations(
+    input_data = iw_out,
+    flowID_infoworks = flowID_infoworks
+  )
+  cat("5. calculated concentration [mg/L] from mass flow [kg/s] and water",
+      "flow [m3/s]\n")
+  postText("oncentration calculated", 5)
+  if(isTRUE(all.equal(return_after, 5))){ return(iw_out) }
 
   if(!flow_only){
     # 6. if TKN < NH4-N --> TKN = NH4-N
-    text(x = 0, y = 9.5, labels = "correcting TKN ...", pos = 4)
-
+    preText("correcting TKN")
     iw_out[["mftkntot"]] <- kn_correction(input_data = iw_out)
+    cat("6. Kjeldahl-N less than NH4-N was increased to NH4-N concentration\n")
+    postText("TKN corrected", 6)
+    if(isTRUE(all.equal(return_after, 6))){ return(iw_out) }
 
-    message(
-      "6. Kjeldahl-N less than NH4-N was increased to NH4-N concentration --- ",
-      Sys.time())
-
-    rect(xleft = 0, xright = 16, ybottom = 9, ytop = 10,
-         col = "white", border = NA)
-    rect(xleft = 5, xright = 6, ybottom = 4.5, ytop = 5.5,
-         col = "steelblue")
-    text(x = 5, y = 5.7, labels = "6. TKN corrected",
-         srt = 45, pos = 4)
-    if(stop_after == 6){
-      return(iw_out)
-    }
     # 7. new table for total Nitrogen (sum of TKN NO2, and NO3)
-    text(x = 0, y = 9.5, labels = "Adding total Nitrogen ...", pos = 4)
+    preText("adding total Nitrogen")
     tN <- parameter_conversion$id_gerris[
       parameter_conversion$parameter == "Gesamt-Stickstoff"]
 
-    iw_out[[tN]] <- cbind("Zeit" = iw_out[["mftkntot"]][,1],
-                          iw_out[["mftkntot"]][,-1] +
-                            sum(parameter_conversion$constant_value[
-                              parameter_conversion$parameter %in%
-                                c("Nitrit-Stickstoff", "Nitrat-Stickstoff")]))
-    message("7. total nitrogen calculated using Kjeldahl nitrogen, ",
-            "nitrate and nitrite --- ", Sys.time())
-
-    rect(xleft = 0, xright = 16, ybottom = 9, ytop = 10,
-         col = "white", border = NA)
-    rect(xleft = 6, xright = 7, ybottom = 4.5, ytop = 5.5,
-         col = "steelblue")
-    text(x = 6, y = 5.7, labels = "7. Total Nitrogen added",
-         srt = 45, pos = 4)
-    if(stop_after == 7){
-      return(iw_out)
-    }
+    iw_out[[tN]] <- cbind(
+      "Zeit" = iw_out[["mftkntot"]][,1],
+      iw_out[["mftkntot"]][,-1] +
+        sum(parameter_conversion$constant_value[
+          parameter_conversion$parameter %in%
+            c("Nitrit-Stickstoff", "Nitrat-Stickstoff")])
+    )
+    cat("7. total nitrogen calculated using Kjeldahl nitrogen, nitrate and",
+        "nitrite\n")
+    postText("Total Nitrogen added", 7)
+    if(isTRUE(all.equal(return_after, 7))){ return(iw_out) }
   }
 
   # 8. Rename Parameters
-  text(x = 0, y = 9.5, labels = "renaming parameters ...", pos = 4)
+  preText("renaming parameters")
   iw_out <- rename_IDs(
     input_data = iw_out,
     parameter_conversion = parameter_conversion
   )
+  cat("8. parameter names converted from Infoworks ID to Gerris ID\n")
+  postText("parameters renamed", 8)
+  if(isTRUE(all.equal(return_after, 8))){ return(iw_out) }
 
-  message("8. parameter names converted from Infoworks ID to Gerris ID --- ",
-          Sys.time())
-
-  rect(xleft = 0, xright = 16, ybottom = 9, ytop = 10,
-       col = "white", border = NA)
-  rect(xleft = 7, xright = 8, ybottom = 4.5, ytop = 5.5,
-       col = "steelblue")
-  text(x = 7, y = 5.7, labels = "8. parameters renamed",
-       srt = 45, pos = 4)
-  if(stop_after == 8){
-    return(iw_out)
-  }
   # 9. Add all Parameters with constant values
-  text(x = 0, y = 9.5, labels = "adding constant parameters ...", pos = 4)
+  preText("adding constant parameters")
   iw_out <- add_constant_values(
     input_data = iw_out,
     parameter_conversion = parameter_conversion
   )
-  message("9. all parameters with constant values added --- ", Sys.time())
+  cat("9. all parameters with constant values added\n")
+  postText("constant parameters added", 9)
+  if(isTRUE(all.equal(return_after, 9))){ return(iw_out) }
 
-  rect(xleft = 0, xright = 16, ybottom = 9, ytop = 10,
-       col = "white", border = NA)
-  rect(xleft = 8, xright = 9, ybottom = 4.5, ytop = 5.5,
-       col = "steelblue")
-  text(x = 8, y = 5.7, labels = "9. constant parameters added",
-       srt = 45, pos = 4)
-  if(stop_after == 9){
-    return(iw_out)
-  }
   # 10. Check if all parameters are within the gerris range between min and max
   # and round to 3 significant digits
-  text(x = 0, y = 9.5,
-       labels = "forcing parameters into Gerris parameter range ...", pos = 4)
+  preText("forcing parameters into Gerris parameter range")
   iw_out <- check_parameter_range(
     input_data = iw_out,
     parameter_conversion = parameter_conversion
   )
-  message("10. all parameters forced to be in gerris value range --- ",
-          Sys.time())
+  cat("10. all parameters forced to be in Gerris value range\n")
+  postText("all parameters in Gerris range", 10)
+  if(isTRUE(all.equal(return_after, 10))){ return(iw_out) }
 
-  rect(xleft = 0, xright = 16, ybottom = 9, ytop = 10,
-       col = "white", border = NA)
-  rect(xleft = 9, xright = 10, ybottom = 4.5, ytop = 5.5,
-       col = "steelblue")
-  text(x = 9, y = 5.7, labels = "10. all parameters in Gerris range",
-       srt = 45, pos = 4)
-  if(stop_after == 10){
-    return(iw_out)
-  }
   # 11. reshape the data from data per parameter to data per outlet
-  text(x = 0, y = 9.5,
-       labels = "reshaping data into tables per outlet ...", pos = 4)
+  preText("reshaping data into tables per outlet")
   iw_out <- data_per_outlet(input_data = iw_out)
-  message("11. data reshaped form parameter tables to outlet tables --- ",
-          Sys.time())
+  cat("11. data reshaped form parameter tables to outlet tables\n")
+  postText("data reshaped", 11)
+  if(isTRUE(all.equal(return_after, 11))){ return(iw_out) }
 
-  rect(xleft = 0, xright = 16, ybottom = 9, ytop = 10,
-       col = "white", border = NA)
-  rect(xleft = 10, xright = 11, ybottom = 4.5, ytop = 5.5,
-       col = "steelblue")
-  text(x = 10, y = 5.7, labels = "11. data reshaped",
-       srt = 45, pos = 4)
-  if(stop_after == 11){
-    return(iw_out)
-  }
   # 12. add a column with gerris id ("Randbedingung")
-  text(x = 0, y = 9.5, labels = "adding gerris ID ...", pos = 4)
+  preText("adding gerris ID")
   new_names <- outlet_conversion[["gerris_id"]][
     find_positions(v_original = ids_from_colnames(names(iw_out)),
                    v_new = outlet_conversion[["upstream_link_id"]])]
@@ -299,24 +221,13 @@ iw_gerris_interface <- function(
     iw_out[[which(names(iw_out) == x)]][["RbId"]] <- x
     iw_out[[which(names(iw_out) == x)]]
   })
-  message("12. Outlet names changed from Infoworks to Gerris ID --- ",
-          Sys.time())
-
-  rect(xleft = 0, xright = 16, ybottom = 9, ytop = 10,
-       col = "white", border = NA)
-  rect(xleft = 11, xright = 12, ybottom = 4.5, ytop = 5.5,
-       col = "steelblue")
-  text(x = 11, y = 5.7, labels = "12. Gerris ID added",
-       srt = 45, pos = 4)
-  if(stop_after == 12){
-    return(iw_out)
-  }
+  cat("12. Outlet names changed from Infoworks to Gerris ID\n")
+  postText("Gerris ID added", 12)
+  if(isTRUE(all.equal(return_after, 12))){ return(iw_out) }
 
   # 13. delete all rows without flow (except for the very first time step, and
   # the event surrounding timesteps)
-  text(x = 0, y = 9.5,
-       labels = "deleting rows without flow (except) ...", pos = 4)
-
+  preText("deleting rows without flow (except)")
   iw_out <- lapply(
     iw_out,
     keep_overflows,
@@ -325,20 +236,10 @@ iw_gerris_interface <- function(
         which( parameter_conversion$id_infoworks == flowID_infoworks)]
   )
 
-  message("13. all timesteps without flow deleted(except for the very first
-  timestep, and the event surrounding timesteps)  --- " ,  Sys.time())
-  if(stop_after == 13){
-    return(iw_out)
-  }
-  rect(xleft = 0, xright = 16, ybottom = 9, ytop = 10,
-       col = "white", border = NA)
-  rect(xleft = 12, xright = 13, ybottom = 4.5, ytop = 5.5,
-       col = "steelblue")
-  text(x = 12, y = 5.7, labels = "13. rows without flow deleted",
-       srt = 45, pos = 4)
-  if(stop_after == 13){
-    return(iw_out)
-  }
+  cat("13. all timesteps without flow deleted (except for the very first",
+  "timestep, and the event surrounding timesteps)\n")
+  postText("rows without flow deleted", 13)
+  if(isTRUE(all.equal(return_after, 13))){ return(iw_out) }
 
   # aggregate data per outlet
   cso_stats <- get_cso_stats(
@@ -349,52 +250,39 @@ iw_gerris_interface <- function(
   )
 
   # 14. collect all data in one single table
-  text(x = 0, y = 9.5, labels = "Creating single table ...", pos = 4)
+  preText("Creating single table")
   iw_out <- build_gerris_table(data_input = iw_out)
+  postText("reshaped data into single table", 14)
+  if(isTRUE(all.equal(return_after, 14))){ return(iw_out) }
 
-  rect(xleft = 0, xright = 16, ybottom = 9, ytop = 10,
-       col = "white", border = NA)
-  rect(xleft = 13, xright = 14, ybottom = 4.5, ytop = 5.5,
-       col = "steelblue")
-  text(x = 13, y = 5.7, labels = "14. reshaped data into single table",
-       srt = 45, pos = 4)
-  if(stop_after == 14){
-    return(iw_out)
-  }
   # 15. change time format
-  text(x = 0, y = 9.5, labels = "Changing time format ...", pos = 4)
-  iw_out <- change_time_format(input_data = iw_out,
-                               new_format = gerris_time_format)
-  message("15. Time format changed --- ", Sys.time())
-  rect(xleft = 0, xright = 16, ybottom = 9, ytop = 10,
-       col = "white", border = NA)
-  rect(xleft = 14, xright = 15, ybottom = 4.5, ytop = 5.5,
-       col = "steelblue")
-  text(x = 14, y = 5.7, labels = "15. time format changed",
-       srt = 45, pos = 4)
+  preText("Changing time format")
+  iw_out <- change_time_format(
+    input_data = iw_out,
+    new_format = gerris_time_format
+  )
+  cat("14. Time format changed\n")
+  postText("time format changed", 15)
 
   # 16. Save table for use in gerris
-  text(x = 0, y = 9.5, labels = "Saving table ...", pos = 4)
+  preText("Saving table")
   save_gerris_input(
     gerris_input_folder = interface_output_folder,
     output_filename = paste0(simulation_name, time_suffix),
-    input_data = iw_out)
-  save_cso_stats(input_data = cso_stats,
-                 gerris_input_folder = interface_output_folder,
-                 output_filename =  paste0(simulation_name, time_suffix))
-
-  message("16. Saved Gerris input csv-file in: ", interface_output_folder)
-  rect(xleft = 0, xright = 16, ybottom = 9, ytop = 10,
-       col = "white", border = NA)
-  rect(xleft = 15, xright = 16, ybottom = 4.5, ytop = 5.5,
-       col = "steelblue")
-  text(x = 15, y = 5.7, labels = "16. output saved",
-       srt = 45, pos = 4)
-
+    input_data = iw_out
+  )
+  save_cso_stats(
+    input_data = cso_stats,
+    gerris_input_folder = interface_output_folder,
+    output_filename = paste0(simulation_name, time_suffix)
+  )
+  cat("15. Saved Gerris input csv-file in:", interface_output_folder, "---",
+      as.character(Sys.time()), "\n")
+  postText("output saved", 16)
   if(return_output_table){
     return(iw_out)
   }
-
+  sink()
 }
 
 #' Detailed look on concentration over the Gerris limit
