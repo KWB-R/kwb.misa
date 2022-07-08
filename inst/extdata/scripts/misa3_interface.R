@@ -28,9 +28,9 @@ flow_only <- FALSE
 
 # Ausführen (pro Simulation)
 for(i in seq_along(simulations)){
-  simulation_name <- names(simulations)[i]
+  simulation_name <- names(simulations)[i]# manuell definieren, wenn nur ein Ereignis gerechnet werden soll
   print(simulation_name)
-  trocken <- simulations[i]
+  trocken <- simulations[i] # manuell definieren, wenn nur ein Ereignis gerechnet werden soll
 
   result <- iw_gerris_interface(
     interface_input_folder = interface_input_folder,
