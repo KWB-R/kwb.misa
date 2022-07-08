@@ -69,8 +69,8 @@ time and a temporal resolution</p>
 <span>  <span class="va">time_vector</span>,</span>
 <span>  <span class="va">data_vector</span>,</span>
 <span>  res <span class="op">=</span> <span class="fl">15</span>,</span>
-<span>  first_pointOfTime <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/Extremes.html" class="external-link">min</a></span><span class="op">(</span><span class="va">time_vector</span>, na.rm <span class="op">=</span> <span class="cn">T</span><span class="op">)</span>,</span>
-<span>  last_pointOfTime <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/Extremes.html" class="external-link">max</a></span><span class="op">(</span><span class="va">time_vector</span>, na.rm <span class="op">=</span> <span class="cn">T</span><span class="op">)</span></span>
+<span>  first_pointOfTime <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/Extremes.html" class="external-link">min</a></span><span class="op">(</span><span class="va">time_vector</span>, na.rm <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span>,</span>
+<span>  last_pointOfTime <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/Extremes.html" class="external-link">max</a></span><span class="op">(</span><span class="va">time_vector</span>, na.rm <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span>
 <span><span class="op">)</span></span></code></pre></div>
     </div>
 
@@ -81,7 +81,8 @@ time and a temporal resolution</p>
 
 
 <dt>data_vector</dt>
-<dd><p>A numeric vector, with data corresponding to the time_vector</p></dd>
+<dd><p>A numeric vector, with data corresponding to the
+time_vector</p></dd>
 
 
 <dt>res</dt>
@@ -89,8 +90,8 @@ time and a temporal resolution</p>
 
 
 <dt>first_pointOfTime</dt>
-<dd><p>Starting point (POSIXct) of the newly defined time series.
-By default the minimum of the time_vector</p></dd>
+<dd><p>Starting point (POSIXct) of the newly defined time
+series. By default the minimum of the time_vector</p></dd>
 
 
 <dt>last_pointOfTime</dt>
