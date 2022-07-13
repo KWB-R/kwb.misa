@@ -191,7 +191,7 @@ adapt_timestep <- function(
 
   # build table with average values in new time steps
   table_out <-
-    as.data.frame(sapply(X = data_in[,data_columns], averaging_values,
+    as.data.frame(sapply(X = data_in[,data_columns], ts_ruleOf3,
                          timestep_in = timestep_in,
                          timestep_out = timestep_out))
 
@@ -212,7 +212,7 @@ adapt_timestep <- function(
   }
 }
 
-#' 3a. Integrated function in Change of Timesteps
+#' Adjust temperal resolution of data
 #'
 #' Using a rule of three, the data is first scaled to a timestep of 1 minute and
 #' then averaged for the required interval
@@ -222,7 +222,7 @@ adapt_timestep <- function(
 #'
 #' @export
 #'
-averaging_values <- function(
+ts_ruleOf3 <- function(
     values,
     timestep_in,
     timestep_out){
