@@ -22,6 +22,9 @@
     <loc>/news/index.html</loc>
   </url>
   <url>
+    <loc>/reference/QSIM_get_flow.html</loc>
+  </url>
+  <url>
     <loc>/reference/QSIM_prepare_for_tool.html</loc>
   </url>
   <url>
@@ -38,9 +41,6 @@
   </url>
   <url>
     <loc>/reference/aggregate_measurements.html</loc>
-  </url>
-  <url>
-    <loc>/reference/averaging_values.html</loc>
   </url>
   <url>
     <loc>/reference/build_gerris_table.html</loc>
@@ -155,6 +155,9 @@
   </url>
   <url>
     <loc>/reference/save_gerris_input.html</loc>
+  </url>
+  <url>
+    <loc>/reference/ts_ruleOf3.html</loc>
   </url>
   <url>
     <loc>/reference/yearly_crit_Events.html</loc>
