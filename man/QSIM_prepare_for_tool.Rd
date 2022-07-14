@@ -19,7 +19,7 @@ QSIM_prepare_for_tool(
 
 \item{misa_tool_input_path}{input Folder for Misa Tool (see details)}
 
-\item{output_fileName}{Filename of the created table (inclusive .csv)}
+\item{output_fileName}{Filename of the created table (including.csv)}
 
 \item{return_table}{if TRUE, the saved table is returned}
 }
