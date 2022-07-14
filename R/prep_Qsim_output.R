@@ -7,7 +7,7 @@
 #' @param qsim_output_path path where the output file from Gsim is stored
 #' @param qsim_fileName Filename of the Qsim output file (inclusive .csv)
 #' @param misa_tool_input_path input Folder for Misa Tool (see details)
-#' @param output_fileName Filename of the created table (inclusive .csv)
+#' @param output_fileName Filename of the created table (including.csv)
 #' @param return_table if TRUE, the saved table is returned
 #'
 #' @details
@@ -52,6 +52,55 @@ QSIM_prepare_for_tool <-function(
                      file = file.path(misa_tool_input_path,
                                       "sites_per_file",
                                       output_fileName),
+                     sep = ";",
+                     dec = ".",
+                     row.names = F)
+}
+
+
+#' Read Qsim output and saves the flow at designated river sites
+#'
+#' @param qsim_output_path path where the output file from Gsim is stored
+#' @param qsim_fileName Filename of the Qsim output file (including .csv)
+#' @param save_path path where flow table is saved
+#'
+#' @export
+#' @importFrom utils read.table write.table
+#' @importFrom tidyr spread
+#' @importFrom rlang .data
+QSIM_get_flow <-function(
+    qsim_output_path,
+    qsim_fileName,
+    save_path
+){
+
+  df_in <- read.table(file = file.path(qsim_output_path, qsim_fileName),
+                      header = T, sep = ";", dec = ",")
+
+  df_in$site <- paste(df_in[[1]], df_in[[2]], df_in[[3]], sep = "_")
+
+  df_out <- df_in[,c("Datum", "site", "Q")]
+
+  del <- which(duplicated(df_out[,1:2]))
+  if(length(del)){
+    df_out <- df_out[-del,]
+  }
+
+  df_out <- df_out %>% tidyr::spread(.data$site, .data$Q)
+  df_out$Datum <- as.POSIXct(df_out$Datum, format = "%d.%m.%Y %H:%M")
+  df_out <- df_out[order(df_out$Datum),]
+
+  flowSite <- c("Panke" = "Pa_Panke-1_0.126", "Spree1" = "SOW_S501-SOW_6.4",
+                "Spree0" = "SOW_S106-SOW_18.1", "LWK" = "Lwk_S203-Lwk_1.67",
+                "Havel" = "HOW_S530-HOW_0.1")
+
+  cNames <- c("Datum" = "Datum", flowSite)
+  df_out <- df_out[,cNames]
+  colnames(df_out) <- names(cNames)
+
+  output_fileName <- paste0("q_", qsim_fileName)
+  utils::write.table(x = df_out,
+                     file = file.path(save_path,output_fileName),
                      sep = ";",
                      dec = ".",
                      row.names = F)
