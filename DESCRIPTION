@@ -24,6 +24,7 @@ VignetteBuilder:
     knitr
 Imports:
     kwb.utils (>= 0.11.0),
+    geosphere,
     magrittr,
     rlang,
     tidyr,
