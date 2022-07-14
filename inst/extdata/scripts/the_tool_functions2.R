@@ -207,7 +207,7 @@ list_CritEvents <- function(
       event_end <- c(event_end, length(events))
 
       event_dl <- list()
-      for(i in 1:length(event_start)){
+      for(i in seq_along(event_start)){
         event_dl[[i]] <-
           df_filtered[(events[event_start][i]):(events[event_end][i]),]
       }
