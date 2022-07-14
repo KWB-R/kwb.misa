@@ -99,27 +99,6 @@ aggregate_measurements <- function(
   looking_good[order(looking_good[["t"]]), ]
 }
 
-# Version by Hauke Sonnenberg:
-# using existing function hsGroupByInterval() in kwb.base
-aggregate_measurements_hauke <- function(
-  time_vector, data_vector, time_interval
-)
-{
-  # Create a data frame as required by hsGroupByInterval()
-  data <- data.frame(t = time_vector, d = data_vector)
-
-  # My function seems to require that the data frame is sorted by time!
-  data <- kwb.utils::orderBy(data, "t")
-
-  kwb.base::hsGroupByInterval(
-    data,
-    interval = time_interval,
-    FUN = mean,
-    # Use the first timestamps of the time intervals in the output
-    offset2 = 0L
-  )
-}
-
 #' Equal time intervals
 #'
 #' Transforms the time vector, so that the every timestep is shifted to equal
