@@ -19,7 +19,7 @@
 #'
 #' @return
 #' tables of all relevant rivers in misa combined in a list. Each table consists
-#' of 4 columns: 1) longitued, 2) lattitude, 3) distance to fowollowing node in
+#' of 6 columns: 1) longitued, 2) lattitude, 3) distance to fowollowing node in
 #' km, 4) River km, 5) Corresponding Qsim output sitename, 6) Comment that can
 #' be used for plots
 #'
