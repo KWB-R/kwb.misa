@@ -24,7 +24,7 @@ mapPlot_EventTime <- function(
     event,
     savingPath,
     sizeMax = 100000,
-    varName = "below_1.5",
+    varName = paste0("below_", 1.5),
     sixBreaks = c(0,0.5,2,4,10,20),
     dec = ","
 ){
