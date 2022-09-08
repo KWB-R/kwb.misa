@@ -11,7 +11,7 @@ mapPlot_EventTime(
   event,
   savingPath,
   sizeMax = 1e+05,
-  varName = "below_1.5",
+  varName = paste0("below_", 1.5),
   sixBreaks = c(0, 0.5, 2, 4, 10, 20),
   dec = ","
 )
