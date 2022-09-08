@@ -21,6 +21,8 @@ if(FALSE){
 
   # load Color scale
   load(file = "inst/extdata/colors/misaColor.RData")
+
+  # load Berlin rivers
   rivers <- kwb.misa::load_berlin_rivers()
 
   xlim <- c(13.18, 13.472)
@@ -143,7 +145,6 @@ if(FALSE){
 
 
 # Functions --------------------------------------------------------------------
-
 prepare_riverPlot <- function(river_table, qsim_misa_table, varName, sixBreaks){
   river_table$value <- NA
 
@@ -218,8 +219,8 @@ add_catchments <- function(ezg){
     ezg_namePositions$`Bln II`$y <-  ezg_namePositions$`Bln II`$y - 0.01
     ezg_namePositions$`Bln III`$x <-  ezg_namePositions$`Bln III`$x + 0.01
     ezg_namePositions$`Bln III`$y <-  ezg_namePositions$`Bln III`$y - 0.003
-    ezg_namePositions$`Bln IIIa`$x <-  ezg_namePositions$`Bln IIIa`$x - 0.037
-    ezg_namePositions$`Bln IIIa`$y <-  ezg_namePositions$`Bln IIIa`$y - 0.0014
+    ezg_namePositions$`Bln IIIa`$x <-  ezg_namePositions$`Bln IIIa`$x - 0.01
+    ezg_namePositions$`Bln IIIa`$y <-  ezg_namePositions$`Bln IIIa`$y - 0.04
     ezg_namePositions$`Bln VIII`$x <-  ezg_namePositions$`Bln VIII`$x + 0.005
     ezg_namePositions$`Bln VIII`$y <-  ezg_namePositions$`Bln VIII`$y + 0.005
     ezg_namePositions$`Bln IX`$x <-  ezg_namePositions$`Bln IX`$x + 0.005
@@ -244,8 +245,8 @@ add_catchments <- function(ezg){
   }
   lines(x = c(ezg_namePositions$`Chb Ia`$x + 0.012, min(ezg$`Chb Ia`[,1]) + 0.004),
         y =  c(ezg_namePositions$`Chb Ia`$y - 0.002, max(ezg$`Chb Ia`[,2]) - 0.002))
-  lines(x = c(ezg_namePositions$`Bln IIIa`$x + 0.013, mean(ezg$`Bln IIIa`[,1]) + 0.0005),
-        y =  c(ezg_namePositions$`Bln IIIa`$y, mean(ezg$`Bln IIIa`[,2])))
+  lines(x = c(ezg_namePositions$`Bln IIIa`$x, mean(ezg$`Bln IIIa`[,1]) + 0.0005),
+        y =  c(ezg_namePositions$`Bln IIIa`$y + 0.002, mean(ezg$`Bln IIIa`[,2])))
 }
 
 getDimensions <- function(xlim, ylim, width = 10){

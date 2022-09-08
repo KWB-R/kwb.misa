@@ -4,13 +4,13 @@ library(kwb.misa)
 interface_input_folder <-
   paste0("Y:/AUFTRAEGE/_Auftraege_laufend/MISA3/",
          "Data-Work packages/AP1_Vorbereitung-Strategiebewertung/",
-         "Schnittstelle/input/nach_sanierung")
+         "Schnittstelle/input/vor_sanierung2")
 
 # Wo sollen die für ormatierten Dateien abgespeichert werden?
 interface_output_folder <-
   paste0("Y:/AUFTRAEGE/_Auftraege_laufend/MISA3/",
          "Data-Work packages/AP1_Vorbereitung-Strategiebewertung/",
-         "Schnittstelle/output/test_paket")
+         "Schnittstelle/output/vor_sanierung2")
 
 # Wie heißen die Simulationen (hier reicht ein eindeutiger Teil des Namens)?
 # Außerdem muss zusätzlich die in Infoworks mitsimulierte Vorlauftrockenzeit
@@ -25,14 +25,15 @@ simulations <- c(
 # Nur der Durchfluss (TRUE) oder auch die Wasserqualitätsparameter?
 flow_only <- FALSE
 
-
 # Ausführen (pro Simulation)
+# Falls nur ein Ereignis berechnet werden soll, dann muss das "i" im Vektor
+# "simulations" herausgesucht und manuel definiert werden (-> keine Schleife)
 for(i in seq_along(simulations)){
   simulation_name <- names(simulations)[i]# manuell definieren, wenn nur ein Ereignis gerechnet werden soll
   print(simulation_name)
   trocken <- simulations[i] # manuell definieren, wenn nur ein Ereignis gerechnet werden soll
 
-  result <- iw_gerris_interface(
+  result <- kwb.misa::iw_gerris_interface(
     interface_input_folder = interface_input_folder,
     interface_output_folder = interface_output_folder,
     simulation_name = simulation_name,
