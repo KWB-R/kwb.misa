@@ -41,3 +41,26 @@ load_berlin_rivers <- function(){
   names(rivers) <- river_names
   rivers
 }
+
+#' Loads river sites for comparing bar plots
+#'
+#' @return
+#' Table as defined in 'extdata/focus_sites' filtered for all rows
+#' containing "y" in the "Auswahl"-column
+#'
+#' @export
+load_focus_sites <- function(){
+  sid <- read.table(
+    file = dir(
+      file.path(
+        system.file(package = "kwb.misa"),
+        "extdata/focus_sites"),
+      full.names = T),
+    header = T,
+    sep = ";",
+    dec = ".")
+  sid[sid$Auswahl == "y",]
+}
+
+
+
