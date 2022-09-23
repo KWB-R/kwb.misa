@@ -32,7 +32,7 @@ mapPlot_EventTime <- function(
     decoupling = "",
     dec = ","
 ){
-  options(OutDec = dec)
+
 
   p_title <- paste0("E", event)
   misaAssessment <- dl_misa[[p_title]]
@@ -66,6 +66,7 @@ mapPlot_EventTime <- function(
         height = 6, width = 6 * width_factor, units = "in", res = 300)
     xpdDim <- 6
     par(mar = c(xpdDim / 2, 0.2, xpdDim / 2 , xpdDim * width_factor - 0.2))
+    options(OutDec = dec)
     plot(x = 0, y = 0,
          xaxt = "n", yaxt = "n", type = "n",
          xaxs = "i", yaxs = "i",
@@ -87,7 +88,7 @@ mapPlot_EventTime <- function(
 
     abline(h = ylim)
     abline(v = xlim)
-
+    options(OutDec = ".")
     dev.off()
   } else {
     message("No Assessment for Event ", event)
@@ -117,7 +118,7 @@ mapPlot_EventsNumber <- function(
     sixBreaks = c(-1,0,1,3,6,10),
     dec = ","
 ){
-  options(OutDec = dec)
+
 
   prepared_rivers <- lapply(
     BerlinRivers, extend_riverTable,
@@ -139,6 +140,7 @@ mapPlot_EventsNumber <- function(
   par(mar = c(0.2,  xpdDim * width_factor / 2,
               xpdDim - 0.2, xpdDim * width_factor / 2))
 
+  options(OutDec = dec)
   plot(
     x = 0, y = 0,
     xaxt = "n", yaxt = "n", type = "n",
@@ -154,7 +156,7 @@ mapPlot_EventsNumber <- function(
     LegendLocation = "top")
   abline(h = ylim)
   abline(v = xlim)
-
+  options(OutDec = ".")
   dev.off()
 }
 
@@ -181,7 +183,7 @@ mapPlot_EventsTime <- function(
     sixBreaks = c(0,25,50,100,200,300),
     dec = ","
 ){
-  options(OutDec = dec)
+
 
   prepared_rivers <- lapply(
     BerlinRivers, extend_riverTable,
@@ -202,6 +204,7 @@ mapPlot_EventsTime <- function(
   xpdDim <- 4
   par(mar = c(0.2,  xpdDim * width_factor / 2,
               xpdDim - 0.2, xpdDim * width_factor / 2))
+  options(OutDec = dec)
   plot(
     x = 0, y = 0,
     xaxt = "n", yaxt = "n", type = "n",
@@ -217,7 +220,7 @@ mapPlot_EventsTime <- function(
     LegendLocation = "top")
   abline(h = ylim)
   abline(v = xlim)
-
+  options(OutDec = ".")
   dev.off()
 }
 
