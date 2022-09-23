@@ -4,7 +4,11 @@
 \alias{add_catchments}
 \title{Add Berlin Catchments to a map of Berlin}
 \usage{
-add_catchments()
+add_catchments(shadedCatchments = "")
+}
+\arguments{
+\item{shadedCatchments}{Name of Catchments without to be shaded instead of
+completely filled}
 }
 \description{
 Polygons are drawn in different types of gray and names are added, without

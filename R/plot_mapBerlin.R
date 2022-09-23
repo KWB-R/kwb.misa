@@ -44,9 +44,10 @@ mapPlot_EventTime <- function(
     stat <- read.csv(file = statFile,header = TRUE, sep = ";", dec = ".")
     df_plot <- stat[!is.na(stat$tBeg),]
 
-    decoupled <- loadMisa_decouplingInfo()
-    rm_cso <- decoupled$gerris_id[!(as.logical(decoupled[[decoupling]]))]
-    df_plot <- df_plot[!(df_plot$RbId %in% rm_cso),]
+    decouplingInfo <- decoupledCatchments(decouplingScenario = decoupling)
+    df_plot <- df_plot[df_plot$RbId %in% decouplingInfo$Scenario_outlets,]
+
+    e_data <- loadMisa_events()
 
     prepared_rivers <- lapply(
       BerlinRivers, extend_riverTable,
@@ -75,7 +76,8 @@ mapPlot_EventTime <- function(
          main = paste0("MW\u00dc und Gew\u00e4sserbelastung - ", p_title)
     )
 
-    add_catchments()
+    add_catchments(shadedCatchments = decouplingInfo$Catchments_included$ID[
+      decouplingInfo$Catchments_included$nOutDecoupled > 0.9])
     add_coloredRivers(
       ext_riversList = prepared_rivers,
       sixBreaks = sixBreaks,
@@ -85,6 +87,25 @@ mapPlot_EventTime <- function(
     add_csoVol(
       eventStats = df_plot,
       sizeMax = sizeMax)
+    mtext(
+      text = "Durchfl\u00fCsse vor dem Niederschlag in m\u00b3/s",
+      side = 1, line = 0.2, font = 2)
+    mtext(
+      text = paste0(
+        c("Spree (Mühlendamm)",
+          "LWK",
+          "Panke",
+          "Spree (Sophienwerder)",
+          "Oberhavel"),
+        ": ",
+        round(e_data[e_data$X == p_title,c(
+          "Q_Spree0",
+          "Q_LWK",
+          "Q_Panke",
+          "Q_Spree1",
+          "Q_Havel")], digits = 2)),
+      side = 1, line = 1.8, adj = c(0, 0.35, 0.55, 0.9, 1.2))
+
 
     abline(h = ylim)
     abline(v = xlim)
@@ -103,6 +124,8 @@ mapPlot_EventTime <- function(
 #' @param savingPath Directory where plot is going to be stored
 #' @param varName Column name that is used for water quality categorisation
 #' @param sixBreaks 6 low limits of water quality categories
+#' @param decoupling Character vector defining a decoupling scenario. Default
+#' is "" for no scenario. Possible scenarios can be obtained by the column names
 #' @param dec What should be used a decimal character? Default is "," since
 #' the plots are in German language
 #'
@@ -116,6 +139,7 @@ mapPlot_EventsNumber <- function(
     savingPath,
     varName = "events",
     sixBreaks = c(-1,0,1,3,6,10),
+    decoupling = "",
     dec = ","
 ){
 
@@ -147,7 +171,10 @@ mapPlot_EventsNumber <- function(
     xaxs = "i", yaxs = "i",
     xlab = "", ylab = "",
     xlim = xlim, ylim = ylim)
-  add_catchments()
+
+  decouplingInfo <- decoupledCatchments(decouplingScenario = decoupling)
+  add_catchments(shadedCatchments = decouplingInfo$Catchments_included$ID[
+    decouplingInfo$Catchments_included$nOutDecoupled > 0.9])
   add_coloredRivers(
     ext_riversList = prepared_rivers,
     sixBreaks = sixBreaks,
@@ -168,6 +195,8 @@ mapPlot_EventsNumber <- function(
 #' @param savingPath Directory where plot is going to be stored
 #' @param varName Column name that is used for water quality categorisation
 #' @param sixBreaks 6 low limits of water quality categories
+#' @param decoupling Character vector defining a decoupling scenario. Default
+#' is "" for no scenario. Possible scenarios can be obtained by the column names
 #' @param dec What should be used a decimal character? Default is "," since
 #' the plots are in German language
 #'
@@ -181,6 +210,7 @@ mapPlot_EventsTime <- function(
     savingPath,
     varName = "hours.below_1.5",
     sixBreaks = c(0,25,50,100,200,300),
+    decoupling = "",
     dec = ","
 ){
 
@@ -211,7 +241,9 @@ mapPlot_EventsTime <- function(
     xaxs = "i", yaxs = "i",
     xlab = "", ylab = "",
     xlim = xlim, ylim = ylim)
-  add_catchments()
+  decouplingInfo <- decoupledCatchments(decouplingScenario = decoupling)
+  add_catchments(shadedCatchments = decouplingInfo$Catchments_included$ID[
+    decouplingInfo$Catchments_included$nOutDecoupled > 0.9])
   add_coloredRivers(
     ext_riversList = prepared_rivers,
     sixBreaks = sixBreaks,
@@ -388,9 +420,12 @@ add_csoVol <- function(eventStats, sizeMax = 100000){
 #' Polygons are drawn in different types of gray and names are added, without
 #' overlapping the catchment boundaries or any river
 #'
+#' @param shadedCatchments Name of Catchments without to be shaded instead of
+#' completely filled
+#'
 #' @export
 #'
-add_catchments <- function(){
+add_catchments <- function(shadedCatchments = ""){
   ezg <- NULL
   load(file.path(system.file(package = "kwb.misa"),
                  "extdata/misa_data/catch_polygon.RData"))
@@ -423,7 +458,13 @@ add_catchments <- function(){
   colCircle <- rep(paste0("gray",c(60,70,80,90)), 10)
   for(i in seq_along(ezg)){
     col <- colCircle[i]
-    polygon(x = ezg[[i]][,1], y = ezg[[i]][,2], col = col)
+    shading <- if(names(ezg)[i] %in% shadedCatchments){
+      10
+    } else {
+      NULL
+    }
+
+    polygon(x = ezg[[i]][,1], y = ezg[[i]][,2], col = col, density = shading)
     text(x = ezg_namePositions[[i]]$x, y = ezg_namePositions[[i]]$y,
          labels = names(ezg_namePositions)[i])
   }

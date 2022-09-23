@@ -10,6 +10,7 @@ mapPlot_EventsTime(
   savingPath,
   varName = "hours.below_1.5",
   sixBreaks = c(0, 25, 50, 100, 200, 300),
+  decoupling = "",
   dec = ","
 )
 }
@@ -24,6 +25,9 @@ mapPlot_EventsTime(
 \item{varName}{Column name that is used for water quality categorisation}
 
 \item{sixBreaks}{6 low limits of water quality categories}
+
+\item{decoupling}{Character vector defining a decoupling scenario. Default
+is "" for no scenario. Possible scenarios can be obtained by the column names}
 
 \item{dec}{What should be used a decimal character? Default is "," since
 the plots are in German language}

@@ -10,6 +10,7 @@ mapPlot_EventsNumber(
   savingPath,
   varName = "events",
   sixBreaks = c(-1, 0, 1, 3, 6, 10),
+  decoupling = "",
   dec = ","
 )
 }
@@ -24,6 +25,9 @@ mapPlot_EventsNumber(
 \item{varName}{Column name that is used for water quality categorisation}
 
 \item{sixBreaks}{6 low limits of water quality categories}
+
+\item{decoupling}{Character vector defining a decoupling scenario. Default
+is "" for no scenario. Possible scenarios can be obtained by the column names}
 
 \item{dec}{What should be used a decimal character? Default is "," since
 the plots are in German language}
