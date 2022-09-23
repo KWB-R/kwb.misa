@@ -8,8 +8,11 @@
 #' @param savingPath Directory where plot is going to be stored
 #' @param sizeMax Maximum size of CSO volumne. Default 100000 is a good
 #' compromise between large and small CSO events
-#' @param varName Column name that is used for water quality categorisation
+#' @param below Oxygen concentration limit used for the plot (mg/L)
 #' @param sixBreaks 6 low limits of water quality categories
+#' @param decoupling Character vector defining a decoupling scenario. Default
+#' is "" for no scenario. Possible scenarios can be obtained by the column names
+#' of [loadMisa_decouplingInfo()].
 #' @param dec What should be used a decimal character? Default is "," since
 #' the plots are in German language
 #'
@@ -24,26 +27,31 @@ mapPlot_EventTime <- function(
     event,
     savingPath,
     sizeMax = 100000,
-    varName = paste0("below_", 1.5),
+    below = 1.5,
     sixBreaks = c(0,0.5,2,4,10,20),
+    decoupling = "",
     dec = ","
 ){
   options(OutDec = dec)
+
   p_title <- paste0("E", event)
-
-  all_files <- dir(statFilesPath, full.names = TRUE)
-  stat_files <- grep(pattern = "stats.csv$", all_files, value = TRUE)
-  statFile <- grep(pattern = paste0(p_title, "_"), x = stat_files, value = TRUE)
-  stat <- read.csv(file = statFile,header = TRUE, sep = ";", dec = ".")
-  df_plot <- stat[!is.na(stat$tBeg),]
-
   misaAssessment <- dl_misa[[p_title]]
 
   if(!is.null(misaAssessment$hours)){
+    all_files <- dir(statFilesPath, full.names = TRUE)
+    stat_files <- grep(pattern = "stats.csv$", all_files, value = TRUE)
+    statFile <- grep(pattern = paste0(p_title, "_"), x = stat_files, value = TRUE)
+    stat <- read.csv(file = statFile,header = TRUE, sep = ";", dec = ".")
+    df_plot <- stat[!is.na(stat$tBeg),]
+
+    decoupled <- loadMisa_decouplingInfo()
+    rm_cso <- decoupled$gerris_id[!(as.logical(decoupled[[decoupling]]))]
+    df_plot <- df_plot[!(df_plot$RbId %in% rm_cso),]
+
     prepared_rivers <- lapply(
       BerlinRivers, extend_riverTable,
       qsim_misa_table = misaAssessment$hours,
-      varName = varName,
+      varName = paste0("below_", below),
       sixBreaks = sixBreaks
     )
 
@@ -239,14 +247,14 @@ mapPlot_EventsTime <- function(
 #' exact value, 2) "quality" containing 6 different quality categories based on
 #' the defined breaks, 3) "color" assigning th color for plotting
 #'
+#' @importFrom utils data
 #' @export
 #'
 extend_riverTable <- function(
     river_table, qsim_misa_table, varName, sixBreaks
 ){
   MisaColor <- NULL
-  load(file.path(system.file(package = "kwb.misa"),
-                 "extdata/colors/misaColor.RData"))
+  data("MisaColor", envir = environment())
 
   sixBreaks <- c(sixBreaks, Inf)
   river_table$value <- NA
@@ -294,8 +302,8 @@ add_coloredRivers <- function(
 ){
   sixBreaks <- c(sixBreaks, Inf)
   MisaColor <- NULL
-  load(file.path(system.file(package = "kwb.misa"),
-                 "extdata/colors/misaColor.RData"))
+  data("MisaColor", envir = environment())
+
   for(j in seq_along(ext_riversList)){
     lines(x = ext_riversList[[j]]$x, y = ext_riversList[[j]]$y,
           col = "steelblue")
@@ -382,7 +390,7 @@ add_csoVol <- function(eventStats, sizeMax = 100000){
 add_catchments <- function(){
   ezg <- NULL
   load(file.path(system.file(package = "kwb.misa"),
-                 "extdata/bwb_catchments/catch_polygon.RData"))
+                 "extdata/misa_data/catch_polygon.RData"))
 
   {# Positions of catchment names in the plot
     ezg_namePositions <- lapply(ezg, function(loc_df) {
