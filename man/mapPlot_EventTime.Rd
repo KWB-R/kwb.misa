@@ -11,8 +11,9 @@ mapPlot_EventTime(
   event,
   savingPath,
   sizeMax = 1e+05,
-  varName = paste0("below_", 1.5),
+  below = 1.5,
   sixBreaks = c(0, 0.5, 2, 4, 10, 20),
+  decoupling = "",
   dec = ","
 )
 }
@@ -31,9 +32,13 @@ mapPlot_EventTime(
 \item{sizeMax}{Maximum size of CSO volumne. Default 100000 is a good
 compromise between large and small CSO events}
 
-\item{varName}{Column name that is used for water quality categorisation}
+\item{below}{Oxygen concentration limit used for the plot (mg/L)}
 
 \item{sixBreaks}{6 low limits of water quality categories}
+
+\item{decoupling}{Character vector defining a decoupling scenario. Default
+is "" for no scenario. Possible scenarios can be obtained by the column names
+of \code{\link[=loadMisa_decouplingInfo]{loadMisa_decouplingInfo()}}.}
 
 \item{dec}{What should be used a decimal character? Default is "," since
 the plots are in German language}
