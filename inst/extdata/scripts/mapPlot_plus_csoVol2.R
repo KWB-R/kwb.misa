@@ -1,16 +1,16 @@
 # Path of CSO stats from interface
 statPath <- file.path(
   "Y:/AUFTRAEGE/_Auftraege_laufend/MISA3/Data-Work packages",
-  "AP1_Vorbereitung-Strategiebewertung/Schnittstelle/output/vor_sanierung")
+  "AP1_Vorbereitung-Strategiebewertung/Schnittstelle/output/nach_sanierung")
 
 # MiSa assessment after Qsim simulations
 load(file.path(
   "Y:/AUFTRAEGE/_Auftraege_laufend/MISA3/Exchange/Misa_auswertung/output",
-  "sow100.RData"))
+  "lwk100.RData"))
 
 # Path for saving
 saving_path <- paste0(
-  "Y:/AUFTRAEGE/_Auftraege_laufend/MISA3/Exchange/Misa_auswertung/output/sow100")
+  "Y:/AUFTRAEGE/_Auftraege_laufend/MISA3/Exchange/Misa_auswertung/output/lwk_100")
 
 for(i in 1:20){
     kwb.misa::mapPlot_EventTime(
@@ -18,7 +18,8 @@ for(i in 1:20){
       statFilesPath = statPath,
       dl_misa = dl_misa,
       savingPath = saving_path,
-      varName = "below_1.5",
+      below = 1.5,
+      decoupling = "lwk",
       event = i
     )
 }

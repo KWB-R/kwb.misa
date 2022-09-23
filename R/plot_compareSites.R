@@ -14,7 +14,9 @@ prepareBarplot <- function(
     scenarioNames,
     scenarioPath
 ){
-  fs <- kwb.misa::load_focus_sites()
+  fs <- kwb.misa::loadMisa_focus_sites()
+
+  df_aggr <- NULL # to be loaded and overwritten by the scenario data
 
   found <- paste0(scenarioNames, ".RData") %in% dir(scenarioPath)
   if(sum(found) < length(found)){
@@ -53,6 +55,8 @@ prepareBarplot <- function(
 #' Bar type "neg_dev" plots bars representing the negative deviation of oxygen
 #' concentration compared to a non polluted site (MUE was defined in MiSa 1)
 #'
+#' @importFrom utils data
+#'
 #' @export
 #'
 barPlot_site <- function(
@@ -62,8 +66,9 @@ barPlot_site <- function(
   n <- nrow(df_site)
   title <- unique(df_site$Ausgeschrieben)
 
+  MisaColor <- NULL
   data("MisaColor", envir = environment())
-  # MisaColor <- NULL
+
 
   if(barType == "crit_ox"){
     y_vars <-
