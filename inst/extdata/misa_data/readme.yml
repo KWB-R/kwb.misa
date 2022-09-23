@@ -1,0 +1,91 @@
+ereignisreihe.csv
+  Description: 20 Critical oxygen events identified at site CHA (sampling site of Senat)
+   in MiSa 2. Information about rain and river flow characteristic added. Multple rain
+   events can be part of one critical oxygen event. The definition of a rain event is 
+   given in the column description of the amount of rain events (R_n). Characteristics of 
+   multiple rain events are devided bei "+" as seperator. The rain is based on the 
+   rain used for the inforworks simulation (9 rain gauges).
+   For the assassment of different decoupling scenarios in MiSa 3 and MiSa 4 only 14 of 20 
+   critical oxygen events were selected. The selections was done in the Beginning of
+   MiSa 3.
+  Columns:
+    first column: Event ID
+    tBeg: Start of critical oxygen event at CHA
+    tEnd: End of crictical oxygen event at CHA
+    R_volume: Categorized rain volume per rain event. 
+     gering: 5 - <10 mm
+     mittel: 10 - <15 mm
+     hoch: >15 mm 
+    R_intensity: Categorized rain intensity per rain event, based on the maximal
+     intensity at one rain gauge.
+     gering: <10 mm/h
+     mittel: 10 - <30 mm/h
+     hoch: >30 mm/h
+    R_local: Classification of rain events between local and regional. A rain event is
+     classified as local, if at 3 or less than 3 rain gauges the rain amount is at least
+     twice as high as the average of the remaining raing gauges.
+    R_n: Amount of rain events during the critical oxygen event. A rain event is included if
+     1) volume is at least 5 mm and intensity is at least 10 mm/h oder 2) volume is at least
+     10 mm at one or more rain gauges. 
+    use: Is the rain event used for scenario assessment? The decision was based on the 
+     simulated oxygen concentration at CHA. Criterion 1 was a clear impact on the oxygen
+     concentration by the cso. Criterion 2 was a sufficiently similar oxygen course 
+     compared to measured data, to ensure the quality of the simulation for the extreme 
+     events.
+    Q_Panke, Q_Spree1, Q_Spree2, Q_LWK, Q_Havel: Flow conditions at the beginning of 
+     the simulation of Panke, Spree before Kupfergraben, Spree at Charlottenburg (CHA), 
+     Landwehrkanal Unterschleuse and Havel before inflow Spree. The river flow listed
+     is the average of the first hour of the Qsim simulation.
+    
+focus_sites.csv
+  Description: Important sites to assess the impact of different decoupling
+   scenarios. The sites were partly agreed upon with the Senat in MiSa 1(focus 
+   surface waters) and finally defined in MiSa 3.
+  Columns: 
+    ID: Site IDs
+    Name: Complete name
+    surface_water: Surface water
+    river_km: Distance of the river until the inflow of a receiving water in km
+    lon: Longitude of the site
+    lat: Lattitude of the site
+    Qsim_name: Corresponding site in the output file of the Qsim simulation.
+    use: Definition if focus site is used for scenario assassment
+ 
+parameter_conversion.xlsx
+  Description: Table used by the interface functions for the conversion of parameter IDs and
+  definition of parameters not considered in infoworks but needed for gerris (waterquality)
+  Columns:
+    parameter: full German Parameter Name
+    id_infoworks: parameter ID in Infoworks (mf = mass flow)
+    unit_infoworks: unit of the infoworks output (mass flow)
+    constant_value: parameters that are not simulated by infoworks and are set to a constant value
+      unit is the same as in gerris (see column "unit_gerris")
+    id_gerris: parameter ID in Gerris
+    unit_gerris: unit needed for Gerris input (concentration)
+    min_gerris and max_gerris: tolerated range of parameter in Gerris model
+    comment: possibility to add comments (column not used by interace functions)
+
+outlet_conversion.xlsx 
+  Description: table used by the interface functions for the conversion of outlet IDs
+  Columns:
+    outlet_id: Node ID of the outlet within the infoworks model
+    upstream_link_id: Infoworks ID of the link leading to outlet (this must be used
+      for mass flow information)
+    gerris_id: "Randbedingung" used in gerris (provided by Schumacher, Ingenieurbüro 
+      für Wasser und Umwelt)
+    surface_water: name of the surface water the outlet discharges into
+    water_body_km: the water body km where the outlet is located
+    y_coordinate and x_coordanite: outlet location in soldner coordinates for Berlin
+      (Infoworks export)
+    all lat and lon columns: coordinates transformed from Soldner to UTM-Format (ETRS89 DREF91)
+    comment: possibility to add comments (column not used by interace functions)  
+    
+outlet_decoupling.csv
+  Description: Decoupling of certain catchments was done in MiSa3 for the "Potenzialanalyse"
+   3 regions of Berlin were decoupled, 1) catchments that mainly overflow into the Landwehrkanal 
+   (lwk), 2) catchmens that mainly overflow into the eastern part of the Spree (spr) and 3) 
+   catchments that mainly overflow into Panke and Berlin-Spandauer Schifffahrtskanal (bsk).
+   A 0 in the columns means, those outlet are switched off within the QSim simulation (no overflow).
+
+catch_polygon.RData
+  Description: Polygons of the Catchments as defined by BWB for Infoworks
