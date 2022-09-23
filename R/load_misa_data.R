@@ -106,4 +106,49 @@ loadMisa_decouplingInfo <- function(){
     header = T,sep = ";", dec = ".")
 }
 
+#' Dateiled information about catchments within one decoupling scenario
+#'
+#' @param decouplingScenario String as in colnames of the "outlet_decoupling.csv"
+#' table, that can be loaded with [loadMisa_decouplingInfo()]
+#'
+#' @return
+#' A list of 2: 1) Character vector of all considered outlets of the scenario
+#' (outled ID as used in Qsim)
+#' 2)Data frane with 5 columns: i) Catchment Names as defined in infoworks,
+#' ii) Number of outlets per Catchment of all outlets, iii) number of outlets per
+#' catchment of the decoupling scenario, iv) absolute decrease of outlets per
+#' catchment compared to no decoupling, v) relative decrease of outlets
+#' per catchment compared to no decoupling
+#'
+#' @export
+#'
+decoupledCatchments <- function(decouplingScenario){
+  decoupled <- loadMisa_decouplingInfo()
+
+  catchOfAll <- summary(as.factor(unlist(
+    sapply(decoupled$catchment, strsplit, split = " \\+ "))))
+
+  outletsKept <- decoupled$gerris_id[(as.logical(decoupled[[decouplingScenario]]))]
+  if(length(outletsKept) > 0L){
+    decoupled <- decoupled[decoupled$gerris_id %in% outletsKept,]
+  } else {
+    outletsKept <- decoupled$gerris_id
+  }
+
+  catchOfUsed <- summary(as.factor(unlist(
+    sapply(decoupled$catchment, strsplit, split = " \\+ "))))
+
+  catch_df <- merge(
+    x = data.frame("ID" = names(catchOfAll), "nOutAll" = catchOfAll),
+    y = data.frame("ID" = names(catchOfUsed), "nOutUsed" = catchOfUsed),
+    by = "ID",
+    all.x = TRUE,
+    incomparables = 0
+  )
+  catch_df$nOutUsed[is.na(catch_df$nOutUsed)] <- 0
+  catch_df$nOutDelta <- catch_df$nOutAll - catch_df$nOutUsed
+  catch_df$nOutDecoupled <- round(catch_df$nOutDelta / catch_df$nOutAll, 2)
+
+  list("Scenario_outlets" = outletsKept, "Catchments_included" = catch_df)
+}
 
