@@ -214,7 +214,6 @@ mapPlot_EventsTime <- function(
     dec = ","
 ){
 
-
   prepared_rivers <- lapply(
     BerlinRivers, extend_riverTable,
     qsim_misa_table = df_aggr,

@@ -30,8 +30,8 @@ prepareBarplot <- function(
 
     load(file.path(scenarioPath,paste0(N, ".RData")))
 
-    s1 <- df_aggr[df_aggr$qsim_site %in% fs$QSIM_ID,]
-    comp_list[[i]] <- merge(x = s1, y = fs, by.x = "qsim_site", by.y = "QSIM_ID")
+    s1 <- df_aggr[df_aggr$qsim_site %in% fs$QSim_name,]
+    comp_list[[i]] <- merge(x = s1, y = fs, by.x = "qsim_site", by.y = "QSim_name")
     comp_list[[i]]$scenario <- N
     i <- i + 1
   }
@@ -62,7 +62,7 @@ prepareBarplot <- function(
 barPlot_site <- function(
     df_plot, siteName, barType
 ){
-  df_site <- df_plot[df_plot$Name %in% siteName,]
+  df_site <- df_plot[df_plot$ID %in% siteName,]
   n <- nrow(df_site)
   title <- unique(df_site$Ausgeschrieben)
 
