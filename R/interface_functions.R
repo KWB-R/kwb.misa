@@ -516,7 +516,12 @@ get_cso_stats <- function(
 ){
   df_out <- do.call(rbind, lapply(input_data, function(df){
     x <- df[,"Q"]
-    y <- ifelse(flow_only, 0 , df[,"OBSB"])
+
+    y <- if(flow_only){
+      0
+    } else {
+      df[,"OBSB"]
+    }
     cso <- which(x > 0)
     if(length(cso) > 0){
       data.frame(
