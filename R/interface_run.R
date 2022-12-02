@@ -105,7 +105,7 @@ iw_gerris_interface <- function(
 
   # 2. set flow to 0 below threshold value
   preText("setting flow to 0 below threshold value")
-  iw_out[[flowID_infoworks]] <-correct_flow(
+  iw_out[[flowID_infoworks]] <- correct_flow(
     input_data = iw_out[[flowID_infoworks]],
     flow_threshold = flow_threshold
   )

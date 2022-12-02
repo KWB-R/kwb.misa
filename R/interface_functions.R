@@ -279,8 +279,8 @@ kn_correction <- function(
   nh4 <- grep(pattern = "nh4",x = tolower(names(input_data)))
   mat1 <- as.matrix(input_data[[tkn]][,-1])
   mat2 <- as.matrix(input_data[[nh4]][,-1])
-  to_small <- which(mat1 < mat2)
-  mat1[to_small] <- mat2[to_small]
+  too_small <- which(mat1 < mat2)
+  mat1[too_small] <- mat2[too_small]
   cbind("DatumUhrzei" = input_data$mftkntot[,1], as.data.frame(mat1))
 }
 
@@ -409,7 +409,11 @@ data_per_outlet <- function(
     },
     n_para = names(outlet),
     n_out = outlet))
+
+    df_out[df_out$Q == 0L,] <- 0
     cbind("Zeit" = input_data[[1]][,1], df_out)
+
+
   })
 }
 #' 12. small function to help creating a column with gerris outlet ID
@@ -516,12 +520,12 @@ get_cso_stats <- function(
 ){
   df_out <- do.call(rbind, lapply(input_data, function(df){
     x <- df[,"Q"]
-
     y <- if(flow_only){
       0
     } else {
       df[,"OBSB"]
     }
+
     cso <- which(x > 0)
     if(length(cso) > 0){
       data.frame(
