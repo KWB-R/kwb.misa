@@ -19,7 +19,7 @@ paraIDs <- function(){
   as.data.frame(
     readxl::read_excel(
       path = system.file(
-        "extdata/interface/parameter_conversion.xlsx",
+        "extdata/misa_data/parameter_conversion.xlsx",
         package = "kwb.misa"
       )
     )
@@ -49,7 +49,7 @@ outletIDs <- function(){
   as.data.frame(
     readxl::read_excel(
       path = system.file(
-        "extdata/interface/outlet_conversion.xlsx",
+        "extdata/misa_data/outlet_conversion.xlsx",
         package = "kwb.misa"
       )
     )
