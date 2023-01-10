@@ -47,6 +47,7 @@ es <- lapply(1:nrow(e_data), function(i){
 # the input folder
 path <- paste0(
   "Y:/AUFTRAEGE/_Auftraege_laufend/MISA3/Exchange/Misa_auswertung")
+scenario <- "bsk100"
 
 # 1. Read Oxygen Data
 data_comp <- kwb.misa::read_misa_files(

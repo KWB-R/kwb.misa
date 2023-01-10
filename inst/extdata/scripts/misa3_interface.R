@@ -4,13 +4,13 @@ library(kwb.misa)
 interface_input_folder <-
   paste0("Y:/AUFTRAEGE/_Auftraege_laufend/MISA3/",
          "Data-Work packages/AP1_Vorbereitung-Strategiebewertung/",
-         "Schnittstelle/input/vor_sanierung2")
+         "Schnittstelle/input/vor_sanierung")
 
 # Wo sollen die für ormatierten Dateien abgespeichert werden?
 interface_output_folder <-
   paste0("Y:/AUFTRAEGE/_Auftraege_laufend/MISA3/",
          "Data-Work packages/AP1_Vorbereitung-Strategiebewertung/",
-         "Schnittstelle/output/vor_sanierung2")
+         "Schnittstelle/output/s0")
 
 # Wie heißen die Simulationen (hier reicht ein eindeutiger Teil des Namens)?
 # Außerdem muss zusätzlich die in Infoworks mitsimulierte Vorlauftrockenzeit

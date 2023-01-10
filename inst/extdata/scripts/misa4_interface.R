@@ -43,10 +43,14 @@ if(FALSE){
       skip_hours = trocken * 24,
       flow_threshold = 0.003
     )
+    sink()
   }
 
 
   # Additional checks  ###########################################################
+
+
+
   # Checken, warum einige Werte zu hoch sind
   result <- iw_gerris_interface(
     interface_input_folder = interface_input_folder,

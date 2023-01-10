@@ -1,13 +1,16 @@
 df_plot <- kwb.misa::prepareBarplot(
-  scenarioNames = c("s0", "lwk100", "sow100", "bssk100"),
+  scenarioNames = c("s0", "lwk100", "spr100", "bsk100"),
   scenarioPath =
     "Y:/AUFTRAEGE/_Auftraege_laufend/MISA3/Exchange/Misa_auswertung/output"
 )
 
 # Eine Messstelle --------------------------------------------------------------
-siteName <- "BSK"
+unique(df_plot$ID)
+
+siteName <- "BEL"
 {
-  dev.new(noRStudioGD = TRUE, height = 10, widths = 5)
+  #png(filename = )
+  dev.new(noRStudioGD = TRUE, height = 10, width = 4)
   layout(mat = c(1,2,3,4))
 
   kwb.misa::barPlot_site(
@@ -33,8 +36,8 @@ siteName <- "BSK"
 }
 
 
-# Alle Scherpunkte --------------------------------------------------------------
-df_plot$Name
+# Alle Schwerpunkte ------------------------------------------------------------
+df_plot$name
 
 df_agg <- aggregate(x = df_plot[,2:8], list(df_plot$scenario), sum)
 df_agg$Name <- "Gesamt"
