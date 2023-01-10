@@ -4,11 +4,14 @@
 \alias{add_catchments}
 \title{Add Berlin Catchments to a map of Berlin}
 \usage{
-add_catchments(shadedCatchments = "")
+add_catchments(highlight_catchments = "", highlight_style = "shaded")
 }
 \arguments{
-\item{shadedCatchments}{Name of Catchments without to be shaded instead of
-completely filled}
+\item{highlight_catchments}{Character vector containing the catchments names
+of catchments to be highlighted}
+
+\item{highlight_style}{Either "shaded" (default) or a specific color, which
+cab also be defined by \code{\link[=rgb]{rgb()}}}
 }
 \description{
 Polygons are drawn in different types of gray and names are added, without

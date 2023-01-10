@@ -76,7 +76,7 @@ mapPlot_EventTime <- function(
          main = paste0("MW\u00dc und Gew\u00e4sserbelastung - ", p_title)
     )
 
-    add_catchments(shadedCatchments = decouplingInfo$Catchments_included$ID[
+    add_catchments(highlight_catchments = decouplingInfo$Catchments_included$ID[
       decouplingInfo$Catchments_included$nOutDecoupled > 0.9])
     add_coloredRivers(
       ext_riversList = prepared_rivers,
@@ -92,7 +92,7 @@ mapPlot_EventTime <- function(
       side = 1, line = 0.2, font = 2)
     mtext(
       text = paste0(
-        c("Spree (Mühlendamm)",
+        c("Spree (M\u00fhlendamm)",
           "LWK",
           "Panke",
           "Spree (Sophienwerder)",
@@ -173,7 +173,7 @@ mapPlot_EventsNumber <- function(
     xlim = xlim, ylim = ylim)
 
   decouplingInfo <- decoupledCatchments(decouplingScenario = decoupling)
-  add_catchments(shadedCatchments = decouplingInfo$Catchments_included$ID[
+  add_catchments(highlight_catchments = decouplingInfo$Catchments_included$ID[
     decouplingInfo$Catchments_included$nOutDecoupled > 0.9])
   add_coloredRivers(
     ext_riversList = prepared_rivers,
@@ -241,7 +241,7 @@ mapPlot_EventsTime <- function(
     xlab = "", ylab = "",
     xlim = xlim, ylim = ylim)
   decouplingInfo <- decoupledCatchments(decouplingScenario = decoupling)
-  add_catchments(shadedCatchments = decouplingInfo$Catchments_included$ID[
+  add_catchments(highlight_catchments = decouplingInfo$Catchments_included$ID[
     decouplingInfo$Catchments_included$nOutDecoupled > 0.9])
   add_coloredRivers(
     ext_riversList = prepared_rivers,
@@ -419,12 +419,17 @@ add_csoVol <- function(eventStats, sizeMax = 100000){
 #' Polygons are drawn in different types of gray and names are added, without
 #' overlapping the catchment boundaries or any river
 #'
-#' @param shadedCatchments Name of Catchments without to be shaded instead of
-#' completely filled
+#' @param highlight_catchments Character vector containing the catchments names
+#' of catchments to be highlighted
+#' @param highlight_style Either "shaded" (default) or a specific color, which
+#' cab also be defined by [rgb()]
 #'
 #' @export
 #'
-add_catchments <- function(shadedCatchments = ""){
+add_catchments <- function(
+    highlight_catchments = "",
+    highlight_style = "shaded"
+){
   ezg <- NULL
   load(file.path(system.file(package = "kwb.misa"),
                  "extdata/misa_data/catch_polygon.RData"))
@@ -457,20 +462,25 @@ add_catchments <- function(shadedCatchments = ""){
   colCircle <- rep(paste0("gray",c(60,70,80,90)), 10)
   for(i in seq_along(ezg)){
     col <- colCircle[i]
-    shading <- if(names(ezg)[i] %in% shadedCatchments){
-      10
-    } else {
-      NULL
+    shading <- NULL
+    if(names(ezg)[i] %in% highlight_catchments){
+      if(highlight_style == "shaded"){
+        shading <- 10
+      } else {
+        col <- highlight_style
+      }
     }
-
     polygon(x = ezg[[i]][,1], y = ezg[[i]][,2], col = col, density = shading)
     text(x = ezg_namePositions[[i]]$x, y = ezg_namePositions[[i]]$y,
          labels = names(ezg_namePositions)[i])
   }
+
   lines(x = c(ezg_namePositions$`Chb Ia`$x + 0.012, min(ezg$`Chb Ia`[,1]) + 0.004),
         y =  c(ezg_namePositions$`Chb Ia`$y - 0.002, max(ezg$`Chb Ia`[,2]) - 0.002))
   lines(x = c(ezg_namePositions$`Bln IIIa`$x, mean(ezg$`Bln IIIa`[,1]) + 0.0005),
         y =  c(ezg_namePositions$`Bln IIIa`$y + 0.002, mean(ezg$`Bln IIIa`[,2])))
+  abline(v = par("usr")[1:2])
+  abline(h = par("usr")[3:4])
 }
 
 
