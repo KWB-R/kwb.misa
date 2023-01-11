@@ -7,7 +7,7 @@
 mapPlot_EventsNumber(
   BerlinRivers,
   df_aggr,
-  savingPath,
+  savingPath = "",
   varName = "events",
   sixBreaks = c(-1, 0, 1, 3, 6, 10),
   decoupling = "",
@@ -20,7 +20,8 @@ mapPlot_EventsNumber(
 
 \item{df_aggr}{Aggregated misa assessment data frame}
 
-\item{savingPath}{Directory where plot is going to be stored}
+\item{savingPath}{Directory where plot is going to be stored. If left empty
+(default) a new device is opened in RStudio for the plot.}
 
 \item{varName}{Column name that is used for water quality categorisation}
 

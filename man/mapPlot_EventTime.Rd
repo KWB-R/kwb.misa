@@ -9,7 +9,7 @@ mapPlot_EventTime(
   statFilesPath,
   dl_misa,
   event,
-  savingPath,
+  savingPath = "",
   sizeMax = 1e+05,
   below = 1.5,
   sixBreaks = c(0, 0.5, 2, 4, 10, 20),
@@ -27,7 +27,8 @@ mapPlot_EventTime(
 
 \item{event}{Event number to be plotted}
 
-\item{savingPath}{Directory where plot is going to be stored}
+\item{savingPath}{Directory where plot is going to be stored. If left empty
+(default) a new device is opened in RStudio for the plot.}
 
 \item{sizeMax}{Maximum size of CSO volumne. Default 100000 is a good
 compromise between large and small CSO events}

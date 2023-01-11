@@ -7,7 +7,7 @@
 mapPlot_EventsTime(
   BerlinRivers,
   df_aggr,
-  savingPath,
+  savingPath = "",
   varName = "hours.below_1.5",
   sixBreaks = c(0, 25, 50, 100, 200, 300),
   decoupling = "",
@@ -20,7 +20,8 @@ mapPlot_EventsTime(
 
 \item{df_aggr}{Aggregated misa assessment data frame}
 
-\item{savingPath}{Directory where plot is going to be stored}
+\item{savingPath}{Directory where plot is going to be stored. If left empty
+(default) a new device is opened in RStudio for the plot.}
 
 \item{varName}{Column name that is used for water quality categorisation}
 

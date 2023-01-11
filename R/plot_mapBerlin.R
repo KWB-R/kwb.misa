@@ -5,7 +5,8 @@
 #' @param statFilesPath Directory of all stat files
 #' @param dl_misa Misa assessment list of all events
 #' @param event Event number to be plotted
-#' @param savingPath Directory where plot is going to be stored
+#' @param savingPath Directory where plot is going to be stored. If left empty
+#' (default) a new device is opened in RStudio for the plot.
 #' @param sizeMax Maximum size of CSO volumne. Default 100000 is a good
 #' compromise between large and small CSO events
 #' @param below Oxygen concentration limit used for the plot (mg/L)
@@ -16,7 +17,7 @@
 #' @param dec What should be used a decimal character? Default is "," since
 #' the plots are in German language
 #'
-#' @importFrom grDevices png dev.off
+#' @importFrom grDevices png dev.off dev.new
 #'
 #' @export
 #'
@@ -25,7 +26,7 @@ mapPlot_EventTime <- function(
     statFilesPath,
     dl_misa,
     event,
-    savingPath,
+    savingPath = "",
     sizeMax = 100000,
     below = 1.5,
     sixBreaks = c(0,0.5,2,4,10,20),
@@ -63,8 +64,13 @@ mapPlot_EventTime <- function(
     width_factor <- plotDim[1]/plotDim[2]
 
     # plot
-    png(filename = paste0(savingPath, "/", p_title, "defTime.png"),
-        height = 6, width = 6 * width_factor, units = "in", res = 300)
+    if(savingPath != ""){
+      png(filename = paste0(savingPath, "/", p_title, "defTime.png"),
+          height = 6, width = 6 * width_factor, units = "in", res = 300)
+    } else {
+      dev.new(noRStudioGD = TRUE, height = 6, width = 6 * width_factor,
+              units = "in")
+    }
     xpdDim <- 6
     par(mar = c(xpdDim / 2, 0.2, xpdDim / 2 , xpdDim * width_factor - 0.2))
     options(OutDec = dec)
@@ -106,11 +112,10 @@ mapPlot_EventTime <- function(
           "Q_Havel")], digits = 2)),
       side = 1, line = 1.8, adj = c(0, 0.35, 0.55, 0.9, 1.2))
 
-
-    abline(h = ylim)
-    abline(v = xlim)
     options(OutDec = ".")
-    dev.off()
+    if(savingPath != ""){
+      dev.off()
+    }
   } else {
     message("No Assessment for Event ", event)
   }
@@ -121,7 +126,8 @@ mapPlot_EventTime <- function(
 #' @param BerlinRivers Berlin rivers loaded from package with
 #' [load_berlin_rivers()]
 #' @param df_aggr Aggregated misa assessment data frame
-#' @param savingPath Directory where plot is going to be stored
+#' @param savingPath Directory where plot is going to be stored. If left empty
+#' (default) a new device is opened in RStudio for the plot.
 #' @param varName Column name that is used for water quality categorisation
 #' @param sixBreaks 6 low limits of water quality categories
 #' @param decoupling Character vector defining a decoupling scenario. Default
@@ -129,21 +135,19 @@ mapPlot_EventTime <- function(
 #' @param dec What should be used a decimal character? Default is "," since
 #' the plots are in German language
 #'
-#' @importFrom grDevices png dev.off
+#' @importFrom grDevices png dev.off dev.new
 #'
 #' @export
 #'
 mapPlot_EventsNumber <- function(
     BerlinRivers,
     df_aggr,
-    savingPath,
+    savingPath = "",
     varName = "events",
     sixBreaks = c(-1,0,1,3,6,10),
     decoupling = "",
     dec = ","
 ){
-
-
   prepared_rivers <- lapply(
     BerlinRivers, extend_riverTable,
     qsim_misa_table = df_aggr,
@@ -158,8 +162,13 @@ mapPlot_EventsNumber <- function(
   width_factor <- plotDim[1]/plotDim[2]
 
   # plot
-  png(filename = paste0(savingPath, "/all_events_deficitNumber.png"),
-      height = 6, width = 6 * width_factor, units = "in", res = 300)
+  if(savingPath != ""){
+    png(filename = paste0(savingPath, "/all_events_deficitNumber.png"),
+        height = 6, width = 6 * width_factor, units = "in", res = 300)
+  } else {
+    dev.new(noRStudioGD = TRUE, height = 6, width = 6 * width_factor,
+            units = "in")
+  }
   xpdDim <- 4
   par(mar = c(0.2,  xpdDim * width_factor / 2,
               xpdDim - 0.2, xpdDim * width_factor / 2))
@@ -181,10 +190,11 @@ mapPlot_EventsNumber <- function(
     dataType = "number",
     LegendTitle = "Anzahl kritischer Ereignisse",
     LegendLocation = "top")
-  abline(h = ylim)
-  abline(v = xlim)
+
   options(OutDec = ".")
-  dev.off()
+  if(savingPath != ""){
+    dev.off()
+  }
 }
 
 #' Creates and stores a map Plot of Oxygen deficiency time of all CSO Events
@@ -192,7 +202,8 @@ mapPlot_EventsNumber <- function(
 #' @param BerlinRivers Berlin rivers loaded from package with
 #' [load_berlin_rivers()]
 #' @param df_aggr Aggregated misa assessment data frame
-#' @param savingPath Directory where plot is going to be stored
+#' @param savingPath Directory where plot is going to be stored. If left empty
+#' (default) a new device is opened in RStudio for the plot.
 #' @param varName Column name that is used for water quality categorisation
 #' @param sixBreaks 6 low limits of water quality categories
 #' @param decoupling Character vector defining a decoupling scenario. Default
@@ -200,14 +211,14 @@ mapPlot_EventsNumber <- function(
 #' @param dec What should be used a decimal character? Default is "," since
 #' the plots are in German language
 #'
-#' @importFrom grDevices png dev.off
+#' @importFrom grDevices png dev.off dev.new
 #'
 #' @export
 #'
 mapPlot_EventsTime <- function(
     BerlinRivers,
     df_aggr,
-    savingPath,
+    savingPath = "",
     varName = "hours.below_1.5",
     sixBreaks = c(0,25,50,100,200,300),
     decoupling = "",
@@ -228,8 +239,13 @@ mapPlot_EventsTime <- function(
   width_factor <- plotDim[1]/plotDim[2]
 
   # plot
-  png(filename = paste0(savingPath, "/all_events_deficitTime.png"),
-      height = 6, width = 6 * width_factor, units = "in", res = 300)
+  if(savingPath != ""){
+    png(filename = paste0(savingPath, "/all_events_deficitTime.png"),
+        height = 6, width = 6 * width_factor, units = "in", res = 300)
+  } else {
+    dev.new(noRStudioGD = TRUE, height = 6, width = 6 * width_factor,
+            units = "in")
+  }
   xpdDim <- 4
   par(mar = c(0.2,  xpdDim * width_factor / 2,
               xpdDim - 0.2, xpdDim * width_factor / 2))
@@ -249,10 +265,11 @@ mapPlot_EventsTime <- function(
     dataType = "time",
     LegendTitle = "Unterschreitungsdauer in Stunden (1,5 mg/L)",
     LegendLocation = "top")
-  abline(h = ylim)
-  abline(v = xlim)
+
   options(OutDec = ".")
-  dev.off()
+  if(savingPath != ""){
+    dev.off()
+  }
 }
 
 #' Adds Qualty Categories to the river table
