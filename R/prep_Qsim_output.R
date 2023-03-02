@@ -32,9 +32,12 @@ QSIM_prepare_for_tool <-function(
   return_table = FALSE
 ){
 
-  df_in <- read.table(file = file.path(qsim_output_path, qsim_fileName),
-                      header = T, sep = ";", dec = ",")
-
+  df_in <- read.table(
+    file = file.path(qsim_output_path, qsim_fileName),
+    header = T,
+    sep = ";",
+    dec = ","
+  )
   df_in$site <- paste(df_in[[1]], df_in[[2]], df_in[[3]], sep = "_")
 
   df_out <- df_in[,c("Datum", "site", "VO2")]
@@ -48,13 +51,18 @@ QSIM_prepare_for_tool <-function(
   df_out$Datum <- as.POSIXct(df_out$Datum, format = "%d.%m.%Y %H:%M")
   df_out <- df_out[order(df_out$Datum),]
 
-  utils::write.table(x = df_out,
-                     file = file.path(misa_tool_input_path,
-                                      "sites_per_file",
-                                      output_fileName),
-                     sep = ";",
-                     dec = ".",
-                     row.names = F)
+  target_folder <- file.path(misa_tool_input_path, "sites_per_file")
+  if(!dir.exists(paths = target_folder)){
+    dir.create(path = target_folder)
+  }
+
+  utils::write.table(
+    x = df_out,
+    file = file.path(target_folder, output_fileName),
+    sep = ";",
+    dec = ".",
+    row.names = F
+  )
 }
 
 
