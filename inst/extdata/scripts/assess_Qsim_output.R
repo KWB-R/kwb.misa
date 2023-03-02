@@ -47,13 +47,16 @@ es <- lapply(1:nrow(e_data), function(i){
 
 # ------------------------------------------------------------------------------
 # the input folder
-path <- paste0(
-  "Y:/AUFTRAEGE/_Auftraege_laufend/MISA3/Exchange/Misa_auswertung")
-scenario <- "bsk100"
+scenario <- "basis"
+
+path <- file.path(
+  "Y:/AUFTRAEGE/_Auftraege_laufend/MISA4/Data-Work packages/berechnungen",
+  scenario,
+  "4_assessment_input")
+
 
 # 1. Read Oxygen Data
-data_comp <- kwb.misa::read_misa_files(
-  input_path = file.path(path, "input", scenario))
+data_comp <- kwb.misa::read_misa_files(input_path = path)
 
 # 2. Filter Data per event
 data_comp_per_event <- lapply(es, function(event){
@@ -65,6 +68,14 @@ data_comp_per_event <- lapply(es, function(event){
 })
 
 names(data_comp_per_event) <- e_data$X
+
+# test for ovelapping timestamps of the events
+# there is an overlap of event 2 and 3 --> Check if there is a critical situation
+# somewhere between 2011-06-14 00:00 and 2011-06-14 08:00
+
+# sapply(seq_along(data_comp_per_event)[-1], function(i){
+#   data_comp_per_event[[i]]$posixDateTime[1] < rev(data_comp_per_event[[i-1]]$posixDateTime)[1]
+#   })
 
 
 # Reference for neg_dev is "Oberhalb Abzweig LWK"
