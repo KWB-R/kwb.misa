@@ -1,12 +1,13 @@
 # Prepare Qsim -----------------------------------------------------------------
+scenario <- "basis"
+
 path <- file.path(
-  "Y:/AUFTRAEGE/_Auftraege_laufend/MISA3/Exchange/Misa_auswertung/qsim_output",
-  "vor_sanierung")
+  "Y:/AUFTRAEGE/_Auftraege_laufend/MISA4/Data-Work packages/berechnungen",
+  scenario,
+  "3_qsim_output")
 
 files <- dir(path = path)
 files <- grep(pattern = "^2", files, value = T)
-scenario <- rev(strsplit(x = path, split = "/")[[1]])[1]
-
 
 for(file in files){
   print(paste(file, "in progress"))
@@ -14,8 +15,9 @@ for(file in files){
     qsim_output_path = path,
     qsim_fileName = file,
     misa_tool_input_path = file.path(
-      "Y:/AUFTRAEGE/_Auftraege_laufend/MISA3/Exchange/Misa_auswertung",
-      "input/temp"),
+      "Y:/AUFTRAEGE/_Auftraege_laufend/MISA4/Data-Work packages/berechnungen",
+      scenario,
+      "4_assessment_input"),
     output_fileName = paste0("misa_", scenario, "_", file)
   )
   print("done")
@@ -64,6 +66,8 @@ data_comp_per_event <- lapply(es, function(event){
 
 names(data_comp_per_event) <- e_data$X
 
+
+# Reference for neg_dev is "Oberhalb Abzweig LWK"
 dl_misa <- lapply(data_comp_per_event, function(df_event){
   print(head(df_event))
   # 3. Manipulated Data
