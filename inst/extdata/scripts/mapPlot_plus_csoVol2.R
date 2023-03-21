@@ -1,17 +1,19 @@
-# Path of CSO stats from interface
-statPath <- file.path(
-  "Y:/AUFTRAEGE/_Auftraege_laufend/MISA3/Data-Work packages",
-  "AP1_Vorbereitung-Strategiebewertung/Schnittstelle/output/vor_sanierung")
+scenario<- "basis"
+
+# This is the correct
+scenario_path <- file.path(
+  "Y:/AUFTRAEGE/_Auftraege_laufend/MISA4/Data-Work packages/berechnungen/",
+  scenario
+)
+
+#Path of CSO stats from interface
+statPath <- file.path(scenario_path,  "2_interface_output")
 
 # MiSa assessment after Qsim simulations
-load(file.path(
-  "Y:/AUFTRAEGE/_Auftraege_laufend/MISA3/Exchange/Misa_auswertung/output",
-  "bsk100.RData"))
-decoupling <- "bsk"
+load(file.path(scenario_path, "5_assessment_output/misa_tool_basis.RData"))
 
 # Path for saving
-saving_path <- paste0(
-  "Y:/AUFTRAEGE/_Auftraege_laufend/MISA3/Exchange/Misa_auswertung/output/bsk_100")
+saving_path <- file.path(scenario_path, "5_assessment_output")
 
 for(i in 1:20){
     kwb.misa::mapPlot_EventTime(
@@ -20,7 +22,7 @@ for(i in 1:20){
       dl_misa = dl_misa,
       savingPath = saving_path,
       below = 1.5,
-      decoupling = decoupling,
+      decoupling = "",
       event = i,
       dec = ","
     )
@@ -29,12 +31,12 @@ for(i in 1:20){
 kwb.misa::mapPlot_EventsNumber(
   BerlinRivers = kwb.misa::load_berlin_rivers(),
   df_aggr = df_aggr,
-  decoupling = decoupling,
+  decoupling = "",
   savingPath = saving_path
 )
 kwb.misa::mapPlot_EventsTime(
   BerlinRivers = kwb.misa::load_berlin_rivers(),
   df_aggr = df_aggr,
-  decoupling = decoupling,
+  decoupling = "",
   savingPath = saving_path
 )
