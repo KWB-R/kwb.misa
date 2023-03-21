@@ -4,7 +4,11 @@
 \alias{loadMisa_focus_sites}
 \title{Loads river sites for comparing bar plots}
 \usage{
-loadMisa_focus_sites()
+loadMisa_focus_sites(used_sites_only = TRUE)
+}
+\arguments{
+\item{used_sites_only}{If TRUE, the focus site table is filtered for sites
+that are marked as used in the "use" column}
 }
 \value{
 Table as defined in 'extdata/misa_data' filtered for all rows
