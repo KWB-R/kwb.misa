@@ -58,19 +58,31 @@ outletIDs <- function(){
 
 #' Loads river sites for comparing bar plots
 #'
+#' @param used_sites_only If TRUE, the focus site table is filtered for sites
+#' that are marked as used in the "use" column
+#'
 #' @return
 #' Table as defined in 'extdata/misa_data' filtered for all rows
 #' containing "y" in the "Auswahl"-column
 #'
 #' @export
 #'
-loadMisa_focus_sites <- function(){
+loadMisa_focus_sites <- function(used_sites_only = TRUE){
   path <- file.path(system.file(package = "kwb.misa"), "extdata/misa_data")
 
   sid <- read.table(
-    file = file.path(path, "focus_sites.csv"), header = T,sep = ";", dec = ".")
+    file = file.path(path, "focus_sites.csv"),
+    header = TRUE,
+    sep = ";",
+    dec = "."
+  )
 
-  sid[sid$use == "y",]
+  if(used_sites_only){
+    sid[sid$use == "y",]
+  } else {
+    sid
+  }
+
 }
 
 #' Loads critical rain events for scenario assessment
