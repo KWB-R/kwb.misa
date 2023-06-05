@@ -16,14 +16,17 @@ e_stats <- lapply(X = e_df$X, function(p_title){
 })
 
 names(e_stats) <- e_df$X
-scenario <- "bsk"
+scenario <- "lwk"
 
-decouplingInfo <- kwb.misa::decoupledCatchments(decouplingScenario = scenario)
+decouplingInfo <-
+  kwb.misa::decoupledCatchments(decouplingScenario = scenario)
+
 dec_list <- lapply(e_stats, function(x){
   x[x$RbId %in% decouplingInfo$Scenario_outlets,]
 })
 
 dec_df <- do.call(rbind, dec_list)
+sum(dec_df$tVol_m3)
 
 # Anzahl der Überläufe
 length(unique(dec_df$RbId))
@@ -44,6 +47,13 @@ df_plot <- kwb.misa::prepareBarplot(
   scenarioPath =
     "Y:/AUFTRAEGE/_Auftraege_laufend/MISA3/Exchange/Misa_auswertung/output"
 )
+
+kwb.misa::barPlot_site(
+  df_plot = df_plot,
+  siteName = "KIE",
+  barType = "crit_ox")
+
+###################
 
 library(dplyr)
 

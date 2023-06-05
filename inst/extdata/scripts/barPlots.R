@@ -1,16 +1,26 @@
-df_plot <- kwb.misa::prepareBarplot(
-  scenarioNames = c("s0", "lwk100", "spr100", "bsk100"),
-  scenarioPath =
-    "Y:/AUFTRAEGE/_Auftraege_laufend/MISA3/Exchange/Misa_auswertung/output"
+# for this script all misa assessment output files (.Rdata) to be compared must
+# be at the same path
+
+scenarios <- "basis"
+
+scenario_path <- file.path(
+  "Y:/AUFTRAEGE/_Auftraege_laufend/MISA4/Data-Work packages/berechnungen/",
+  scenario
 )
+
+
+df_plot <- kwb.misa::prepareBarplot(
+  scenarioNames = c("basis"),
+  scenarioPath = scenario_path)
+
 
 # Eine Messstelle --------------------------------------------------------------
 unique(df_plot$ID)
 
-siteName <- "BEL"
+siteName <- "MOE"
 {
   #png(filename = )
-  dev.new(noRStudioGD = TRUE, height = 10, width = 4)
+  dev.new(noRStudioGD = TRUE, height = 10, widths = 6)
   layout(mat = c(1,2,3,4))
 
   kwb.misa::barPlot_site(

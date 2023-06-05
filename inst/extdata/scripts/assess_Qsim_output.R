@@ -2,7 +2,6 @@
 # Enter manually (for MiSa 4)
 scenario <- "basis"
 
-
 # Prepare Qsim output and Save prepared output ---------------------------------
 scenario_path <- file.path(
   "Y:/AUFTRAEGE/_Auftraege_laufend/MISA4/Data-Work packages/berechnungen",
