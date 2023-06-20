@@ -1,8 +1,8 @@
-scenario<- "basis"
+scenario <- "S3"
 
 # This is the correct
 scenario_path <- file.path(
-  "Y:/AUFTRAEGE/_Auftraege_laufend/MISA4/Data-Work packages/berechnungen/",
+  "Y:/AUFTRAEGE/_Auftraege_laufend/MISA4/Data-Work packages/AP3_Szenarienrechnung/berechnungen",
   scenario
 )
 
@@ -10,7 +10,7 @@ scenario_path <- file.path(
 statPath <- file.path(scenario_path,  "2_interface_output")
 
 # MiSa assessment after Qsim simulations
-load(file.path(scenario_path, "5_assessment_output/misa_tool_basis.RData"))
+load(file.path(scenario_path, paste0("5_assessment_output/misa_tool_", scenario, ".RData")))
 
 # Path for saving
 saving_path <- file.path(scenario_path, "5_assessment_output")
