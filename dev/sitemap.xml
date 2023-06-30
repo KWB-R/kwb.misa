@@ -22,6 +22,9 @@
     <loc>/news/index.html</loc>
   </url>
   <url>
+    <loc>/reference/MisaColor.html</loc>
+  </url>
+  <url>
     <loc>/reference/QSIM_get_flow.html</loc>
   </url>
   <url>
@@ -52,6 +55,9 @@
     <loc>/reference/aggregate_measurements.html</loc>
   </url>
   <url>
+    <loc>/reference/barPlot_site.html</loc>
+  </url>
+  <url>
     <loc>/reference/build_gerris_table.html</loc>
   </url>
   <url>
@@ -80,6 +86,12 @@
   </url>
   <url>
     <loc>/reference/data_per_outlet.html</loc>
+  </url>
+  <url>
+    <loc>/reference/decoupledCatchments.html</loc>
+  </url>
+  <url>
+    <loc>/reference/df_aggr.html</loc>
   </url>
   <url>
     <loc>/reference/extend_riverTable.html</loc>
@@ -121,6 +133,15 @@
     <loc>/reference/kn_correction.html</loc>
   </url>
   <url>
+    <loc>/reference/loadMisa_decouplingInfo.html</loc>
+  </url>
+  <url>
+    <loc>/reference/loadMisa_events.html</loc>
+  </url>
+  <url>
+    <loc>/reference/loadMisa_focus_sites.html</loc>
+  </url>
+  <url>
     <loc>/reference/load_berlin_rivers.html</loc>
   </url>
   <url>
@@ -134,6 +155,9 @@
   </url>
   <url>
     <loc>/reference/mapPlot_EventsTime.html</loc>
+  </url>
+  <url>
+    <loc>/reference/misaBars.html</loc>
   </url>
   <url>
     <loc>/reference/misa_filter_data.html</loc>
@@ -160,6 +184,9 @@
     <loc>/reference/preText.html</loc>
   </url>
   <url>
+    <loc>/reference/prepareBarplot.html</loc>
+  </url>
+  <url>
     <loc>/reference/read_misa_files.html</loc>
   </url>
   <url>
@@ -179,6 +206,9 @@
   </url>
   <url>
     <loc>/reference/save_gerris_input.html</loc>
+  </url>
+  <url>
+    <loc>/reference/siteInfo_from_QsimName.html</loc>
   </url>
   <url>
     <loc>/reference/ts_ruleOf3.html</loc>

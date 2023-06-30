@@ -66,9 +66,10 @@
     <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">mapPlot_EventsTime</span><span class="op">(</span></span>
 <span>  <span class="va">BerlinRivers</span>,</span>
 <span>  <span class="va">df_aggr</span>,</span>
-<span>  <span class="va">savingPath</span>,</span>
+<span>  savingPath <span class="op">=</span> <span class="st">""</span>,</span>
 <span>  varName <span class="op">=</span> <span class="st">"hours.below_1.5"</span>,</span>
 <span>  sixBreaks <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0</span>, <span class="fl">25</span>, <span class="fl">50</span>, <span class="fl">100</span>, <span class="fl">200</span>, <span class="fl">300</span><span class="op">)</span>,</span>
+<span>  decoupling <span class="op">=</span> <span class="st">""</span>,</span>
 <span>  dec <span class="op">=</span> <span class="st">","</span></span>
 <span><span class="op">)</span></span></code></pre></div>
     </div>
@@ -85,7 +86,8 @@
 
 
 <dt>savingPath</dt>
-<dd><p>Directory where plot is going to be stored</p></dd>
+<dd><p>Directory where plot is going to be stored. If left empty
+(default) a new device is opened in RStudio for the plot.</p></dd>
 
 
 <dt>varName</dt>
@@ -94,6 +96,11 @@
 
 <dt>sixBreaks</dt>
 <dd><p>6 low limits of water quality categories</p></dd>
+
+
+<dt>decoupling</dt>
+<dd><p>Character vector defining a decoupling scenario. Default
+is "" for no scenario. Possible scenarios can be obtained by the column names</p></dd>
 
 
 <dt>dec</dt>
@@ -114,7 +121,7 @@ the plots are in German language</p></dd>
 </div>
 
 <div class="pkgdown">
-  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.5.</p>
+  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.7.</p>
 </div>
 
       </footer></div>
