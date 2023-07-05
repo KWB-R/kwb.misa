@@ -1,42 +1,37 @@
-#' Loads different Misa Assessment output files and writes them into one table
+#' Loads a set of Misa Assessment output files and writes them into one table
 #'
 #' Comparison of the aggregated misa files at specified focus river sites
 #'
-#' @param scenarioNames Names of the misa output files (.Rdata-Files)
-#' @param scenarioPath Path of all misa output files to be compared
+#' @param rdata_files A list of filnames (including filt paths) of the MiSa
+#' assessment output files. (.RData-files containing "df_aggr" and "dl_misa")
+#' @param scenario_names A character vector of scenario names correspronding to
+#' the list of RData files.
+#' @param qsim_focus_sites A vector of Qsim IDs of the sites to be compared
 #'
 #' @return
-#' One table wit all misa output data at the focus sites
+#' One table wit all Misa output data at the focus sites
 #'
 #' @export
 #'
 prepareBarplot <- function(
-    scenarioNames,
-    scenarioPath
+    rdata_files,
+    scenario_names,
+    qsim_focus_sites
 ){
-  fs <- kwb.misa::loadMisa_focus_sites()
 
   df_aggr <- NULL # to be loaded and overwritten by the scenario data
 
-  found <- paste0(scenarioNames, ".RData") %in% dir(scenarioPath)
-  if(sum(found) < length(found)){
-    message(paste(scenarioNames[!found], collapse = ","),
-            " not found in defined path.")
-  }
-
   comp_list <- list()
-  i <- 1
-  for(N in scenarioNames){
-
-    load(file.path(scenarioPath,paste0(N, ".RData")))
-
-    s1 <- df_aggr[df_aggr$qsim_site %in% fs$QSim_name,]
-    comp_list[[i]] <- merge(x = s1, y = fs, by.x = "qsim_site", by.y = "QSim_name")
-    comp_list[[i]]$scenario <- N
-    i <- i + 1
+  for(i in seq_along(rdata_files)){
+    if(!file.exists(rdata_files[[i]])){
+      stop(paste("File:", rdata_files[[i]], "cannot be found."))
+    } else {
+      load(rdata_files[[i]])
+      comp_list[[i]] <- df_aggr[df_aggr$qsim_site %in% qsim_focus_sites,]
+      comp_list[[i]][["scenario"]] <- scenario_names[[i]]
+    }
   }
-
-  comp_table <- do.call(rbind, comp_list)
+  do.call(rbind, comp_list)
 }
 
 #' Barplot comparing different Scenarios at one Site

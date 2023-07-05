@@ -2,17 +2,21 @@
 % Please edit documentation in R/plot_compareSites.R
 \name{prepareBarplot}
 \alias{prepareBarplot}
-\title{Loads different Misa Assessment output files and writes them into one table}
+\title{Loads a set of Misa Assessment output files and writes them into one table}
 \usage{
-prepareBarplot(scenarioNames, scenarioPath)
+prepareBarplot(rdata_files, scenario_names, qsim_focus_sites)
 }
 \arguments{
-\item{scenarioNames}{Names of the misa output files (.Rdata-Files)}
+\item{rdata_files}{A list of filnames (including filt paths) of the MiSa
+assessment output files. (.RData-files containing "df_aggr" and "dl_misa")}
 
-\item{scenarioPath}{Path of all misa output files to be compared}
+\item{scenario_names}{A character vector of scenario names correspronding to
+the list of RData files.}
+
+\item{qsim_focus_sites}{A vector of Qsim IDs of the sites to be compared}
 }
 \value{
-One table wit all misa output data at the focus sites
+One table wit all Misa output data at the focus sites
 }
 \description{
 Comparison of the aggregated misa files at specified focus river sites

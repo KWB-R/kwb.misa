@@ -1,23 +1,28 @@
 # for this script all misa assessment output files (.Rdata) to be compared must
 # be at the same path
 
-scenarios <- "basis"
+misa4_path <- "Y:/AUFTRAEGE/_Auftraege_laufend/MISA4/Data-Work packages/AP3_Szenarienrechnung/berechnungen"
 
-scenario_path <- file.path(
-  "Y:/AUFTRAEGE/_Auftraege_laufend/MISA4/Data-Work packages/berechnungen/",
-  scenario
-)
 
+# focus sites
+fs <- kwb.misa::loadMisa_focus_sites(used_sites_only = FALSE)
 
 df_plot <- kwb.misa::prepareBarplot(
-  scenarioNames = c("basis"),
-  scenarioPath = scenario_path)
+  rdata_files = list(
+    file.path(misa4_path, "S0_basis", "5_assessment_output", "misa_tool_basis.RData"),
+    file.path(misa4_path, "S3", "5_assessment_output", "misa_tool_S3.RData")),
+  scenario_names = c(
+    "basis",
+    "str10_bln7"),
+  qsim_focus_sites = fs$QSim_name)
+
+df_plot <- merge(x = df_plot, y = fs, by.x = "qsim_site", by.y = "QSim_name", all = TRUE)
 
 
 # Eine Messstelle --------------------------------------------------------------
 unique(df_plot$ID)
 
-siteName <- "MOE"
+siteName <- "SOP"
 {
   #png(filename = )
   dev.new(noRStudioGD = TRUE, height = 10, widths = 6)
@@ -50,7 +55,7 @@ siteName <- "MOE"
 df_plot$name
 
 df_agg <- aggregate(x = df_plot[,2:8], list(df_plot$scenario), sum)
-df_agg$Name <- "Gesamt"
+df_agg$ID <- "Gesamt"
 df_agg$Ausgeschrieben <- "Alle Schwerpunkte"
 df_agg$scenario <- df_agg$Group.1
 
