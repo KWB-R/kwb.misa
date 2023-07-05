@@ -1,10 +1,10 @@
 # Prepare Qsim -----------------------------------------------------------------
 # Enter manually (for MiSa 4)
-scenario <- "basis"
+scenario <- "S3"
 
 # Prepare Qsim output and Save prepared output ---------------------------------
 scenario_path <- file.path(
-  "Y:/AUFTRAEGE/_Auftraege_laufend/MISA4/Data-Work packages/berechnungen",
+  "Y:/AUFTRAEGE/_Auftraege_laufend/MISA4/Data-Work packages/AP3_Szenarienrechnung/berechnungen",
   scenario
 )
 Qsim_output_path <- file.path(scenario_path, "3_qsim_output")
