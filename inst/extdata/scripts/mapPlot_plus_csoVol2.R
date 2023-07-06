@@ -24,6 +24,7 @@ for(i in 1:20){
       below = 1.5,
       decoupling = "",
       event = i,
+      scenarioName = scenario,
       dec = ","
     )
 }
@@ -31,12 +32,15 @@ for(i in 1:20){
 kwb.misa::mapPlot_EventsNumber(
   BerlinRivers = kwb.misa::load_berlin_rivers(),
   df_aggr = df_aggr,
+  scenarioName = scenario,
   decoupling = "",
   savingPath = saving_path
 )
 kwb.misa::mapPlot_EventsTime(
   BerlinRivers = kwb.misa::load_berlin_rivers(),
   df_aggr = df_aggr,
+  scenarioName = scenario,
   decoupling = "",
   savingPath = saving_path
 )
+
