@@ -31,7 +31,9 @@ prepareBarplot <- function(
       comp_list[[i]][["scenario"]] <- scenario_names[[i]]
     }
   }
-  do.call(rbind, comp_list)
+  df_out <- do.call(rbind, comp_list)
+  df_out$scenario <- factor(df_out$scenario, levels = scenario_names)
+  df_out
 }
 
 #' Barplot comparing different Scenarios at one Site
@@ -58,6 +60,7 @@ barPlot_site <- function(
     df_plot, siteName, barType
 ){
   df_site <- df_plot[df_plot$ID %in% siteName,]
+  df_site <- df_site[order(df_site$scenario),]
   n <- nrow(df_site)
   title <- unique(df_site$Ausgeschrieben)
 
