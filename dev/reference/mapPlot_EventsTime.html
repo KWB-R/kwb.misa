@@ -66,6 +66,7 @@
     <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">mapPlot_EventsTime</span><span class="op">(</span></span>
 <span>  <span class="va">BerlinRivers</span>,</span>
 <span>  <span class="va">df_aggr</span>,</span>
+<span>  scenarioName <span class="op">=</span> <span class="st">""</span>,</span>
 <span>  savingPath <span class="op">=</span> <span class="st">""</span>,</span>
 <span>  varName <span class="op">=</span> <span class="st">"hours.below_1.5"</span>,</span>
 <span>  sixBreaks <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0</span>, <span class="fl">25</span>, <span class="fl">50</span>, <span class="fl">100</span>, <span class="fl">200</span>, <span class="fl">300</span><span class="op">)</span>,</span>
@@ -83,6 +84,10 @@
 
 <dt>df_aggr</dt>
 <dd><p>Aggregated misa assessment data frame</p></dd>
+
+
+<dt>scenarioName</dt>
+<dd><p>A String, only used for the plot title and file name</p></dd>
 
 
 <dt>savingPath</dt>
