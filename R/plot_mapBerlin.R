@@ -4,7 +4,8 @@
 #' [load_berlin_rivers()]
 #' @param statFilesPath Directory of all stat files
 #' @param dl_misa Misa assessment list of all events
-#' @param event Event number to be plotted
+#' @param event Event number to be plotted.
+#' @param scenarioName A String, only used for the plot title and file name
 #' @param savingPath Directory where plot is going to be stored. If left empty
 #' (default) a new device is opened in RStudio for the plot.
 #' @param sizeMax Maximum size of CSO volumne. Default 100000 is a good
@@ -26,6 +27,7 @@ mapPlot_EventTime <- function(
     statFilesPath,
     dl_misa,
     event,
+    scenarioName = "",
     savingPath = "",
     sizeMax = 100000,
     below = 1.5,
@@ -65,7 +67,7 @@ mapPlot_EventTime <- function(
 
     # plot
     if(savingPath != ""){
-      png(filename = paste0(savingPath, "/", p_title, "defTime.png"),
+      png(filename = paste0(savingPath, "/", p_title, "_", scenarioName, "_", "defTime.png"),
           height = 6, width = 6 * width_factor, units = "in", res = 300)
     } else {
       dev.new(noRStudioGD = TRUE, height = 6, width = 6 * width_factor,
@@ -79,7 +81,7 @@ mapPlot_EventTime <- function(
          xaxs = "i", yaxs = "i",
          xlab = "", ylab = "",
          xlim = xlim, ylim = ylim,
-         main = paste0("MW\u00dc und Gew\u00e4sserbelastung - ", p_title)
+         main = paste("MW\u00dc und Gew\u00e4sserbelastung -", p_title, scenarioName)
     )
 
     add_catchments(highlight_catchments = decouplingInfo$Catchments_included$ID[
@@ -126,6 +128,7 @@ mapPlot_EventTime <- function(
 #' @param BerlinRivers Berlin rivers loaded from package with
 #' [load_berlin_rivers()]
 #' @param df_aggr Aggregated misa assessment data frame
+#' @param scenarioName A String, only used for the plot title and file name
 #' @param savingPath Directory where plot is going to be stored. If left empty
 #' (default) a new device is opened in RStudio for the plot.
 #' @param varName Column name that is used for water quality categorisation
@@ -142,6 +145,7 @@ mapPlot_EventTime <- function(
 mapPlot_EventsNumber <- function(
     BerlinRivers,
     df_aggr,
+    scenarioName = "",
     savingPath = "",
     varName = "events",
     sixBreaks = c(-1,0,1,3,6,10),
@@ -163,7 +167,7 @@ mapPlot_EventsNumber <- function(
 
   # plot
   if(savingPath != ""){
-    png(filename = paste0(savingPath, "/all_events_deficitNumber.png"),
+    png(filename = paste0(savingPath, "/all_events_deficitNumber_", scenarioName, ".png"),
         height = 6, width = 6 * width_factor, units = "in", res = 300)
   } else {
     dev.new(noRStudioGD = TRUE, height = 6, width = 6 * width_factor,
@@ -188,7 +192,7 @@ mapPlot_EventsNumber <- function(
     ext_riversList = prepared_rivers,
     sixBreaks = sixBreaks,
     dataType = "number",
-    LegendTitle = "Anzahl kritischer Ereignisse",
+    LegendTitle = paste("Anzahl kritischer Ereignisse", scenarioName),
     LegendLocation = "top")
 
   options(OutDec = ".")
@@ -202,6 +206,7 @@ mapPlot_EventsNumber <- function(
 #' @param BerlinRivers Berlin rivers loaded from package with
 #' [load_berlin_rivers()]
 #' @param df_aggr Aggregated misa assessment data frame
+#' @param scenarioName A String, only used for the plot title and file name
 #' @param savingPath Directory where plot is going to be stored. If left empty
 #' (default) a new device is opened in RStudio for the plot.
 #' @param varName Column name that is used for water quality categorisation
@@ -218,6 +223,7 @@ mapPlot_EventsNumber <- function(
 mapPlot_EventsTime <- function(
     BerlinRivers,
     df_aggr,
+    scenarioName = "",
     savingPath = "",
     varName = "hours.below_1.5",
     sixBreaks = c(0,25,50,100,200,300),
@@ -240,7 +246,7 @@ mapPlot_EventsTime <- function(
 
   # plot
   if(savingPath != ""){
-    png(filename = paste0(savingPath, "/all_events_deficitTime.png"),
+    png(filename = paste0(savingPath, "/all_events_deficitTime_", scenarioName, ".png"),
         height = 6, width = 6 * width_factor, units = "in", res = 300)
   } else {
     dev.new(noRStudioGD = TRUE, height = 6, width = 6 * width_factor,
@@ -263,7 +269,7 @@ mapPlot_EventsTime <- function(
     ext_riversList = prepared_rivers,
     sixBreaks = sixBreaks,
     dataType = "time",
-    LegendTitle = "Unterschreitungsdauer in Stunden (1,5 mg/L)",
+    LegendTitle = paste("Unterschreitungsdauer in Stunden (1,5 mg/L)", scenarioName),
     LegendLocation = "top")
 
   options(OutDec = ".")

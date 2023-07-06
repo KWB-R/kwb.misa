@@ -7,6 +7,7 @@
 mapPlot_EventsTime(
   BerlinRivers,
   df_aggr,
+  scenarioName = "",
   savingPath = "",
   varName = "hours.below_1.5",
   sixBreaks = c(0, 25, 50, 100, 200, 300),
@@ -19,6 +20,8 @@ mapPlot_EventsTime(
 \code{\link[=load_berlin_rivers]{load_berlin_rivers()}}}
 
 \item{df_aggr}{Aggregated misa assessment data frame}
+
+\item{scenarioName}{A String, only used for the plot title and file name}
 
 \item{savingPath}{Directory where plot is going to be stored. If left empty
 (default) a new device is opened in RStudio for the plot.}

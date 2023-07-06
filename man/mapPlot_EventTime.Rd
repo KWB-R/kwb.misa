@@ -9,6 +9,7 @@ mapPlot_EventTime(
   statFilesPath,
   dl_misa,
   event,
+  scenarioName = "",
   savingPath = "",
   sizeMax = 1e+05,
   below = 1.5,
@@ -25,7 +26,9 @@ mapPlot_EventTime(
 
 \item{dl_misa}{Misa assessment list of all events}
 
-\item{event}{Event number to be plotted}
+\item{event}{Event number to be plotted.}
+
+\item{scenarioName}{A String, only used for the plot title and file name}
 
 \item{savingPath}{Directory where plot is going to be stored. If left empty
 (default) a new device is opened in RStudio for the plot.}
