@@ -366,12 +366,12 @@ check_parameter_range <- function(
     to_high <- which(mat_process > max_allowed)
     if(length(to_small) > 0){
       mat_process[to_small] <- min_allowed
-      warning(para_names[i], ": ", length(to_small),
+      cat(para_names[i], ": ", length(to_small),
               " values below Gerris limit and set to ", min_allowed)
     }
     if(length(to_high) > 0){
       mat_process[to_high] <- max_allowed
-      warning(para_names[i], ": ", length(to_high),
+      cat(para_names[i], ": ", length(to_high),
               " values above Gerris limit and set to ", max_allowed)
     }
 
