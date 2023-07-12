@@ -1,6 +1,6 @@
 
 
-szenario_id <- "S7"
+szenario_id <- "S4"
 
 
 if(FALSE){
@@ -45,6 +45,16 @@ if(FALSE){
       flow_threshold = 0.003
     )
     sink()
+
+    overflow_steps <- data.frame(
+      result %>% group_by(RbId, ParamId) %>%
+        summarize(n = n()) %>%
+        filter(ParamId == "Q", n > 2))
+    bp <- boxplot(overflow_steps$n)
+    cat(paste0(
+      "Suspicious long overflows: ",
+      paste0(overflow_steps$RbId[overflow_steps$n %in% bp$out], collapse = ", ")
+    ))
   }
 
 
@@ -53,11 +63,11 @@ if(FALSE){
 
 
   # Checken, warum einige Werte zu hoch sind
-  result <- iw_gerris_interface(
+  result <- kwb.misa::iw_gerris_interface(
     interface_input_folder = interface_input_folder,
     interface_output_folder = interface_output_folder,
     simulation_name = simulation_name,
-    stop_after = 5,
+    return_after = 5,
     return_output_table = TRUE,
     infoworks_time_format = "%d/%m/%Y %H:%M:%S",
     gerris_time_format = "%d.%m.%Y %H:%M",
@@ -69,9 +79,8 @@ if(FALSE){
   # Memo: Die warnungen zur Korrktur der Messwerte werden nicht in die Log-Datei
   # geschrieben sondern in die Console -> sollte geaendert werden
 
-  check_high_concentration(
-    result = result,
-    parameter_conversion = parameter_conversion,
+  kwb.misa::check_high_concentration(
+    result = result2,
     parameterID_infoworks = "mfcodtot"
   )
 }
