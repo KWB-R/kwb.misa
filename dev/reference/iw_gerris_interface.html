@@ -74,7 +74,8 @@
 <span>  timestep_out <span class="op">=</span> <span class="fl">15</span>,</span>
 <span>  skip_hours <span class="op">=</span> <span class="fl">0</span>,</span>
 <span>  flow_threshold <span class="op">=</span> <span class="fl">0.003</span>,</span>
-<span>  flow_only <span class="op">=</span> <span class="cn">FALSE</span></span>
+<span>  flow_only <span class="op">=</span> <span class="cn">FALSE</span>,</span>
+<span>  outlets_to_suppress <span class="op">=</span> <span class="cn">NULL</span></span>
 <span><span class="op">)</span></span></code></pre></div>
     </div>
 
@@ -134,6 +135,12 @@ avoid negative flows (in m3/s)</p></dd>
 <dd><p>If TRUE, a flow file is sufficient as interface input.
 All other available input files will also be processed but no total nitrogen
 is calculated that might lead to an error due to missing nitrogen input files</p></dd>
+
+
+<dt>outlets_to_suppress</dt>
+<dd><p>Character vector defining Infoworks outlet
+IDs for all outlets to be suppressed. For those outlets the flow will be
+constantly set to 0.</p></dd>
 
 </dl></div>
     <div id="value">
