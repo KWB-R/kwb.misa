@@ -98,6 +98,34 @@ correct_flow <- function(
   cbind(time_cols, as.data.frame(flow_mat))
 }
 
+#' 2a. suppress outlet Overflow
+#' @param input_data input
+#' @param outlets_to_suppress Character vector defining the Infoworks outlet
+#' IDs of all outlets to be suppressed (->set to 0)
+#' @param outlet_conversion The outlet conversion table from the package
+#' can be loaded with [outletIDs()]
+#'
+suppress_flow <- function(
+    input_data,
+    outlets_to_suppress,
+    outlet_conversion
+){
+
+  uslink_to_suppress <- outlet_conversion$upstream_link_id[
+    outlet_conversion$outlet_id %in% outlets_to_suppress]
+  outlet_ids <- ids_from_colnames(COLnames = colnames(input_data))
+  s <- which(outlet_ids %in% uslink_to_suppress)
+
+  if(length(s) == 0L){
+    cat("outlets:", paste0(outlets_to_suppress, collapse = ", "),
+        " - were selected to be suppressed but not found in input data\n")
+  } else {
+    input_data[,s] <- 0
+  }
+
+  input_data
+}
+
 keep_overflows <- function(df_in, flowID_name){
 
   nRow <- nrow(df_in)
@@ -367,12 +395,12 @@ check_parameter_range <- function(
     if(length(to_small) > 0){
       mat_process[to_small] <- min_allowed
       cat(para_names[i], ": ", length(to_small),
-              " values below Gerris limit and set to ", min_allowed)
+              " values below Gerris limit and set to ", min_allowed, "\n")
     }
     if(length(to_high) > 0){
       mat_process[to_high] <- max_allowed
       cat(para_names[i], ": ", length(to_high),
-              " values above Gerris limit and set to ", max_allowed)
+              " values above Gerris limit and set to ", max_allowed, "\n")
     }
 
     # round to 3 significant digits

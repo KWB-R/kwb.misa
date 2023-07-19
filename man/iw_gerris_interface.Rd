@@ -15,7 +15,8 @@ iw_gerris_interface(
   timestep_out = 15,
   skip_hours = 0,
   flow_threshold = 0.003,
-  flow_only = FALSE
+  flow_only = FALSE,
+  outlets_to_suppress = NULL
 )
 }
 \arguments{
@@ -52,6 +53,10 @@ avoid negative flows (in m3/s)}
 \item{flow_only}{If TRUE, a flow file is sufficient as interface input.
 All other available input files will also be processed but no total nitrogen
 is calculated that might lead to an error due to missing nitrogen input files}
+
+\item{outlets_to_suppress}{Character vector defining Infoworks outlet
+IDs for all outlets to be suppressed. For those outlets the flow will be
+constantly set to 0.}
 }
 \value{
 One table containing all water quality and overflow data per outlet and

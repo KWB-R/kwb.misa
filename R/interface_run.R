@@ -23,6 +23,9 @@
 #' @param flow_only If TRUE, a flow file is sufficient as interface input.
 #' All other available input files will also be processed but no total nitrogen
 #' is calculated that might lead to an error due to missing nitrogen input files
+#' @param outlets_to_suppress Character vector defining Infoworks outlet
+#' IDs for all outlets to be suppressed. For those outlets the flow will be
+#' constantly set to 0.
 #'
 #' @details These are the steps within the function:
 #' 1. load data
@@ -63,7 +66,8 @@ iw_gerris_interface <- function(
     timestep_out = 15, # minutes
     skip_hours = 0,
     flow_threshold = 0.003,
-    flow_only = FALSE
+    flow_only = FALSE,
+    outlets_to_suppress = NULL
 ){
   parameter_conversion <- paraIDs()
   outlet_conversion <- outletIDs()
@@ -111,7 +115,19 @@ iw_gerris_interface <- function(
   )
   cat("2. flow rates below ", flow_threshold, " m3/s set to 0.\n")
   postText("flow corrected", 2)
+
+  # 2a. Suppress outlets if defined
+  if(!is.null(outlets_to_suppress)){
+    iw_out[[flowID_infoworks]] <- suppress_flow(
+      input_data = iw_out[[flowID_infoworks]],
+      outlets_to_suppress = outlets_to_suppress,
+      outlet_conversion = outlet_conversion
+    )
+    cat("outlets:", paste0(outlets_to_suppress, collapse = ", "),
+        "were constantly set to 0 flow\n")
+  }
   if(isTRUE(all.equal(return_after, 2))){ return(iw_out) }
+
 
   # 3. change timesteps
   preText("changing timesteps")
