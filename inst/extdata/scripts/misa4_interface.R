@@ -1,8 +1,8 @@
 
 
-szenario_id <- "S3"
-outlets_to_suppress = NULL
-  #"16234008"
+szenario_id <- "S7"
+outlets_to_suppress <- NULL
+  # "16234008"
 
 if(FALSE){
   # Wo liegen die Dateien von Infoworks?
@@ -18,8 +18,7 @@ if(FALSE){
   # Simulationsname (hier reicht ein eindeutiger Teil des Namens) und
   # Vorlauftrockenzeit
   simulations <- c(
-    #"E2_2011" = 5,
-    "E3_2011" = 5, "E5_2012" = 5, "E6_2012" = 5, "E7_2013" = 22,
+    "E2_2011" = 5,"E3_2011" = 5, "E5_2012" = 5, "E6_2012" = 5, "E7_2013" = 22,
     "E8_2013" = 5, "E9_2014" = 5, "E10_2014" = 6, "E12_2015" = 5,"E13_2016" = 5,
     "E16_2017" = 6, "E17_2017" = 5,
     "E19_2018" = 14, "E20_2019" = 5)
@@ -55,6 +54,10 @@ if(FALSE){
   # Additional checks  #########################################################
 
   # Checken, warum einige Werte zu hoch sind
+  simulation_name <- names(simulations)[10]
+  print(simulation_name)
+  trocken <- simulations[i]
+
   result <- kwb.misa::iw_gerris_interface(
     interface_input_folder = interface_input_folder,
     interface_output_folder = interface_output_folder,
@@ -68,10 +71,16 @@ if(FALSE){
     skip_hours = trocken * 24,
     flow_threshold = 0.003)
 
-  kwb.misa::check_high_concentration(
-    result = result2,
+  asd <- kwb.misa::check_high_concentration(
+    result = result,
     parameterID_infoworks = "mfcodtot"
   )
+
+  asd$load <- asd$Parameter * asd$flow
+  unique(asd$outlet[asd$load > 1000])
+  View(asd)
+
+
 
   # Checken, ob es irgendwo verdächtig langandauernde Überläufe gibt
   library(dplyr)
@@ -87,6 +96,7 @@ if(FALSE){
       plot = FALSE)
     overflow_steps$RbId[overflow_steps$n %in% bp$out]
   })
+  # the number of suspicious long overflows per outlet (R1309 is Rochstr.)
   sort(summary(as.factor(unlist(susp))), decreasing = TRUE)
 
 }
