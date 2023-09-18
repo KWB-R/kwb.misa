@@ -9,7 +9,7 @@ fs <- kwb.misa::loadMisa_focus_sites(used_sites_only = FALSE)
 
 df_plot <- kwb.misa::prepareBarplot(
   rdata_files = list(
-    file.path(misa4_path, "S0_basis", "5_assessment_output", "misa_tool_basis.RData"),
+    file.path(misa4_path, "S0", "5_assessment_output", "misa_tool_S0.RData"),
     file.path(misa4_path, "S3", "5_assessment_output", "misa_tool_S3.RData"),
     file.path(misa4_path, "S4", "5_assessment_output", "misa_tool_S4.RData"),
     file.path(misa4_path, "S7", "5_assessment_output", "misa_tool_S7.RData")),
