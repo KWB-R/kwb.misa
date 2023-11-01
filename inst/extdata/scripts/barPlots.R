@@ -12,12 +12,18 @@ df_plot <- kwb.misa::prepareBarplot(
     file.path(misa4_path, "S0", "5_assessment_output", "misa_tool_S0.RData"),
     file.path(misa4_path, "S3", "5_assessment_output", "misa_tool_S3.RData"),
     file.path(misa4_path, "S4", "5_assessment_output", "misa_tool_S4.RData"),
-    file.path(misa4_path, "S7", "5_assessment_output", "misa_tool_S7.RData")),
+    file.path(misa4_path, "S7", "5_assessment_output", "misa_tool_S7.RData"),
+    file.path(misa4_path, "S5", "5_assessment_output", "misa_tool_S5.RData"),
+    file.path(misa4_path, "S6", "5_assessment_output", "misa_tool_S6.RData"),
+    file.path(misa4_path, "S8", "5_assessment_output", "misa_tool_S8.RData")),
   scenario_names = c(
     "basis",
-    "str10_bln7",
-    "lieg10_bln7",
-    "strlieg10_bln7"),
+    "str10",
+    "lieg10",
+    "strlieg10",
+    "str30",
+    "lieg30",
+    "strlieg30"),
   qsim_focus_sites = fs$QSim_name)
 
 df_plot <- merge(x = df_plot, y = fs, by.x = "qsim_site", by.y = "QSim_name", all = TRUE)
