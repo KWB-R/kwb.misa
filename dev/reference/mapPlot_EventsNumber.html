@@ -71,7 +71,8 @@
 <span>  varName <span class="op">=</span> <span class="st">"events"</span>,</span>
 <span>  sixBreaks <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="op">-</span><span class="fl">1</span>, <span class="fl">0</span>, <span class="fl">1</span>, <span class="fl">3</span>, <span class="fl">6</span>, <span class="fl">10</span><span class="op">)</span>,</span>
 <span>  decoupling <span class="op">=</span> <span class="st">""</span>,</span>
-<span>  dec <span class="op">=</span> <span class="st">","</span></span>
+<span>  dec <span class="op">=</span> <span class="st">","</span>,</span>
+<span>  highlight_catchments <span class="op">=</span> <span class="cn">NULL</span></span>
 <span><span class="op">)</span></span></code></pre></div>
     </div>
 
@@ -111,6 +112,12 @@ is "" for no scenario. Possible scenarios can be obtained by the column names</p
 <dt>dec</dt>
 <dd><p>What should be used a decimal character? Default is "," since
 the plots are in German language</p></dd>
+
+
+<dt>highlight_catchments</dt>
+<dd><p>Character vector of catchments to highlight. If
+NULL catchments will be highlighted based on decoupling scenario. Otherwise
+this overwrites the decoupling information for catchments highlited.</p></dd>
 
 </dl></div>
 
