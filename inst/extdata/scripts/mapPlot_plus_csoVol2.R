@@ -1,5 +1,8 @@
 scenario <- "S3"
 
+# either NULL --> no highlighting, or character vector of catchment names
+highlight_catchments <- c("Bln VII")
+
 # This is the correct
 scenario_path <- file.path(
   "Y:/AUFTRAEGE/_Auftraege_laufend/MISA4/Data-Work packages/AP3_Szenarienrechnung/berechnungen",
@@ -8,6 +11,7 @@ scenario_path <- file.path(
 
 #Path of CSO stats from interface
 statPath <- file.path(scenario_path,  "2_interface_output")
+
 
 # MiSa assessment after Qsim simulations
 load(file.path(scenario_path, paste0("5_assessment_output/misa_tool_", scenario, ".RData")))
@@ -25,7 +29,8 @@ for(i in 1:20){
       decoupling = "",
       event = i,
       scenarioName = scenario,
-      dec = ","
+      dec = ",",
+      highlight_catchments = highlight_catchments
     )
 }
 
@@ -34,13 +39,16 @@ kwb.misa::mapPlot_EventsNumber(
   df_aggr = df_aggr,
   scenarioName = scenario,
   decoupling = "",
-  savingPath = saving_path
+  savingPath = saving_path,
+  highlight_catchments = highlight_catchments
 )
+
 kwb.misa::mapPlot_EventsTime(
   BerlinRivers = kwb.misa::load_berlin_rivers(),
   df_aggr = df_aggr,
   scenarioName = scenario,
   decoupling = "",
-  savingPath = saving_path
+  savingPath = saving_path,
+  highlight_catchments = highlight_catchments
 )
 

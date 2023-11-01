@@ -12,7 +12,8 @@ mapPlot_EventsNumber(
   varName = "events",
   sixBreaks = c(-1, 0, 1, 3, 6, 10),
   decoupling = "",
-  dec = ","
+  dec = ",",
+  highlight_catchments = NULL
 )
 }
 \arguments{
@@ -35,6 +36,10 @@ is "" for no scenario. Possible scenarios can be obtained by the column names}
 
 \item{dec}{What should be used a decimal character? Default is "," since
 the plots are in German language}
+
+\item{highlight_catchments}{Character vector of catchments to highlight. If
+NULL catchments will be highlighted based on decoupling scenario. Otherwise
+this overwrites the decoupling information for catchments highlited.}
 }
 \description{
 Creates and stores a map Plot of all oxygen deficiencies Events

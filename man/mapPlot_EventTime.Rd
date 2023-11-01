@@ -15,7 +15,8 @@ mapPlot_EventTime(
   below = 1.5,
   sixBreaks = c(0, 0.5, 2, 4, 10, 20),
   decoupling = "",
-  dec = ","
+  dec = ",",
+  highlight_catchments = NULL
 )
 }
 \arguments{
@@ -46,6 +47,10 @@ of \code{\link[=loadMisa_decouplingInfo]{loadMisa_decouplingInfo()}}.}
 
 \item{dec}{What should be used a decimal character? Default is "," since
 the plots are in German language}
+
+\item{highlight_catchments}{Character vector of catchments to highlight. If
+NULL catchments will be highlighted based on decoupling scenario. Otherwise
+this overwrites the decoupling information for catchments highlited.}
 }
 \description{
 Creates and stores a map Plot of Oxygen deficiency during CSO Event

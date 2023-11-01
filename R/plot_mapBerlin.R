@@ -17,6 +17,9 @@
 #' of [loadMisa_decouplingInfo()].
 #' @param dec What should be used a decimal character? Default is "," since
 #' the plots are in German language
+#' @param highlight_catchments Character vector of catchments to highlight. If
+#' NULL catchments will be highlighted based on decoupling scenario. Otherwise
+#' this overwrites the decoupling information for catchments highlited.
 #'
 #' @importFrom grDevices png dev.off dev.new
 #'
@@ -33,9 +36,9 @@ mapPlot_EventTime <- function(
     below = 1.5,
     sixBreaks = c(0,0.5,2,4,10,20),
     decoupling = "",
-    dec = ","
+    dec = ",",
+    highlight_catchments = NULL
 ){
-
 
   p_title <- paste0("E", event)
   misaAssessment <- dl_misa[[p_title]]
@@ -84,8 +87,14 @@ mapPlot_EventTime <- function(
          main = paste("MW\u00dc und Gew\u00e4sserbelastung -", p_title, scenarioName)
     )
 
-    add_catchments(highlight_catchments = decouplingInfo$Catchments_included$ID[
-      decouplingInfo$Catchments_included$nOutDecoupled > 0.9])
+    if(is.null(highlight_catchments)){
+      # highligh catchment if more than 90% of outlets are removad in
+      # decoupling scenario
+      highlight_catchments <- decouplingInfo$Catchments_included$ID[
+        decouplingInfo$Catchments_included$nOutDecoupled > 0.9]
+    }
+
+    add_catchments(highlight_catchments = highlight_catchments)
     add_coloredRivers(
       ext_riversList = prepared_rivers,
       sixBreaks = sixBreaks,
@@ -137,6 +146,9 @@ mapPlot_EventTime <- function(
 #' is "" for no scenario. Possible scenarios can be obtained by the column names
 #' @param dec What should be used a decimal character? Default is "," since
 #' the plots are in German language
+#' @param highlight_catchments Character vector of catchments to highlight. If
+#' NULL catchments will be highlighted based on decoupling scenario. Otherwise
+#' this overwrites the decoupling information for catchments highlited.
 #'
 #' @importFrom grDevices png dev.off dev.new
 #'
@@ -150,7 +162,8 @@ mapPlot_EventsNumber <- function(
     varName = "events",
     sixBreaks = c(-1,0,1,3,6,10),
     decoupling = "",
-    dec = ","
+    dec = ",",
+    highlight_catchments = NULL
 ){
   prepared_rivers <- lapply(
     BerlinRivers, extend_riverTable,
@@ -186,8 +199,11 @@ mapPlot_EventsNumber <- function(
     xlim = xlim, ylim = ylim)
 
   decouplingInfo <- decoupledCatchments(decouplingScenario = decoupling)
-  add_catchments(highlight_catchments = decouplingInfo$Catchments_included$ID[
-    decouplingInfo$Catchments_included$nOutDecoupled > 0.9])
+  if(is.null(highlight_catchments)){
+    highlight_catchments <- decouplingInfo$Catchments_included$ID[
+      decouplingInfo$Catchments_included$nOutDecoupled > 0.9]
+  }
+  add_catchments(highlight_catchments = highlight_catchments)
   add_coloredRivers(
     ext_riversList = prepared_rivers,
     sixBreaks = sixBreaks,
@@ -215,6 +231,9 @@ mapPlot_EventsNumber <- function(
 #' is "" for no scenario. Possible scenarios can be obtained by the column names
 #' @param dec What should be used a decimal character? Default is "," since
 #' the plots are in German language
+#' @param highlight_catchments Character vector of catchments to highlight. If
+#' NULL catchments will be highlighted based on decoupling scenario. Otherwise
+#' this overwrites the decoupling information for catchments highlited.
 #'
 #' @importFrom grDevices png dev.off dev.new
 #'
@@ -228,7 +247,8 @@ mapPlot_EventsTime <- function(
     varName = "hours.below_1.5",
     sixBreaks = c(0,25,50,100,200,300),
     decoupling = "",
-    dec = ","
+    dec = ",",
+    highlight_catchments = NULL
 ){
 
   prepared_rivers <- lapply(
@@ -262,9 +282,13 @@ mapPlot_EventsTime <- function(
     xaxs = "i", yaxs = "i",
     xlab = "", ylab = "",
     xlim = xlim, ylim = ylim)
+
   decouplingInfo <- decoupledCatchments(decouplingScenario = decoupling)
-  add_catchments(highlight_catchments = decouplingInfo$Catchments_included$ID[
-    decouplingInfo$Catchments_included$nOutDecoupled > 0.9])
+  if(is.null(highlight_catchments)){
+    highlight_catchments <- decouplingInfo$Catchments_included$ID[
+      decouplingInfo$Catchments_included$nOutDecoupled > 0.9]
+  }
+  add_catchments(highlight_catchments = highlight_catchments)
   add_coloredRivers(
     ext_riversList = prepared_rivers,
     sixBreaks = sixBreaks,
@@ -482,6 +506,11 @@ add_catchments <- function(
     ezg_namePositions$`Wil`$y <-  ezg_namePositions$`Wil`$y + 0.01
   }
 
+  if(length(highlight_catchments > 0L)){
+    wrong_name <- !(highlight_catchments %in% names(ezg))
+    warning(paste(highlight_catchments[wrong_name], collapse = ", "),
+            ": no defined catchment name(s) -> will not be highlighted")
+  }
   colCircle <- rep(paste0("gray",c(60,70,80,90)), 10)
   for(i in seq_along(ezg)){
     col <- colCircle[i]
