@@ -1,3 +1,39 @@
+#' Aggregates the MiSa assessment of complete event series
+#'
+#' @param dl_misa List of events
+#'
+#' @export
+#'
+df_aggr <- aggregate_eventSeries <- function(dl_misa){
+  indices <- seq_along(dl_misa)
+  df_aggr <- data.frame(
+    "hours" = sapply(paste0("below_", c(0.5, 1, 1.5, 2, 3)), function(x){
+      rowSums(data.frame(sapply(X = indices, function(i){
+        v <- dl_misa[[i]]$hours[[x]]
+        if(is.null(v)){
+          NA
+        } else {v}
+      })), na.rm = T)
+    }),
+    "events" = rowSums(data.frame(sapply(X = indices, function(i){
+      v <- dl_misa[[i]]$events[[paste0("below_", 1.5)]]
+      if(is.null(v)){
+        NA
+      } else {v}
+    })), na.rm = T),
+    "neg_dev" = rowMeans(data.frame(sapply(X = indices, function(i){
+      v <- dl_misa[[i]]$neg_dev$neg_deviation_relative
+      if(is.null(v)){
+        NA
+      } else {v}
+    })), na.rm = T)
+  )
+
+  df_aggr$qsim_site <- rownames(dl_misa[[2]]$hours)
+  df_aggr
+}
+
+
 #' MiSa Assessment: Yearly hours of deficits
 #'
 #' Counting the hours on a yearly basis below threshold values

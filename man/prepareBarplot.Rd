@@ -4,7 +4,7 @@
 \alias{prepareBarplot}
 \title{Loads a set of Misa Assessment output files and writes them into one table}
 \usage{
-prepareBarplot(rdata_files, scenario_names, qsim_focus_sites)
+prepareBarplot(rdata_files, scenario_names, qsim_focus_sites, events = NULL)
 }
 \arguments{
 \item{rdata_files}{A list of filnames (including filt paths) of the MiSa
@@ -14,6 +14,9 @@ assessment output files. (.RData-files containing "df_aggr" and "dl_misa")}
 the list of RData files.}
 
 \item{qsim_focus_sites}{A vector of Qsim IDs of the sites to be compared}
+
+\item{events}{Character vector defining the events that are used for
+comparison. If NULL all events part of the scenario are used.}
 }
 \value{
 One table wit all Misa output data at the focus sites

@@ -3,6 +3,9 @@
 
 misa4_path <- "Y:/AUFTRAEGE/_Auftraege_laufend/MISA4/Data-Work packages/AP3_Szenarienrechnung/berechnungen"
 
+# NULL for all events
+events <- c("E2", "E3", "E6", "E9", "E10")
+
 
 # focus sites
 fs <- kwb.misa::loadMisa_focus_sites(used_sites_only = FALSE)
@@ -10,6 +13,7 @@ fs <- kwb.misa::loadMisa_focus_sites(used_sites_only = FALSE)
 df_plot <- kwb.misa::prepareBarplot(
   rdata_files = list(
     file.path(misa4_path, "S0", "5_assessment_output", "misa_tool_S0.RData"),
+    file.path(misa4_path, "S1", "5_assessment_output", "misa_tool_S1.RData"),
     file.path(misa4_path, "S3", "5_assessment_output", "misa_tool_S3.RData"),
     file.path(misa4_path, "S4", "5_assessment_output", "misa_tool_S4.RData"),
     file.path(misa4_path, "S7", "5_assessment_output", "misa_tool_S7.RData"),
@@ -18,13 +22,15 @@ df_plot <- kwb.misa::prepareBarplot(
     file.path(misa4_path, "S8", "5_assessment_output", "misa_tool_S8.RData")),
   scenario_names = c(
     "basis",
+    "spülst.",
     "str10",
     "lieg10",
     "strlieg10",
     "str30",
     "lieg30",
     "strlieg30"),
-  qsim_focus_sites = fs$QSim_name)
+  qsim_focus_sites = fs$QSim_name,
+  events = events)
 
 df_plot <- merge(x = df_plot, y = fs, by.x = "qsim_site", by.y = "QSim_name", all = TRUE)
 

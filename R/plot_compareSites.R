@@ -7,6 +7,8 @@
 #' @param scenario_names A character vector of scenario names correspronding to
 #' the list of RData files.
 #' @param qsim_focus_sites A vector of Qsim IDs of the sites to be compared
+#' @param events Character vector defining the events that are used for
+#' comparison. If NULL all events part of the scenario are used.
 #'
 #' @return
 #' One table wit all Misa output data at the focus sites
@@ -16,10 +18,11 @@
 prepareBarplot <- function(
     rdata_files,
     scenario_names,
-    qsim_focus_sites
+    qsim_focus_sites,
+    events = NULL
 ){
 
-  df_aggr <- NULL # to be loaded and overwritten by the scenario data
+  dl_misa <- NULL # to be loaded and overwritten by the scenario data
 
   comp_list <- list()
   for(i in seq_along(rdata_files)){
@@ -27,6 +30,10 @@ prepareBarplot <- function(
       stop(paste("File:", rdata_files[[i]], "cannot be found."))
     } else {
       load(rdata_files[[i]])
+      if(is.null(events)){
+        events <- names(dl_misa)
+      }
+      df_aggr <- aggregate_eventSeries(dl_misa = dl_misa[events])
       comp_list[[i]] <- df_aggr[df_aggr$qsim_site %in% qsim_focus_sites,]
       comp_list[[i]][["scenario"]] <- scenario_names[[i]]
     }
