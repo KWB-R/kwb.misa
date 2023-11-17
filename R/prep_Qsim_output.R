@@ -50,6 +50,7 @@ QSIM_prepare_for_tool <-function(
   df_out <- df_out %>% tidyr::spread(.data$site, .data$VO2)
   df_out$Datum <- as.POSIXct(df_out$Datum, format = "%d.%m.%Y %H:%M")
   df_out <- df_out[order(df_out$Datum),]
+  df_out$Datum <- format(df_out$Datum,  "%d.%m.%Y %H:%M")
 
   target_folder <- file.path(misa_tool_input_path, "sites_per_file")
   if(!dir.exists(paths = target_folder)){
