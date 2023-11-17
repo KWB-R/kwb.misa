@@ -13,7 +13,8 @@ mapPlot_EventsTime(
   sixBreaks = c(0, 25, 50, 100, 200, 300),
   decoupling = "",
   dec = ",",
-  highlight_catchments = NULL
+  highlight_catchments = NULL,
+  highlight_style = "lightblue"
 )
 }
 \arguments{
@@ -40,6 +41,9 @@ the plots are in German language}
 \item{highlight_catchments}{Character vector of catchments to highlight. If
 NULL catchments will be highlighted based on decoupling scenario. Otherwise
 this overwrites the decoupling information for catchments highlited.}
+
+\item{highlight_style}{Either a color (name or \code{\link[=rgb]{rgb()}}) or "shaded" to use
+the actual color as diagonal lines.}
 }
 \description{
 Creates and stores a map Plot of Oxygen deficiency time of all CSO Events

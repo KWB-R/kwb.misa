@@ -20,6 +20,8 @@
 #' @param highlight_catchments Character vector of catchments to highlight. If
 #' NULL catchments will be highlighted based on decoupling scenario. Otherwise
 #' this overwrites the decoupling information for catchments highlited.
+#' @param highlight_style Either a color (name or [rgb()]) or "shaded" to use
+#' the actual color as diagonal lines.
 #'
 #' @importFrom grDevices png dev.off dev.new
 #'
@@ -37,7 +39,8 @@ mapPlot_EventTime <- function(
     sixBreaks = c(0,0.5,2,4,10,20),
     decoupling = "",
     dec = ",",
-    highlight_catchments = NULL
+    highlight_catchments = NULL,
+    highlight_style = "lightblue"
 ){
 
   p_title <- paste0("E", event)
@@ -94,7 +97,9 @@ mapPlot_EventTime <- function(
         decouplingInfo$Catchments_included$nOutDecoupled > 0.9]
     }
 
-    add_catchments(highlight_catchments = highlight_catchments)
+    add_catchments(
+      highlight_catchments = highlight_catchments,
+      highlight_style = highlight_style)
     add_coloredRivers(
       ext_riversList = prepared_rivers,
       sixBreaks = sixBreaks,
@@ -149,6 +154,8 @@ mapPlot_EventTime <- function(
 #' @param highlight_catchments Character vector of catchments to highlight. If
 #' NULL catchments will be highlighted based on decoupling scenario. Otherwise
 #' this overwrites the decoupling information for catchments highlited.
+#' @param highlight_style Either a color (name or [rgb()]) or "shaded" to use
+#' the actual color as diagonal lines.
 #'
 #' @importFrom grDevices png dev.off dev.new
 #'
@@ -163,7 +170,8 @@ mapPlot_EventsNumber <- function(
     sixBreaks = c(-1,0,1,3,6,10),
     decoupling = "",
     dec = ",",
-    highlight_catchments = NULL
+    highlight_catchments = NULL,
+    highlight_style = "lightblue"
 ){
   prepared_rivers <- lapply(
     BerlinRivers, extend_riverTable,
@@ -203,7 +211,9 @@ mapPlot_EventsNumber <- function(
     highlight_catchments <- decouplingInfo$Catchments_included$ID[
       decouplingInfo$Catchments_included$nOutDecoupled > 0.9]
   }
-  add_catchments(highlight_catchments = highlight_catchments)
+  add_catchments(
+    highlight_catchments = highlight_catchments,
+    highlight_style = highlight_style)
   add_coloredRivers(
     ext_riversList = prepared_rivers,
     sixBreaks = sixBreaks,
@@ -234,6 +244,8 @@ mapPlot_EventsNumber <- function(
 #' @param highlight_catchments Character vector of catchments to highlight. If
 #' NULL catchments will be highlighted based on decoupling scenario. Otherwise
 #' this overwrites the decoupling information for catchments highlited.
+#' @param highlight_style Either a color (name or [rgb()]) or "shaded" to use
+#' the actual color as diagonal lines.
 #'
 #' @importFrom grDevices png dev.off dev.new
 #'
@@ -248,7 +260,8 @@ mapPlot_EventsTime <- function(
     sixBreaks = c(0,25,50,100,200,300),
     decoupling = "",
     dec = ",",
-    highlight_catchments = NULL
+    highlight_catchments = NULL,
+    highlight_style = "lightblue"
 ){
 
   prepared_rivers <- lapply(
@@ -288,7 +301,9 @@ mapPlot_EventsTime <- function(
     highlight_catchments <- decouplingInfo$Catchments_included$ID[
       decouplingInfo$Catchments_included$nOutDecoupled > 0.9]
   }
-  add_catchments(highlight_catchments = highlight_catchments)
+  add_catchments(
+    highlight_catchments = highlight_catchments,
+    highlight_style = highlight_style)
   add_coloredRivers(
     ext_riversList = prepared_rivers,
     sixBreaks = sixBreaks,
@@ -506,10 +521,12 @@ add_catchments <- function(
     ezg_namePositions$`Wil`$y <-  ezg_namePositions$`Wil`$y + 0.01
   }
 
-  if(length(highlight_catchments > 0L)){
-    wrong_name <- !(highlight_catchments %in% names(ezg))
-    warning(paste(highlight_catchments[wrong_name], collapse = ", "),
-            ": no defined catchment name(s) -> will not be highlighted")
+  if(length(highlight_catchments) > 0L){
+    wrong_names <- !(highlight_catchments %in% names(ezg))
+    if(any(wrong_names)){
+      warning(paste(highlight_catchments[wrong_name], collapse = ", "),
+              ": no defined catchment name(s) -> will not be highlighted")
+    }
   }
   colCircle <- rep(paste0("gray",c(60,70,80,90)), 10)
   for(i in seq_along(ezg)){

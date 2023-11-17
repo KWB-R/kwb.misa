@@ -1,7 +1,11 @@
-scenario <- "S3"
+scenario <- "S5"
 
 # either NULL --> no highlighting, or character vector of catchment names
-highlight_catchments <- c("Bln VII")
+highlight_catchments <- c(
+  "Bln VII", "Bln I", "Bln II", "Bln IIIa", "Bln IV", "Bln V", "Bln VIII",
+  "Bln IX", "Nkn I", "Nkn II")
+
+highlight_style <- "lightblue"
 
 # This is the correct
 scenario_path <- file.path(
@@ -12,7 +16,6 @@ scenario_path <- file.path(
 #Path of CSO stats from interface
 statPath <- file.path(scenario_path,  "2_interface_output")
 
-
 # MiSa assessment after Qsim simulations
 load(file.path(scenario_path, paste0("5_assessment_output/misa_tool_", scenario, ".RData")))
 
@@ -20,18 +23,19 @@ load(file.path(scenario_path, paste0("5_assessment_output/misa_tool_", scenario,
 saving_path <- file.path(scenario_path, "5_assessment_output")
 
 for(i in 1:20){
-    kwb.misa::mapPlot_EventTime(
-      BerlinRivers = kwb.misa::load_berlin_rivers(),
-      statFilesPath = statPath,
-      dl_misa = dl_misa,
-      savingPath = saving_path,
-      below = 1.5,
-      decoupling = "",
-      event = i,
-      scenarioName = scenario,
-      dec = ",",
-      highlight_catchments = highlight_catchments
-    )
+  kwb.misa::mapPlot_EventTime(
+    BerlinRivers = kwb.misa::load_berlin_rivers(),
+    statFilesPath = statPath,
+    dl_misa = dl_misa,
+    savingPath = saving_path,
+    below = 1.5,
+    decoupling = "",
+    event = i,
+    scenarioName = scenario,
+    dec = ",",
+    highlight_catchments = highlight_catchments,
+    highlight_style = highlight_style
+  )
 }
 
 kwb.misa::mapPlot_EventsNumber(
@@ -40,7 +44,8 @@ kwb.misa::mapPlot_EventsNumber(
   scenarioName = scenario,
   decoupling = "",
   savingPath = saving_path,
-  highlight_catchments = highlight_catchments
+  highlight_catchments = highlight_catchments,
+  highlight_style = highlight_style
 )
 
 kwb.misa::mapPlot_EventsTime(
@@ -49,6 +54,7 @@ kwb.misa::mapPlot_EventsTime(
   scenarioName = scenario,
   decoupling = "",
   savingPath = saving_path,
-  highlight_catchments = highlight_catchments
+  highlight_catchments = highlight_catchments,
+  highlight_style = highlight_style
 )
 
