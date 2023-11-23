@@ -89,3 +89,17 @@ outlet_decoupling.csv
 
 catch_polygon.RData
   Description: Polygons of the Catchments as defined by BWB for Infoworks
+  
+misa4_scenarios.csv
+  Description: table of IDs and short descriptions of scenarios calculated in MiSa4
+  Columns:
+    misa4_sccenario_no: Number of scenarios (not neccessarily unique)
+    urban_management_description: Information on decoupling of urban areas 
+      and the surface water management at the weirs
+    sewer_network_description: Information on the sewer network as implemented
+      in InfoWorks
+    ID: Unique ID of the scenario
+    surface_decoupling_percent: Percentage of decoupled urban areas in total (sum of 
+      streets and properties)
+      
+    

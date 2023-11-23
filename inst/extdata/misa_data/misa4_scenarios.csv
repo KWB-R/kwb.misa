@@ -1,0 +1,11 @@
+﻿misa4_sccenario_no ;urban_management_description;Sewer_network_description;ID;surface_decoupling_percent;plot_name
+0;Straße, Liegenschaften & Gewässer  IST-Zustand;Sanierungszustand 2024;basis;0;Basis
+1;Spülstoß Oberschleuse LWK;Sanierungszustand 2024;gew_oslwk;0;Spülstoß LWK
+2;Spülstoß Schleuse MUE;Sanierungszustand 2024;gew_osmue;0;Spülstoß Spree
+3;Straße 10a;Sofortprogramm LWK-Gebiet (Bln7);str_bln7_10;1.5;Straßen 10a
+4;Liegenschaften 10a;Sofortprogramm LWK-Gebiet (Bln7);lieg_bln7_10;4;Liegenschaften 10a
+5;Straße  30a;Sofortprogramm Bln7, Sofortprogramm Süd, Abschätzung Speicherkapaziät Nord;str_ges_30;4.5;Straßen 30a
+6;Liegenschaften 30a;Sofortprogramm Bln7, Sofortprogramm Süd, Abschätzung Speicherkapaziät Nord;lieg_ges_30;22.5;Liegenschaften 30a
+7;Straße, Liegenschaften 10 a;Sofortprogramm LWK-Gebiet (Bln7);strlieg_bln7_10;5.5;Str. + Lieg. 10a
+8;Straße, Liegenschaften 30 a;Sofortprogramm Bln7, Sofortprogramm Süd, Abschätzung Speicherkapaziät Nord;strlieg_ges_30;27.5;Str. + Lieg.30a
+9;Straße, Liegenschaften > 30 a;pauschale Ansätze;strlieg_ges_xx;47.5;Str. + Lieg. >30a
