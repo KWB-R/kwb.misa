@@ -51,7 +51,7 @@ the plots are in German language}
 
 \item{highlight_catchments}{Character vector of catchments to highlight. If
 NULL catchments will be highlighted based on decoupling scenario. Otherwise
-this overwrites the decoupling information for catchments highlited.}
+this overwrites the decoupling information for catchments highlighted.}
 
 \item{highlight_style}{Either a color (name or \code{\link[=rgb]{rgb()}}) or "shaded" to use
 the actual color as diagonal lines.}
