@@ -19,7 +19,7 @@
 #' the plots are in German language
 #' @param highlight_catchments Character vector of catchments to highlight. If
 #' NULL catchments will be highlighted based on decoupling scenario. Otherwise
-#' this overwrites the decoupling information for catchments highlited.
+#' this overwrites the decoupling information for catchments highlighted.
 #' @param highlight_style Either a color (name or [rgb()]) or "shaded" to use
 #' the actual color as diagonal lines.
 #'
