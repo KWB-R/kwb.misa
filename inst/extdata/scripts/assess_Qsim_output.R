@@ -1,6 +1,6 @@
 # Prepare Qsim -----------------------------------------------------------------
 # Enter manually (for MiSa 4)
-scenario <- "S3"
+scenario <- "S9"
 
 # Prepare Qsim output and Save prepared output ---------------------------------
 scenario_path <- file.path(
@@ -58,12 +58,12 @@ names(data_comp_per_event) <- e_data$X
 
 # Reference for neg_dev is "Oberhalb Abzweig LWK"
 dl_misa <- lapply(data_comp_per_event, function(df_event){
-  print(head(df_event))
+  #print(head(df_event))
   # 3. Manipulated Data
   dl <- kwb.misa::misa_prepare_data(
     df_MiSa = df_event,
     res = 15, # temporal resolution in minutes
-    max_na_interpolation = 60/15) # 4 missing values a 15 mins  -> one hour max
+    max_na_interpolation = 60/15) # 4 missing values a 15 mins -> one hour max
 
   # 4. Assess Data
   list(

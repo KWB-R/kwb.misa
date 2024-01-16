@@ -7,15 +7,16 @@ misa4_path <- "Y:/AUFTRAEGE/_Auftraege_laufend/MISA4/Data-Work packages/AP3_Szen
 events <- NULL
 # c("E2", "E3", "E6", "E9", "E10")
 
-# load scenario table in the right scenario order
-ms <- select_scenarios(
-  scenario_IDs = c(
-    "basis", "str_bln7_10", "lieg_bln7_10","strlieg_bln7_10", "str_ges_30",
-    "lieg_ges_30", "strlieg_ges_30","strlieg_ges_xx"))
+
 
 
 
 if(FALSE){
+  # load scenario table in the right scenario order
+  ms <- select_scenarios(
+    scenario_IDs = c(
+      "basis", "str_bln7_10", "lieg_bln7_10","strlieg_bln7_10", "str_ges_30",
+      "lieg_ges_30", "strlieg_ges_30","strlieg_ges_xx"))
   # focus sites
   fs <- kwb.misa::loadMisa_focus_sites(used_sites_only = FALSE)
   df_plot <- read_and_prepare_data(
@@ -25,6 +26,12 @@ if(FALSE){
     events = events)
 
   df_plot <- merge(x = df_plot, y = fs, by.x = "qsim_site", by.y = "QSim_name", all = TRUE)
+
+  write.table(
+    x = df_plot,
+    file = file.path(misa4_path, "szenarienvergleich", "misa_szenarien_vergleich.csv"),
+    sep = ";", dec = ".", row.names = FALSE, col.names = TRUE,
+    fileEncoding = "UTF-8")
 
   # Barplots: One site ---------------------------------------------------------
   for(siteName in unique(df_plot$ID)){
@@ -300,8 +307,6 @@ read_and_prepare_data <- function(
     qsim_focus_sites = qsim_focus_sites,
     events = events)
 }
-# read scenario data
-df_plot <-
 
 
 
@@ -309,36 +314,38 @@ df_plot <-
 
 
 
-  # Alle Schwerpunkte ------------------------------------------------------------
-df_plot$name
-
-df_agg <- aggregate(x = df_plot[,2:8], list(df_plot$scenario), sum)
-df_agg$ID <- "Gesamt"
-df_agg$Ausgeschrieben <- "Alle Schwerpunkte"
-df_agg$scenario <- df_agg$Group.1
-
-siteName <- "Gesamt"
-dev.new(noRStudioGD = TRUE, height = 10, widths = 5)
-layout(mat = c(1,2,3,4))
-
-kwb.misa::barPlot_site(
-  df_plot = df_agg,
-  siteName = siteName,
-  barType = "crit_ox"
-)
-kwb.misa::barPlot_site(
-  df_plot = df_agg,
-  siteName = siteName,
-  barType = "comf_ox"
-)
-kwb.misa::barPlot_site(
-  df_plot = df_agg,
-  siteName = siteName,
-  barType = "crit_events"
-)
-kwb.misa::barPlot_site(
-  df_plot = df_agg,
-  siteName = siteName,
-  barType = "neg_dev"
-)
-
+#
+#
+#   # Alle Schwerpunkte ------------------------------------------------------------
+# df_plot$name
+#
+# df_agg <- aggregate(x = df_plot[,2:8], list(df_plot$scenario), sum)
+# df_agg$ID <- "Gesamt"
+# df_agg$Ausgeschrieben <- "Alle Schwerpunkte"
+# df_agg$scenario <- df_agg$Group.1
+#
+# siteName <- "Gesamt"
+# dev.new(noRStudioGD = TRUE, height = 10, widths = 5)
+# layout(mat = c(1,2,3,4))
+#
+# kwb.misa::barPlot_site(
+#   df_plot = df_agg,
+#   siteName = siteName,
+#   barType = "crit_ox"
+# )
+# kwb.misa::barPlot_site(
+#   df_plot = df_agg,
+#   siteName = siteName,
+#   barType = "comf_ox"
+# )
+# kwb.misa::barPlot_site(
+#   df_plot = df_agg,
+#   siteName = siteName,
+#   barType = "crit_events"
+# )
+# kwb.misa::barPlot_site(
+#   df_plot = df_agg,
+#   siteName = siteName,
+#   barType = "neg_dev"
+# )
+#

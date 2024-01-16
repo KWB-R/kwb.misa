@@ -7,18 +7,18 @@ scenario_path <- file.path(
 
 
 # Varienten
-var1 <- "S0"
-var2 <- "S5"
+var1 <- "S6"
+var2 <- "S8"
 
 # Path for saving
-saving_path <- file.path(interfacePath, "_plausibilisierung")
+saving_path <- file.path(scenario_path, "_plausibilisierung")
 
 # look for files
 {
-  path <- file.path(interfacePath, var1, "2_interface_output")
+  path <- file.path(scenario_path, var1, "2_interface_output")
   all_files <- dir(path, full.names = TRUE)
   stat_files1 <- grep(pattern = "stats.csv$", all_files, value = TRUE)
-  path <- file.path(interfacePath, var2, "2_interface_output")
+  path <- file.path(scenario_path, var2, "2_interface_output")
   all_files <- dir(path, full.names = TRUE)
   stat_files2 <- grep(pattern = "stats.csv$", all_files, value = T)
 }

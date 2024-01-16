@@ -1,7 +1,7 @@
 library(dplyr)
 if(FALSE){
-  s_a <- stat_summary(scenario = "S4")
-  s_b <- stat_summary(scenario = "S7", include_bsb = TRUE)
+  s_a <- stat_summary(scenario = "S8")
+  s_b <- stat_summary(scenario = "S9", include_bsb = TRUE)
 
   df <- merge(x = s_a, y = s_b, by = "RbId")
 
@@ -108,10 +108,5 @@ stat_summary <- function(scenario, include_bsb = TRUE){
 
 
 
-
-df_stat %>%
-  group_by(RbId, outlet_id, upstream_link_id, surface_water) %>%
-  summarize("tVol" = sum(tVol_m3, na.rw = TRUE),
-            "tBSB" = sum(tBSB_g, na.rm = TRUE))
 
 

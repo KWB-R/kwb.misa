@@ -1,6 +1,6 @@
 
 
-szenario_id <- "S7"
+szenario_id <- "S9"
 outlets_to_suppress <- NULL
   # "16234008"
 
