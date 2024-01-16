@@ -1,6 +1,6 @@
 Package: kwb.misa
 Title: Functions to be Used in Project MiSa
-Version: 0.1.0
+Version: 0.1.0.9000
 Authors@R: 
     c(person(given = "Malte",
              family = "Zamzow",
@@ -23,10 +23,16 @@ Suggests:
 VignetteBuilder: 
     knitr
 Imports:
-    kwb.utils (>= 0.9.0.9000)
+    kwb.utils (>= 0.11.0),
+    geosphere,
+    magrittr,
+    rlang,
+    tidyr,
+    readxl
 Remotes: 
-    KWB-R/kwb.utils@dev
+    kwb-r/kwb.utils
 Config/testthat/edition: 3
 Encoding: UTF-8
 Roxygen: list(markdown = TRUE)
-RoxygenNote: 7.1.2
+RoxygenNote: 7.2.3
+LazyData: true

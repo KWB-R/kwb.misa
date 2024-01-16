@@ -1,0 +1,19 @@
+ID;name;surface_water;river_km;comment;lon;lat;QSim_name;use
+MUE;Mühlendamm;Spree;17.71;Senatsmessstelle: nahe am Beginn des Mischgebiets;52.51447886;13.40880019;SOW_S107.SOW_17.65;y
+MOE;Möckernbrücke;Landwehrkanal;5.47;Senatsmessstelle: mitte des LWK;52.49905323;13.38342183;Lwk_S203.Lwk_5.46;y
+BSK;Berlin-Spandauer Schifffahrtskanal;Berlin-Spandauer Schifffahrtskanal;9.08;Senatsmessstelle: nach Zufluss Panke;52.53856301;13.34511922;BSSK_S309.BSSK_9.2;y
+CHA;Charlottenburg;Spree;7.3;Senatsmessstelle: vor Zufluss WHK;52.52570661;13.29705989;SOW_S305.SOW_7.3;y
+SOP;Sophienwerder;Spree;0.64;Senatsmessstelle: vor Mündung in die Havel;52.53614888;13.216241;SOW_S501.SOW_0.6;n
+NSK;Neuköllner Schifffahrtskanal;Neuköllner Schifffahrtskanal;0.73;Senatsmessstelle: NSK;52.48486476;13.44447153;NSK_S201.Nsk_0.73;n
+CAP;Caprivibrücke;Spree;8.75;Senatsmessstelle: nach Zufluss LWK;52.52048902;13.31263929;SOW_S305.SOW_8.75;n
+THI;Thielenbrücke;Landwehrkanal;;Extra: Nach Zufluss NSK;52.49146841;13.43546736;Lwk_S203.Lwk_9.2;n
+DOV;Dovebrücke;Landwehrkanal;;Extra: Vor Mündung in die Spree;52.51945633;13.31932123;Lwk_S313.LwK_0.1;y
+BEL;Bellevue;Spree;;Extra: Mitte der Spree im Stadtgebiet;52.5180203;13.35341162;SOW_S304.SOW_12.79;y
+KSP;Kolonia Spreewiesen;Spree;;Extra: Nach Zufluss WHK;52.52993361;13.2793643;SOW_S501.SOW_5.3;y
+KIE;Kieler Brücke;Berlin-Spandauer Schifffahrtskanal;;Extra: Vor Zufluss Panke;52.53588212;13.36610002;BSSK_S307.BSSK_10.6;y
+NUF;Neues Ufer;Spree;;Extra: Vor Zufluss LWK;52.52368218;13.3190275;SOW_S304.SOW_9.1;y
+SIC;Sickingenbrücke;Charlottenburger Verbindungskanal;;Extra: Mitte CVK;52.53020921;13.313853;CVK_S308.CVK_0.6;y
+MRS;Mörschbrücke;Westhafenkanal;;Extra: Vor Mündung in die Spree;52.53260789;13.29478785;WHK_S312.WHK_0;y
+CBR;Charlottenbrücke;Unterhavel;;Extra: Nach Zufluss Spree;52.53518115;13.2060768;UHW_S503.UHW_0.1;n
+PIC;Pichelswerder;Unterhavel;;Extra: Modellende, vor Badegwässer;52.50324158;13.1991666;UHW_S504.UHW_4;n
+URB;Urbanhafen;Landwehrkanal;;Extra: Urbanhafen (Wunsch des Senats);52.49628351;13.40814729;Lwk_S203.Lwk_7;y
