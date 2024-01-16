@@ -246,8 +246,14 @@ mapPlot_EventsNumber <- function(
 #' this overwrites the decoupling information for catchments highlited.
 #' @param highlight_style Either a color (name or [rgb()]) or "shaded" to use
 #' the actual color as diagonal lines.
+#' @param english If TRUE title of the legend is in english
+#' @param file_type Either "png" or "wmf" to create a vector graphic (only
+#' possible on windows computers)
+#' @param size_scale Numeric value to increase (>1) or decrease (<1) the size
+#' of the plot. Text size is not affected by th scale which is why small plots
+#' have a relatively large text size.
 #'
-#' @importFrom grDevices png dev.off dev.new
+#' @importFrom grDevices png dev.off dev.new win.metafile
 #'
 #' @export
 #'
@@ -261,7 +267,10 @@ mapPlot_EventsTime <- function(
     decoupling = "",
     dec = ",",
     highlight_catchments = NULL,
-    highlight_style = "lightblue"
+    highlight_style = "lightblue",
+    english = FALSE,
+    file_type = "png",
+    size_scale = 1
 ){
 
   prepared_rivers <- lapply(
@@ -279,8 +288,16 @@ mapPlot_EventsTime <- function(
 
   # plot
   if(savingPath != ""){
-    png(filename = paste0(savingPath, "/all_events_deficitTime_", scenarioName, ".png"),
-        height = 6, width = 6 * width_factor, units = "in", res = 300)
+    if(file_type == "wmf"){
+      win.metafile(
+        filename = paste0(savingPath, "/all_events_deficitTime_", scenarioName, ".wmf"),
+        height = 6 * size_scale, width = 6 * width_factor * size_scale)
+    } else if(file_type == "png"){
+      png(
+        filename = paste0(savingPath, "/all_events_deficitTime_", scenarioName, ".png"),
+        height = 6 * size_scale, width = 6 * width_factor * size_scale,
+        units = "in", res = 300)
+    }
   } else {
     dev.new(noRStudioGD = TRUE, height = 6, width = 6 * width_factor,
             units = "in")
@@ -308,7 +325,10 @@ mapPlot_EventsTime <- function(
     ext_riversList = prepared_rivers,
     sixBreaks = sixBreaks,
     dataType = "time",
-    LegendTitle = paste("Unterschreitungsdauer in Stunden (1,5 mg/L)", scenarioName),
+    LegendTitle =
+      ifelse(english,
+             paste("Deficiency time in hours (1.5 mg/L)", scenarioName),
+             paste("Unterschreitungsdauer in Stunden (1,5 mg/L)", scenarioName)),
     LegendLocation = "top")
 
   options(OutDec = ".")
@@ -430,7 +450,7 @@ add_coloredRivers <- function(
     hor <- FALSE
   }
   legend(x = lx, y = ly, legend = l_content, col = MisaColor[seq_len(ll)], lwd = 6,
-         bg= "white", bty = "n", title = LegendTitle,
+         bg= "white", bty = "n", title = LegendTitle, title.cex = 1.3,
          xpd = T, xjust = xadj, yjust = 0, horiz = hor)
 }
 
@@ -524,7 +544,7 @@ add_catchments <- function(
   if(length(highlight_catchments) > 0L){
     wrong_names <- !(highlight_catchments %in% names(ezg))
     if(any(wrong_names)){
-      warning(paste(highlight_catchments[wrong_name], collapse = ", "),
+      warning(paste(highlight_catchments[wrong_names], collapse = ", "),
               ": no defined catchment name(s) -> will not be highlighted")
     }
   }
@@ -534,7 +554,7 @@ add_catchments <- function(
     shading <- NULL
     if(names(ezg)[i] %in% highlight_catchments){
       if(highlight_style == "shaded"){
-        shading <- 10
+        shading <- 30
       } else {
         col <- highlight_style
       }

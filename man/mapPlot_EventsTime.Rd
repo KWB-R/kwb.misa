@@ -14,7 +14,10 @@ mapPlot_EventsTime(
   decoupling = "",
   dec = ",",
   highlight_catchments = NULL,
-  highlight_style = "lightblue"
+  highlight_style = "lightblue",
+  english = FALSE,
+  file_type = "png",
+  size_scale = 1
 )
 }
 \arguments{
@@ -44,6 +47,15 @@ this overwrites the decoupling information for catchments highlited.}
 
 \item{highlight_style}{Either a color (name or \code{\link[=rgb]{rgb()}}) or "shaded" to use
 the actual color as diagonal lines.}
+
+\item{english}{If TRUE title of the legend is in english}
+
+\item{file_type}{Either "png" or "wmf" to create a vector graphic (only
+possible on windows computers)}
+
+\item{size_scale}{Numeric value to increase (>1) or decrease (<1) the size
+of the plot. Text size is not affected by th scale which is why small plots
+have a relatively large text size.}
 }
 \description{
 Creates and stores a map Plot of Oxygen deficiency time of all CSO Events
