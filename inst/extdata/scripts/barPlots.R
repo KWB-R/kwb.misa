@@ -1,7 +1,9 @@
+library(readxl)
+library(writexl)
 # for this script all misa assessment output files (.Rdata) to be compared must
 # be at the same path
 
-misa4_path <- "Y:/AUFTRAEGE/_Auftraege_laufend/MISA5/Data-Work packages/AP2_Szenarienrechnung/berechnungen"
+misa_path <- "Y:/AUFTRAEGE/_Auftraege_laufend/MISA5/Data-Work packages/AP2_Szenarienrechnung/berechnungen"
 
 # NULL for all events
 events <- NULL
@@ -20,8 +22,8 @@ if(FALSE){
   # focus sites
   fs <- kwb.misa::loadMisa_focus_sites(used_sites_only = FALSE)
   df_plot <- read_and_prepare_data(
-    misa4_scarnario_table = ms,
-    misa4_path = misa4_path,
+    misa_scarnario_table = ms,
+    misa_path = misa_path,
     qsim_focus_sites = fs$QSim_name,
     events = events)
 
@@ -29,13 +31,13 @@ if(FALSE){
 
   write.table(
     x = df_plot,
-    file = file.path(misa4_path, "szenarienvergleich", "misa_szenarien_vergleich.csv"),
+    file = file.path(misa_path, "szenarienvergleich", "misa_szenarien_vergleich.csv"),
     sep = ";", dec = ".", row.names = FALSE, col.names = TRUE,
-    fileEncoding = "Windows-1252" )
+    fileEncoding = "Windows-1252")
 
   # Barplots: One site ---------------------------------------------------------
   for(siteName in unique(df_plot$ID)){
-    png(filename = paste0(misa4_path, "/szenarienvergleich/barplot_", siteName, ".png"),
+    png(filename = paste0(misa_path, "/szenarienvergleich/barplot_", siteName, ".png"),
         width = 6, height = 10, units = "in", res = 300)
     {
       layout(mat = c(1,2,3,4))
@@ -69,8 +71,8 @@ if(FALSE){
   fs <- fs[fs$ID != "NSK",]
 
   df_plot <- read_and_prepare_data(
-    misa4_scarnario_table = ms,
-    misa4_path = misa4_path,
+    misa_scarnario_table = ms,
+    misa_path = misa_path,
     qsim_focus_sites = fs$QSim_name,
     events = events)
 
@@ -94,11 +96,11 @@ if(FALSE){
   n_scenarios <- nrow(df_events)
   write.table(
     x = df_events,
-    file = file.path(misa4_path, "szenarienvergleich", "reduction_events.csv"),
+    file = file.path(misa_path, "szenarienvergleich", "reduction_events.csv"),
     dec = ".", sep = ";", row.names = TRUE)
 
   {
-    png(filename = paste0(misa4_path, "/szenarienvergleich/revenue_events_max.png"),
+    png(filename = paste0(misa_path, "/szenarienvergleich/revenue_events_max.png"),
         width = 6, height = 6, units = "in", res = 300)
     par(mar = c(4.1, 4.1, 2.1, 2.1))
     plot(x = 0, y = 0, type = "n", xlab = "Aufwand: Abgekoppelte Fläche in %",
@@ -122,7 +124,7 @@ if(FALSE){
   }
 
   {
-    png(filename = paste0(misa4_path, "/szenarienvergleich/revenue_events_mean.png"),
+    png(filename = paste0(misa_path, "/szenarienvergleich/revenue_events_mean.png"),
         width = 6, height = 6, units = "in", res = 300)
     par(mar = c(4.1, 4.1, 2.1, 2.1))
     plot(x = 0, y = 0, type = "n", xlab = "Aufwand: Abgekoppelte Fläche in %",
@@ -157,13 +159,13 @@ if(FALSE){
        df_events$max_events[rownames(df_events) == "Basis"]) * 100, 0)
   write.table(
     x = df_events,
-    file = file.path(misa4_path, "szenarienvergleich", "reduction_deficieny_time.csv"),
+    file = file.path(misa_path, "szenarienvergleich", "reduction_deficieny_time.csv"),
     dec = ".", sep = ";", row.names = TRUE)
 
   n_scenarios <- nrow(df_events)
 
   {
-    png(filename = paste0(misa4_path, "/szenarienvergleich/revenue_deficieny_max.png"),
+    png(filename = paste0(misa_path, "/szenarienvergleich/revenue_deficieny_max.png"),
         width = 6, height = 6, units = "in", res = 300)
     par(mar = c(4.1, 4.1, 2.1, 2.1))
     plot(x = 0, y = 0, type = "n", xlab = "Aufwand: Abgekoppelte Fläche in %",
@@ -186,7 +188,7 @@ if(FALSE){
     dev.off()
   }
   {
-    png(filename = paste0(misa4_path, "/szenarienvergleich/revenue_deficieny_mean.png"),
+    png(filename = paste0(misa_path, "/szenarienvergleich/revenue_deficieny_mean.png"),
         width = 6, height = 6, units = "in", res = 300)
     par(mar = c(4.1, 4.1, 2.1, 2.1))
     plot(x = 0, y = 0, type = "n", xlab = "Aufwand: Abgekoppelte Fläche in %",
@@ -221,13 +223,13 @@ if(FALSE){
        df_events$max_events[rownames(df_events) == "Basis"]) * 100, 0)
   write.table(
     x = df_events,
-    file = file.path(misa4_path, "szenarienvergleich", "reduction_negative_dev.csv"),
+    file = file.path(misa_path, "szenarienvergleich", "reduction_negative_dev.csv"),
     dec = ".", sep = ";", row.names = TRUE)
 
   n_scenarios <- nrow(df_events)
 
   {
-    png(filename = paste0(misa4_path, "/szenarienvergleich/revenue_neg-dev_max.png"),
+    png(filename = paste0(misa_path, "/szenarienvergleich/revenue_neg-dev_max.png"),
         width = 6, height = 6, units = "in", res = 300)
     par(mar = c(4.1, 4.1, 2.1, 2.1))
     plot(x = 0, y = 0, type = "n", xlab = "Aufwand: Abgekoppelte Fläche in %",
@@ -251,7 +253,7 @@ if(FALSE){
   }
 
   {
-    png(filename = paste0(misa4_path, "/szenarienvergleich/revenue_neg-dev_mean.png"),
+    png(filename = paste0(misa_path, "/szenarienvergleich/revenue_neg-dev_mean.png"),
         width = 6, height = 6, units = "in", res = 300)
     par(mar = c(4.1, 4.1, 2.1, 2.1))
     plot(x = 0, y = 0, type = "n", xlab = "Aufwand: Abgekoppelte Fläche in %",
@@ -279,23 +281,28 @@ if(FALSE){
 # select scenarios in the right order by scenario ID
 select_scenarios <- function(scenario_IDs){
   # misa scenarios
-  ms <- read.csv(
-    file = system.file(
-      package = "kwb.misa", "extdata/misa_data/misa4_scenarios.csv"),
-    header = TRUE, sep = ";", fileEncoding = "Windows-1252")
+
+  ms <- readxl::read_xlsx(path = system.file(
+    package = "kwb.misa", "extdata/misa_data/misa_scenarios.xlsx"))
+
+  # ms <- read.csv(
+  #   file = system.file(
+  #     package = "kwb.misa", "extdata/misa_data/misa4_scenarios.csv"),
+  #   header = TRUE, sep = ";", fileEncoding = "Windows-1252")
+
   s_order <- sapply(paste0("^", scenario_IDs, "$"), grep, x = ms$ID)
   ms[s_order,]
 }
 
 read_and_prepare_data <- function(
-    misa4_scarnario_table,
-    misa4_path, qsim_focus_sites,
+    misa_scarnario_table,
+    misa_path, qsim_focus_sites,
     events
 ){
-  x <- misa4_scarnario_table
-  file_list <- lapply(x$misa4_sccenario_no, function(sn){
+  x <- misa_scarnario_table
+  file_list <- lapply(x$misa_sccenario_no, function(sn){
     file.path(
-      misa4_path,
+      misa_path,
       paste0("S", sn),
       "5_assessment_output",
       paste0("misa_tool_S", sn, ".RData"))
