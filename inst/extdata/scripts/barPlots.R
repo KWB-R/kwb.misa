@@ -1,7 +1,7 @@
 # for this script all misa assessment output files (.Rdata) to be compared must
 # be at the same path
 
-misa4_path <- "Y:/AUFTRAEGE/_Auftraege_laufend/MISA4/Data-Work packages/AP3_Szenarienrechnung/berechnungen"
+misa4_path <- "Y:/AUFTRAEGE/_Auftraege_laufend/MISA5/Data-Work packages/AP2_Szenarienrechnung/berechnungen"
 
 # NULL for all events
 events <- NULL
@@ -15,8 +15,8 @@ if(FALSE){
   # load scenario table in the right scenario order
   ms <- select_scenarios(
     scenario_IDs = c(
-      "basis", "str_bln7_10", "lieg_bln7_10","strlieg_bln7_10", "str_ges_30",
-      "lieg_ges_30", "strlieg_ges_30","strlieg_ges_xx"))
+      "basis", "str_bln7_10_mn", "lieg_bln7_10_mn", "str_ges_30_mn",
+      "lieg_ges_30_mn"))
   # focus sites
   fs <- kwb.misa::loadMisa_focus_sites(used_sites_only = FALSE)
   df_plot <- read_and_prepare_data(
@@ -31,7 +31,7 @@ if(FALSE){
     x = df_plot,
     file = file.path(misa4_path, "szenarienvergleich", "misa_szenarien_vergleich.csv"),
     sep = ";", dec = ".", row.names = FALSE, col.names = TRUE,
-    fileEncoding = "UTF-8")
+    fileEncoding = "Windows-1252" )
 
   # Barplots: One site ---------------------------------------------------------
   for(siteName in unique(df_plot$ID)){
@@ -282,7 +282,7 @@ select_scenarios <- function(scenario_IDs){
   ms <- read.csv(
     file = system.file(
       package = "kwb.misa", "extdata/misa_data/misa4_scenarios.csv"),
-    header = TRUE, sep = ";")
+    header = TRUE, sep = ";", fileEncoding = "Windows-1252")
   s_order <- sapply(paste0("^", scenario_IDs, "$"), grep, x = ms$ID)
   ms[s_order,]
 }
