@@ -1,10 +1,10 @@
-scenario <- "S7"
+scenario <- "S6_MN"
 
 # either NULL --> no highlighting, or character vector of catchment names
-highlight_catchments <-
-  c('Bln I', 'Bln II', 'Bln III', 'Bln IIIa', 'Bln IV', 'Bln IX', 'Bln V',
-    'Bln VII', 'Bln VIII', 'Bln X', 'Bln XI', 'Bln XII', 'Chb I', 'Chb Ia',
-    'Chb III', 'Nkn I', 'Nkn II', 'Ruh', 'Spa I', 'Wil')
+highlight_catchments <- NULL
+  # c('Bln I', 'Bln II', 'Bln III', 'Bln IIIa', 'Bln IV', 'Bln IX', 'Bln V',
+  #   'Bln VII', 'Bln VIII', 'Bln X', 'Bln XI', 'Bln XII', 'Chb I', 'Chb Ia',
+  #   'Chb III', 'Nkn I', 'Nkn II', 'Ruh', 'Spa I', 'Wil')
 # c(
 # "Bln VII", "Bln I", "Bln II", "Bln IIIa", "Bln IV", "Bln V", "Bln VIII",
 # "Bln IX", "Nkn I", "Nkn II")
@@ -16,7 +16,7 @@ highlight_style <- "shaded"
 
 # This is the correct
 scenario_path <- file.path(
-  "Y:/AUFTRAEGE/_Auftraege_laufend/MISA4/Data-Work packages/AP3_Szenarienrechnung/berechnungen",
+  "Y:/AUFTRAEGE/_Auftraege_laufend/MISA5/Data-Work packages/AP2_Szenarienrechnung/berechnungen",
   scenario
 )
 
@@ -27,8 +27,8 @@ statPath <- file.path(scenario_path,  "2_interface_output")
 load(file.path(scenario_path, paste0("5_assessment_output/misa_tool_", scenario, ".RData")))
 
 # Path for saving
-saving_path <- # file.path(scenario_path, "5_assessment_output")
-  "Y:/AUFTRAEGE/_Auftraege_laufend/MISA4/Communication/Pictures"
+saving_path <-  file.path(scenario_path, "5_assessment_output")
+  #"Y:/AUFTRAEGE/_Auftraege_laufend/MISA/Communication/Pictures"
 for(i in 1:20){
   kwb.misa::mapPlot_EventTime(
     BerlinRivers = kwb.misa::load_berlin_rivers(),
