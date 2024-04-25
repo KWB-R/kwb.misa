@@ -114,7 +114,7 @@ mapPlot_EventTime <- function(
       side = 1, line = 0.2, font = 2)
     mtext(
       text = paste0(
-        c("Spree (M\u00fhlendamm)",
+        c("Spree (M\u00fchlendamm)",
           "LWK",
           "Panke",
           "Spree (Sophienwerder)",
