@@ -450,7 +450,7 @@ add_coloredRivers <- function(
     hor <- FALSE
   }
   legend(x = lx, y = ly, legend = l_content, col = MisaColor[seq_len(ll)], lwd = 6,
-         bg= "white", bty = "n", title = LegendTitle, title.cex = 1.3,
+         bg= "white", bty = "n", title = LegendTitle, title.cex = 1,
          xpd = T, xjust = xadj, yjust = 0, horiz = hor)
 }
 
