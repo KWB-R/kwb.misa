@@ -18,7 +18,7 @@ if(FALSE){
   ms <- select_scenarios(
     scenario_IDs = c(
       "basis", "str_bln7_10_mn", "lieg_bln7_10_mn", "str_ges_30_mn",
-      "lieg_ges_30_mn"))
+      "lieg_ges_30_mn", "strlieg_bln7_10_mn", "strlieg_ges_30_mn", "strlieg_ges_xx_mn"))
   # focus sites
   fs <- kwb.misa::loadMisa_focus_sites(used_sites_only = FALSE)
   df_plot <- read_and_prepare_data(
@@ -40,7 +40,18 @@ if(FALSE){
     png(filename = paste0(misa_path, "/szenarienvergleich/barplot_", siteName, ".png"),
         width = 6, height = 10, units = "in", res = 300)
     {
-      layout(mat = c(1,2,3,4))
+
+      graphics::layout(mat = c(1,2,3,4,5), heights = c(0.5, 1, 1, 1, 1))
+
+      barplot_legend(
+        title = "Mitte & Neukölln",
+        df_plot = df_plot,
+        rect_width = 0.15,
+        english = TRUE
+      )
+
+      # Adjust the margins for the bar plots
+      par(mar = c(5, 4, 4, 2) +0.1)
 
       kwb.misa::barPlot_site(
         df_plot = df_plot,
@@ -93,6 +104,7 @@ if(FALSE){
   df_events$reduction_of_max <- round(
     (1 - df_events$max_events /
        df_events$max_events[rownames(df_events) == "Basis"]) * 100, 0)
+
   n_scenarios <- nrow(df_events)
   write.table(
     x = df_events,
@@ -315,6 +327,30 @@ read_and_prepare_data <- function(
     events = events)
 }
 
+barplot_legend <- function(title, df_plot, rect_width, english = TRUE){
+  par(mar = c(0, 0, 0, 0))
+
+  plot(x = 0, y = 0, type = "n", xlim = c(0,1), ylim = c(0,1),
+       xaxt = "n", yaxt = "n", bty = "n")
+  text(x = 0.5, y = 0.8, labels = title, cex = 3)
+  deficit_time_columns <- grep(pattern = "below_", x = colnames(df_plot))
+
+
+  between_rect <- (1 - 0.1 - rect_width * 5) /4
+  x_start <- 0.05
+
+  for(i in seq_along(deficit_time_columns)){
+    left <- x_start + (i - 1) * (rect_width + between_rect)
+    threshold <- strsplit(colnames(df_plot)[deficit_time_columns[i]], split = "_")[[1]][2]
+    if(!english){
+      threshold <- sub(pattern = "\\.", replacement = ",", x = threshold)
+    }
+    rect(xleft =left, xright =left + rect_width, ybottom = 0, ytop = 0.3,
+         col = rev(kwb.misa::MisaColor)[[i]], border = NA) # from "good" to "very_serious"
+    text(x = left, y = 0.15, labels = paste0("<= ", threshold, " mg/L"), cex = 2, pos = 4)
+  }
+
+}
 
 
 
@@ -356,3 +392,4 @@ read_and_prepare_data <- function(
 #   barType = "neg_dev"
 # )
 #
+
