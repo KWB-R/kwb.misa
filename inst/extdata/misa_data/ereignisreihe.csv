@@ -1,0 +1,21 @@
+;tBeg;tEnd;R_volume;R_intensity;R_local;R_n;use;Q_Panke;Q_Spree1;Q_Spree0;Q_LWK;Q_Havel
+E1;22.05.2011 00:00;23.05.2011 20:00;mittel;hoch;ja;1;0;0.412;18.48;14.37;3.34;8.64
+E2;05.06.2011 00:00;09.06.2011 08:00;mittel + gering;hoch + mittel;nein + nein;2;1;0.179;7.64;3.7;3.36;4.81
+E3;14.06.2011 00:00;24.06.2011 06:45;gering + hoch;mittel + hoch;nein + nein;2;1;0.57;10.49;6.65;2.88;0.98
+E4;15.06.2012 00:00;17.06.2012 21:30;gering;gering;nein;1;0;;;;;
+E5;02.08.2012 00:00;03.08.2012 10:00;gering + mittel;hoch + gering;nein + ja;2;1;1.118;15.61;11.54;3.01;11.06
+E6;20.08.2012 00:00;28.08.2012 04:00;hoch;hoch;nein;1;1;0.591;8.49;6.14;1.72;4.56
+E7;28.07.2013 00:00;15.08.2013 07:30;mittel + hoch + hoch + hoch + gering;mittel + hoch + hoch + hoch + mittel;nein + ja + nein + ja + ja;5;1;0.684;11.7;6.63;4.06;1.08
+E8;08.09.2013 00:00;10.09.2013 10:00;mittel;gering;nein;1;1;0.302;8.1;3.71;4;3
+E9;21.06.2014 00:00;26.06.2014 22:00;hoch;mittel;nein;1;1;0.53;8.29;5.01;2.28;0.96
+E10;07.07.2014 00:00;10.07.2014 09:30;mittel + gering + mittel;hoch + mittel + hoch;nein + ja + nein;3;1;0.781;10.55;6.73;2.66;1.15
+E11;13.06.2015 00:00;19.06.2015 07:30;mittel;hoch;nein;1;0;;;;;
+E12;27.08.2015 00:00;28.08.2015 07:45;mittel;gering;nein;1;1;1.398;11.22;8.9;0.67;1
+E13;23.05.2016 00:00;08.06.2016 08:15;mittel + gering + gering + gering + mittel + gering;hoch + mittel + mittel + hoch + mittel + mittel;nein + ja + ja + nein + nein + ja;6;1;2.442;12.58;6.72;3.38;1.08
+E14;12.06.2016 00:00;18.06.2016 07:45;mittel + hoch;gering + mittel;nein + nein;2;0;2.82;9.05;3.63;2.81;1
+E15;25.06.2016 00:00;27.06.2016 07:15;hoch;hoch;ja;1;0;3.46;17;11.7;1.19;0.99
+E16;30.05.2017 00:00;05.06.2017 02:00;gering;hoch;nein;1;1;2.34;15.26;8.1;2.38;2.8
+E17;22.06.2017 00:00;24.06.2017 05:45;hoch;mittel;nein;1;1;3.64;20.2;10.05;2.73;1.02
+E18;15.05.2018 00:00;17.05.2018 16:00;gering;mittel;nein;1;0;1.09;19.5;16.39;1.79;10.25
+E19;30.05.2018 00:00;13.06.2018 05:45;mittel + mittel + gering + hoch;hoch + hoch + mittel + hoch;ja + nein + ja + ja;4;1;0.88;6.84;4.11;1.87;1
+E20;19.05.2019 00:00;21.05.2019 19:30;hoch;hoch;ja;1;1;0.82;11.45;7.25;2.73;4.15

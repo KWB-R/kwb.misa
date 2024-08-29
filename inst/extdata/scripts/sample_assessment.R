@@ -19,7 +19,7 @@ data_comp_f <- kwb.misa::misa_filter_data(
 dl <- kwb.misa::misa_prepare_data(
   df_MiSa = data_comp_f,
   res = 15, # temporal resolution in minutes
-  max_na_interpolation = 60/15) # 4 missing values a 26 mins  -> one hour max
+  max_na_interpolation = 60/15) # 4 missing values a 15 mins  -> one hour max
 
 # 4. Assess Data
 do.call(rbind, lapply(X = dl, kwb.misa::yearly_deficiency_time))
