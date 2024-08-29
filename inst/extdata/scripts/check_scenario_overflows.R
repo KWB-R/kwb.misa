@@ -1,6 +1,23 @@
 library(dplyr)
 if(FALSE){
-  s_a <- stat_summary(scenario = "S8")
+  s_a <- stat_summary(scenario = "ist_2021")
+
+  ### estimating wastewater share by BOD load and volume
+  if(FALSE){
+
+    s_a$BSB_per_V <- s_a$tBSB / s_a$tVol
+    average_bsb_conc <- sum(s_a$tBSB) / sum(s_a$tVol)
+    s_a$BSB_factor <- s_a$BSB_per_V / average_bsb_conc
+    average_ww_share <- 9 # %
+    s_a$ww_share <-  s_a$BSB_factor * average_ww_share
+    write.table(
+      x = s_a,
+      file = file.path("Y:/WWT_Department/Projects/PROMISCES/Work-packages/WP 2 - F&T&Exposure&Risk/F&T/modelling_urban-setting",
+                       "cso_volumes_ist_2021.csv"),
+      sep = ";", dec = ".")
+  }
+
+
   s_b <- stat_summary(scenario = "S9", include_bsb = TRUE)
 
   df <- merge(x = s_a, y = s_b, by = "RbId")
@@ -74,7 +91,7 @@ if(FALSE){
 
 stat_summary <- function(scenario, include_bsb = TRUE){
   scenario_path <- file.path(
-    "Y:/AUFTRAEGE/_Auftraege_laufend/MISA4/Data-Work packages/AP3_Szenarienrechnung/berechnungen",
+    "Y:/AUFTRAEGE/_Auftraege_laufend/MISA5/Data-Work packages/AP2_Szenarienrechnung/berechnungen",
     scenario
   )
 
